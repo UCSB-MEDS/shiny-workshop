@@ -1,1 +1,1 @@
-# shiny-workshop
+# An Intro to Shiny
