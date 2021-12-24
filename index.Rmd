@@ -1,0 +1,144 @@
+---
+title: "An Intro to Shiny"
+author: "Sam Csik | Data Training Coordinator<br><span style = 'font-size: 65%;'>National Center for Ecological Analysis & Synthesis<br></span>"
+date: "<span style = 'font-size: 85%;'>Masters of Environmental Data Science | Fall 2021</span><br><span style = 'font-size: 65%;'>Slides & source code available on [GitHub](https://github.com/UCSB-MEDS/teach-me-how-to-google)</span>"
+output:
+  xaringan::moon_reader:
+    css: ['xaringan-themer.css', 'my-css.css']
+    seal: false
+    nature:
+      countIncrementalSlides: false
+      titleSlideClass: ["left", "middle", "inverse"]
+      highlightLines: true
+      highlightStyle: github
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 9, fig.height = 3.5, fig.retina = 3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include = FALSE, warning = FALSE}
+# load package
+library(xaringanthemer)
+
+# set accent theme
+style_mono_accent(
+  header_font_google = google_font("Nunito Sans"), # Sanchez
+  text_font_google = google_font("Glacial Indifference", "300", "300i"),
+  code_font_google = google_font("Fira Mono"),
+  base_color = "#05859B",
+  white_color = "#93C6C2", 
+  background_color = "#FFFFFF",
+  link_color = "#9b0546",
+  text_bold_color = "#05859B",
+  header_font_weight = 400,
+  header_h1_font_size = "2.25rem",
+  header_h2_font_size = "1.75rem",
+  header_h3_font_size = "1.5rem",
+  footnote_font_size = "0.7em",
+)
+```
+
+class: inverse, middle
+
+# An Intro to <img src="media/shiny_text_color.png" alt="The word 'Shiny' in cursive lettering, which is the logo used by RStudio for their Shiny R package. The Shiny package is used to build interactive web applications." style="display: inline-block; margin: 0; position: relative; top: 25px; width:105px;height:65px;" /><br>
+
+<br>
+
+<span style = 'font-size: 130%;'>Sam Csik | Data Training Coordinator</span>  
+
+National Center for Ecological Analysis & Synthesis<br>
+
+<br>
+
+<span style = 'font-size: 130%;'>Masters of Environmental Data Science | Winter 2022</span>   
+
+Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2", a11y = "sem")`](https://github.com/UCSB-MEDS/shiny-workshop)
+
+---
+### There are *lots* of really great Shiny resources out there
+
+The following slides were adapted largely from existing materials, particularly: 
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Garrett Grolemund's [Building Web Applications with Shiny](https://shiny.rstudio.com/tutorial/) tutorial (find the [GitHub Repo here](ttps://github.com/rstudio-education/shiny.rstudio.com-tutorial))</span>
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Allison Horst's [The Basics of Building Shiny Apps in R](https://github.com/allisonhorst/shiny-basics-sb-r-ladies) workshop</span>
+
+<br>
+
+But there are endless other resources and tutorials to explore. Some suggested started points:
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Mastering Shiny](https://mastering-shiny.org/basic-app.html), by Hadley Wickham</span>
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Building Shiny apps - an interactive tutorial](https://deanattali.com/blog/building-shiny-apps-tutorial/), by Dean Attali</span>
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` A thoughtfully organized [Articles](https://shiny.rstudio.com/articles/) page, by Shiny and the folks at RStudio</span>
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` The [Shiny User Showcase](https://shiny.rstudio.com/gallery/#user-showcase), a collection of Shiny apps and their source code developed by the Shiny developer community -- many of these featured apps are winners or honorable mentions of the [annual Shiny contest](https://www.rstudio.com/blog/winners-of-the-3rd-annual-shiny-contest/)!</span>
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Shiny Demos](https://shiny.rstudio.com/gallery/#demos), a series of apps created by the Shiny developers to highlight specific features of the shiny package -- these are *excellent* resources to turn to when you are learning how to implement a new type of widget, working on the layout of your app, and more.</span>
+
+---
+class: inverse, middle, center
+
+## What is Shiny?
+
+---
+### Shiny makes building web applications easy
+
+> *"**Shiny is an R package that makes it easy to build interactive web apps straight from R.** You can host standalone apps on a webpage or embed them in [R Markdown](https://rmarkdown.rstudio.com/?_ga=2.5356915.1997816511.1640293283-2019993402.1637352626) documents or build [dashboards](http://rstudio.github.io/shinydashboard/?_ga=2.5356915.1997816511.1640293283-2019993402.1637352626). You can also extend your Shiny apps with [CSS themes](http://rstudio.github.io/shinythemes/?_ga=2.94499804.1997816511.1640293283-2019993402.1637352626), [htmlwidgets](http://www.htmlwidgets.org/), and JavaScript [actions.](https://github.com/daattali/shinyjs/blob/master/README.md)"* - RStudio
+---
+class: inverse, middle, center
+
+## Can I see an example please?
+
+---
+### The Shiny package comes with **11** built-in examples to explore
+
+Install (if you have not yet done so) and import the `{shiny}` package by running the following code in your console:
+```{r install shiny, eval = FALSE}
+# install.packages("shiny")
+library(shiny)
+```
+
+Check out the available Shiny app examples:
+```{r shiny built-in example 1, eval = FALSE}
+runExample(example = NA)
+```
+
+Run the first example, which plots R’s built-in `faithful` data set with a configurable number of bins:
+```{r, eval = FALSE}
+runExample("01_hello")
+```
+
+.footnote[
+Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html), by Shiny from RStudio for more content.
+]
+---
+
+class: inverse, middle, center
+
+## The anatomy of a Shiny app
+
+---
+
+class: inverse, middle, center
+
+## Building your first Shiny app
+
+---
+
+class: inverse, middle, center
+
+## Publishing your first Shiny app
