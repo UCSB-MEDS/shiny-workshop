@@ -92,7 +92,7 @@ But there are endless other resources and tutorials to explore. Just a few:
 ---
 class: inverse, middle, center
 
-## What is Shiny?
+## `r fontawesome::fa("r-project", fill = "#93C6C2", a11y = "sem")` What is Shiny?
 
 Think interactive web pages built by people who love to code in R (i.e. hopefully many of you!), no JavaScript experience necessary.
 
@@ -115,7 +115,7 @@ knitr::include_graphics("media/worldbank-shiny.gif")
 ---
 class: inverse, middle, center
 
-## The anatomy of a Shiny app
+## `r fontawesome::fa("puzzle-piece", fill = "#93C6C2", a11y = "sem")` The anatomy of a Shiny app
 
 What does a shiny app look like under the hood?
 
@@ -159,7 +159,7 @@ knitr::include_graphics("media/reactivity_intro.png")
 ---
 class: inverse, middle, center
 
-## Can I see an example with code please?
+## `r fontawesome::fa("laptop-code", fill = "#93C6C2", a11y = "sem")` Can I see an example with code please?
 
 I'm glad you asked!
 
@@ -189,9 +189,11 @@ Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/ba
 ---
 class: inverse, middle, center
 
-## Building your first Shiny app
+## `r fontawesome::fa("tools", fill = "#93C6C2", a11y = "sem")` Building your first Shiny app
 
 Before we get started, make sure to set up a GitHub repository and R project to house our soon-to-be Shiny app. Doesn't matter what you call it--I'll call mine something like, "practice-shiny".
+
+*NOTE:* When setting up your GitHub repo, be sure to initialize with both a README file and a .gitignore file using the R template.
 
 ---
 ## All Shiny apps begin the same way
@@ -223,7 +225,7 @@ shinyApp(ui = ui, server = server)
 ]
 
 ---
-## An aside: Shiny app repository structure
+## Shiny app repository structure
 
 COME BACK TO THIS PAGE 
 
@@ -239,11 +241,31 @@ my-app
 |_processed_data
   |_processed_data.cscv
 ```
+---
+## Run your app
+
+<span style = 'font-size:75%;'>Once you have saved your `app.R` file, the "Run" code button should turn into a "Run App" button that looks like:</span> <img src="media/run_app.png" alt="A green, right facing triangular arrow next to the words 'Run App'" style="display: inline-block; margin: 0; position: relative; top: 3px; width:80px;height:20px;"/> <span style = 'font-size:75%;'>Click that button to run your app!</span>
+
+<span style = 'font-size:75%;'>You won't see much yet, as we have only built a blank app (but a functioning app, nonetheless!). In your RStudio console, you should see something like: `Listening on http://127.0.0.1:XXXX`, which is the URL where your app can be found. 127.0.0.1 is a standard address that means "this computer," and the last four digits represent a randomly assigned port number.</span>
+
+<span style = 'font-size:75%;'>You should also notice a red stop sign, <img src="media/stop.png" alt="A red hexagon with the word 'STOP' printed in white across the center." style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/>, appear in the top right corner of your console indicating that R is busy--this is because your R session is currently acting as your Shiny app server and listening for any user interaction with your app. Because of this, you won't be able to run any commands in the console until you quit your app. Do so by pressing the stop button.</span>
+
+.pull-left[
+```{r, out.width = '85%', out.height = '85%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/blank_app.png")
+```
+]
+
+.pull-right[
+```{r, out.width = '85%', out.height = '85%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/run_app_RStudio.png")
+```
+]
 
 ---
-## An aside: Two-file Shiny apps
+## An alternative: two-file Shiny apps
 
-<span style = 'font-size:80%;'>While we'll be building both our UI and our server within the same `app.R` file, you may choose to split these into two separate files called `ui.R` and `server.R`. Separating the UI and server may make it easier to navigate and manage code for larger, more complex applications.</span>
+<span style = 'font-size:75%;'>While we'll be building both our UI and our server within the same `app.R` file, you may choose to split these into two separate files called `ui.R` and `server.R`. Separating the UI and server can make it easier to navigate and manage code for larger, more complex applications. Note that when splitting your UI and server into separate files, you do not need to include the `shinyApp(ui = ui, server = server)` line of code. </span>
 
 .pull-left[
 ```{r, echo = TRUE, eval = FALSE}
@@ -295,23 +317,23 @@ server <- function(input, output) {
 ]
 
 .footnote[
-Check out the [Two-file Shiny apps](https://shiny.rstudio.com/articles/two-file.html) article, by Mine Cetinkaya-Rundel for another example of a two-file Shiny app
+<span style = 'font-size:80%;'>**PRACTICE:** Create a blank, two-file shiny app **in a new directory** (i.e. folder), and run the app. You can do so by clicking the "Run App" button from either the `ui.R` or `server.R` file, or run the command, `runApp("<your_directory_name>")` in the console (this also works for running your single `app.R` file).</span>
 ]
 
 ---
 class: inverse, middle, center
 
-## Publishing your first Shiny app
+## `r fontawesome::fa("upload", fill = "#93C6C2", a11y = "sem")` Publishing your first Shiny app
 
 ---
 class: inverse, center, middle
 
-## Troubleshooting & debugging your Shiny app
+## `r fontawesome::fa("bug", fill = "#93C6C2", a11y = "sem")` Troubleshooting & debugging your Shiny app
 
 ---
 class: inverse, center, middle
 
-## Additional resources
+## `r fontawesome::fa("plus", fill = "#93C6C2", a11y = "sem")` Additional resources
 
 ---
 ### Additional resources
