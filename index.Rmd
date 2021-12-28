@@ -98,22 +98,76 @@ class: inverse, middle, center
 ### Shiny makes building web applications easy
 
 > *"**Shiny is an R package that makes it easy to build interactive web apps straight from R.** You can host standalone apps on a webpage or embed them in [R Markdown](https://rmarkdown.rstudio.com/?_ga=2.5356915.1997816511.1640293283-2019993402.1637352626) documents or build [dashboards](http://rstudio.github.io/shinydashboard/?_ga=2.5356915.1997816511.1640293283-2019993402.1637352626). You can also extend your Shiny apps with [CSS themes](http://rstudio.github.io/shinythemes/?_ga=2.94499804.1997816511.1640293283-2019993402.1637352626), [htmlwidgets](http://www.htmlwidgets.org/), and JavaScript [actions.](https://github.com/daattali/shinyjs/blob/master/README.md)"* - RStudio
+
+<br>
+
+.center[
+```{r, out.width = '80%', out.height = '80%', echo = FALSE, fig.alt = "A gif of Andre Duarte's 'Worldbank-Shiny' app. On the lefthand side of the app, the title 'Gapminder Interactive Plot' sits above a series of three widgets. The first is a dropdown menu where the user can select a region (e.g. Europe & Central Asia) or view all regions at the same time. The next two widgets are slider inputs -- the first allows the user to select a year between 1960 and 2014, and the second allows the user to select a population size between 500 and 5000. On the right hand side of the app is a bubble plot of Fertility Rate vs. Life Expectancy, which updates as inputs are changed by the user. Hovering a bubble displays thge corresponding Country, Region, Population, Life Expectancy, and Fertility Rate."}
+knitr::include_graphics("media/worldbank-shiny.gif")
+```
+.center[
+<span style = 'font-size:80%;'>[Worldbank-Shiny](https://github.com/aguimaraesduarte/WorldBank-Shiny) app to visualize fertility rate vs. life expectancy from 1960 to 2015, by [Andre Duarte](https://github.com/aguimaraesduarte)</span>
+]
+]
+
 ---
 class: inverse, middle, center
 
-## Can I see an example please?
+## The anatomy of a Shiny app
+
+---
+## The basic anatomy of a Shiny app
+
+<span style = 'font-size:80%;'>Shiny apps are composed to *two parts*: (1) a **web page** that displays the app to a user (i.e. the **user interface**, or **UI** for short), and (2) a **computer** that powers the app (i.e. the **server**).</span>
+
+.center[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/basic_shiny_app.png")
+```
+]
+
+<span style = 'font-size:80%;'>The **UI** controls the **layout and appearance** of your app and is written in HTML (except we use functions from the `{shiny}` package to write that HTML!). The **server** handles the **logic** of the app -- in other words, it is the set of instructions that tells the web page what to display when a user interacts with it.</span>
+---
+### Widgets are web elements that users can interact with via the UI
+
+<span style = 'font-size:80%;'>Widgets collect information from the user that is used to update outputs created in the server.</span>
+
+.center[
+```{r, out.width = '80%', out.height = '80%', echo = FALSE, fig.alt = "Examples of Shiny's pre-built widget options. These include buttons, single checkbox, checkbox groups, date input, date range, file input, numeric input, radio buttons, select box, sliders, and text input. The default color scheme is black and gray with selections highlighted in blue."}
+knitr::include_graphics("media/basic_widgets.png")
+```
+]
+
+<span style = 'font-size:80%;'>Shiny comes with a variety of [pre-built widgets](https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/) (see above), but you can also explore widget extensions using the [{shinyWidgets}](https://github.com/dreamRs/shinyWidgets) package.</span>
+---
+### Reactivity - a very brief intro
+
+<span style = 'font-size:80%;'>Reactivity is what makes Shiny apps responsive i.e. it lets the app instantly update itself whenever the user makes a change. At a very basic level, it looks something like this:</span>
+
+.center[
+```{r, out.width = '90%', out.height = '90%', echo = FALSE, fig.alt = "A schematic of Shiny reactivity. (1) A widget gets information from a user which (2) is then passed to the server where it is used to update a data frame based on the users choice. (3) The new data frame is used to update outputs in the server, and (4) those outputs are then rendered in the UI."}
+knitr::include_graphics("media/reactivity_intro.png")
+```
+]
+
+<span style = 'font-size:80%;'>Check out Garrett Grolemund's post, [How to understand reactivity in R](https://shiny.rstudio.com/articles/understanding-reactivity.html) for a more detailed overview of Shiny reactivity.</span>
+
+---
+class: inverse, middle, center
+
+## Can I see an example with code please?
 
 ---
 ### The Shiny package comes with **11** built-in examples to explore
 
-Install (if you have not yet done so) and import the `{shiny}` package by running the following code in your console:
+Install (if you have not yet done so) the `{shiny}` package by running the following code in your console:
 ```{r install shiny, eval = FALSE}
-# install.packages("shiny")
-library(shiny)
+install.packages("shiny")
 ```
 
-Check out the available Shiny app examples:
-```{r shiny built-in example 1, eval = FALSE}
+Check out the available Shiny app examples by running this code in your console:
+```{r shiny built-in example 1, eval = TRUE}
+library(shiny)
 runExample(example = NA)
 ```
 
@@ -125,20 +179,69 @@ runExample("01_hello")
 .footnote[
 Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html), by Shiny from RStudio for more content.
 ]
----
-
-class: inverse, middle, center
-
-## The anatomy of a Shiny app
 
 ---
-
 class: inverse, middle, center
 
 ## Building your first Shiny app
 
 ---
+## Set up your GitHub repository & R project
 
+
+
+---
+## All Shiny apps follow the same template
+
+<span style = 'font-size:80%;'>You can create your app using RStudio's built-in Shiny app template (e.g. File > New Project... > New Directory > Shiny Application), but it's just as easy to create it from scratch (and you'll memorize the structure faster!). Let's do that now.</span>
+
+<span style = 'font-size:80%;'>Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script.</span>
+
+```{r, echo = TRUE, eval = FALSE}
+# load packages ----
+library(shiny)
+
+# user interface ----
+ui <- fluidPage()
+
+# server instructions ----
+server <- function(input, output) {}
+
+# run the application ----
+shinyApp(ui = ui, server = server)
+```
+
+<span style = 'font-size:80%;'>It is best practice to place this `app.R` file into its own folder and not in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...</span>
+
+.footnote[
+**Tip:** Use code sections (denoted by `# some text ----`) to make navigating different sections of your application code a bit easier. Code sections will appear in your document outline (find the button at the top right corner of the script/editor panel or use the `shift` + `command/control` + `O` keyboard shortcut).
+]
+
+---
+## Shiny app repository structure
+
+---
 class: inverse, middle, center
 
 ## Publishing your first Shiny app
+
+---
+class: inverse, center, middle
+
+## Troubleshooting & debugging your Shiny app
+
+---
+class: inverse, center, middle
+
+## Additional resources
+
+---
+### Additional resources
+
+* https://shiny.rstudio.com/images/shiny-cheatsheet.pdf
+* https://github.com/daattali/shinyjs
+* http://rstudio.github.io/shinythemes/
+* http://rstudio.github.io/leaflet/
+* https://ggvis.rstudio.com/
+* https://rstudio.github.io/shinydashboard/ 
+* https://deanattali.com/blog/shinydisconnect-package/
