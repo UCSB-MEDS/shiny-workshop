@@ -75,13 +75,13 @@ The following slides were adapted largely from existing materials, particularly:
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Allison Horst's [The Basics of Building Shiny Apps in R](https://github.com/allisonhorst/shiny-basics-sb-r-ladies) workshop</span>
 
-<br>
-
-But there are endless other resources and tutorials to explore. Some suggested started points:
+But there are endless other resources and tutorials to explore. Just a few:
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Mastering Shiny](https://mastering-shiny.org/basic-app.html), by Hadley Wickham</span>
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Building Shiny apps - an interactive tutorial](https://deanattali.com/blog/building-shiny-apps-tutorial/), by Dean Attali</span>
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html), by Colin Fay, Sébastien Rochette, Vincent Guyader & Cervan Girard.</span>
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` A thoughtfully organized [Articles](https://shiny.rstudio.com/articles/) page, by Shiny and the folks at RStudio</span>
 
@@ -93,6 +93,8 @@ But there are endless other resources and tutorials to explore. Some suggested s
 class: inverse, middle, center
 
 ## What is Shiny?
+
+Think interactive web pages built by people who love to code in R (i.e. hopefully many of you!), no JavaScript experience necessary.
 
 ---
 ### Shiny makes building web applications easy
@@ -114,6 +116,8 @@ knitr::include_graphics("media/worldbank-shiny.gif")
 class: inverse, middle, center
 
 ## The anatomy of a Shiny app
+
+What does a shiny app look like under the hood?
 
 ---
 ## The basic anatomy of a Shiny app
@@ -150,34 +154,36 @@ knitr::include_graphics("media/reactivity_intro.png")
 ```
 ]
 
-<span style = 'font-size:80%;'>Check out Garrett Grolemund's post, [How to understand reactivity in R](https://shiny.rstudio.com/articles/understanding-reactivity.html) for a more detailed overview of Shiny reactivity.</span>
+<span style = 'font-size:80%;'>Check out Garrett Grolemund's article, [How to understand reactivity in R](https://shiny.rstudio.com/articles/understanding-reactivity.html) for a more detailed overview of Shiny reactivity.</span>
 
 ---
 class: inverse, middle, center
 
 ## Can I see an example with code please?
 
+I'm glad you asked!
+
 ---
 ### The Shiny package comes with **11** built-in examples to explore
 
-Install (if you have not yet done so) the `{shiny}` package by running the following code in your console:
+<span style = 'font-size:80%;'>Install (if you have not yet done so) the `{shiny}` package by running the following code in your console:</span>
 ```{r install shiny, eval = FALSE}
 install.packages("shiny")
 ```
 
-Check out the available Shiny app examples by running this code in your console:
+<span style = 'font-size:80%;'>Check out the available Shiny app examples by running this code in your console:</span>
 ```{r shiny built-in example 1, eval = TRUE}
 library(shiny)
 runExample(example = NA)
 ```
 
-Run the first example, which plots R’s built-in `faithful` data set with a configurable number of bins:
+<span style = 'font-size:80%;'>Run the first example, which plots R’s built-in `faithful` data set with a configurable number of bins:</span>
 ```{r, eval = FALSE}
 runExample("01_hello")
 ```
 
 .footnote[
-Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html), by Shiny from RStudio for more content.
+Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html) article, by Shiny from RStudio for an overview of some additional examples.
 ]
 
 ---
@@ -185,15 +191,14 @@ class: inverse, middle, center
 
 ## Building your first Shiny app
 
----
-## Set up your GitHub repository & R project
-
-
+Before we get started, make sure to set up a GitHub repository and R project to house our soon-to-be Shiny app. Doesn't matter what you call it--I'll call mine something like, "practice-shiny".
 
 ---
-## All Shiny apps follow the same template
+## All Shiny apps begin the same way
 
 <span style = 'font-size:80%;'>You can create your app using RStudio's built-in Shiny app template (e.g. File > New Project... > New Directory > Shiny Application), but it's just as easy to create it from scratch (and you'll memorize the structure faster!). Let's do that now.</span>
+
+--
 
 <span style = 'font-size:80%;'>Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script.</span>
 
@@ -211,14 +216,87 @@ server <- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
 
-<span style = 'font-size:80%;'>It is best practice to place this `app.R` file into its own folder and not in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...</span>
+<span style = 'font-size:80%;'>It's best practice to place this `app.R` file into its own folder and *not* in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...</span>
 
 .footnote[
 **Tip:** Use code sections (denoted by `# some text ----`) to make navigating different sections of your application code a bit easier. Code sections will appear in your document outline (find the button at the top right corner of the script/editor panel or use the `shift` + `command/control` + `O` keyboard shortcut).
 ]
 
 ---
-## Shiny app repository structure
+## An aside: Shiny app repository structure
+
+COME BACK TO THIS PAGE 
+
+```
+my-app
+|_app
+  |_app.R
+  |_processed_data.csv
+  |_functions.R
+  |_header_img.png
+|_raw_data
+  |_raw_data.csv
+|_processed_data
+  |_processed_data.cscv
+```
+
+---
+## An aside: Two-file Shiny apps
+
+<span style = 'font-size:80%;'>While we'll be building both our UI and our server within the same `app.R` file, you may choose to split these into two separate files called `ui.R` and `server.R`. Separating the UI and server may make it easier to navigate and manage code for larger, more complex applications.</span>
+
+.pull-left[
+```{r, echo = TRUE, eval = FALSE}
+library(shiny)
+
+# app.R
+ui <- fluidPage(
+  sliderInput(inputId = "num",
+              label = "Choose a number", 
+              value = 25, min = 1, max = 100),
+  plotOutput("hist")
+)
+
+
+server <- function(input, output) {
+  output$hist <- renderPlot({
+    hist(rnorm(input$num))
+  })
+}
+
+
+shinyApp(ui = ui, server = server)
+```
+]
+
+.pull-right[
+```{r, echo = TRUE, eval = FALSE}
+library(shiny)
+
+# ui.R
+ui <- fluidPage(
+  sliderInput(inputId = "num",
+              label = "Choose a number", 
+              value = 25, min = 1, max = 100),
+  plotOutput("hist")
+)
+```
+
+```{r, echo = TRUE, eval = FALSE}
+library(shiny)
+
+# server.R
+server <- function(input, output) {
+  output$hist <- renderPlot({
+    hist(rnorm(input$num))
+  })
+}
+```
+]
+
+.footnote[
+Check out the [Two-file Shiny apps](https://shiny.rstudio.com/articles/two-file.html) article, by Mine Cetinkaya-Rundel for another example of a two-file Shiny app
+]
 
 ---
 class: inverse, middle, center
@@ -245,3 +323,4 @@ class: inverse, center, middle
 * https://ggvis.rstudio.com/
 * https://rstudio.github.io/shinydashboard/ 
 * https://deanattali.com/blog/shinydisconnect-package/
+* https://engineering-shiny.org/structuring-project.html#using-shiny-modules & https://mastering-shiny.org/scaling-modules.html#scaling-modules
