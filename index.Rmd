@@ -67,6 +67,28 @@ National Center for Ecological Analysis & Synthesis<br>
 Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2", a11y = "sem")`](https://github.com/UCSB-MEDS/shiny-workshop)
 
 ---
+## Workshop prerequisites
+
+This workshop assumes the following:
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have R/RStudio installed on your machine and have a basic familiarity with the language.</span>  
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have git installed on your machine and have a GitHub profile. You should know how to create and clone a GitHub repository to your machine.</span>  
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` We will be using a handful of R packages throughout this workshop. You can install/update them all at once by running:</span>  
+
+```{r, echo = TRUE, eval = FALSE}
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "shinythemes", "htmltools"))
+```
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` No prior Shiny experience is necessary!</span>  
+
+.center[
+```{r, out.width = '20%', out.height = '20%', echo = FALSE, fig.alt = "A blue hexagon with the word 'Shiny' in cursive lettering printed across the center."}
+knitr::include_graphics("media/shiny.png")
+```
+]
+---
 ### There are *lots* of really great Shiny resources out there
 
 The following slides were adapted largely from existing materials, particularly: 
@@ -75,15 +97,15 @@ The following slides were adapted largely from existing materials, particularly:
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Allison Horst's [The Basics of Building Shiny Apps in R](https://github.com/allisonhorst/shiny-basics-sb-r-ladies) workshop</span>
 
-But there are endless other resources and tutorials to explore. Just a few:
-
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Mastering Shiny](https://mastering-shiny.org/basic-app.html), by Hadley Wickham</span>
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Building Shiny apps - an interactive tutorial](https://deanattali.com/blog/building-shiny-apps-tutorial/), by Dean Attali</span>
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html), by Colin Fay, Sébastien Rochette, Vincent Guyader & Cervan Girard.</span>
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` A thoughtfully organized [Articles](https://shiny.rstudio.com/articles/) page, by Shiny and the folks at RStudio</span>
+Be sure to check out RStudio's great instructional resources and Shiny examples as well:
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` A thoughtfully organized [Articles](https://shiny.rstudio.com/articles/) page</span>
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` The [Shiny User Showcase](https://shiny.rstudio.com/gallery/#user-showcase), a collection of Shiny apps and their source code developed by the Shiny developer community -- many of these featured apps are winners or honorable mentions of the [annual Shiny contest](https://www.rstudio.com/blog/winners-of-the-3rd-annual-shiny-contest/)!</span>
 
@@ -189,7 +211,7 @@ Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/ba
 ---
 class: inverse, middle, center
 
-## `r fontawesome::fa("tools", fill = "#93C6C2", a11y = "sem")` Building your first Shiny app
+## `r fontawesome::fa("play", fill = "#93C6C2", a11y = "sem")` Creating your first Shiny app
 
 Before we get started, make sure to set up a GitHub repository and R project to house our soon-to-be Shiny app. Doesn't matter what you call it--I'll call mine something like, "practice-shiny".
 
@@ -202,7 +224,7 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 
 --
 
-<span style = 'font-size:80%;'>Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script.</span>
+<span style = 'font-size:80%;'>Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script, or use the `shinyapp` snippet to automatically generate a shiny app template.</span>
 
 ```{r, echo = TRUE, eval = FALSE}
 # load packages ----
@@ -221,7 +243,7 @@ shinyApp(ui = ui, server = server)
 <span style = 'font-size:80%;'>It's best practice to place this `app.R` file into its own folder and *not* in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...</span>
 
 .footnote[
-**Tip:** Use code sections (denoted by `# some text ----`) to make navigating different sections of your application code a bit easier. Code sections will appear in your document outline (find the button at the top right corner of the script/editor panel or use the `shift` + `command/control` + `O` keyboard shortcut).
+<span style = 'font-size:80%;'>**Tip:** Use code sections (denoted by `# some text ----`) to make navigating different sections of your application code a bit easier. Code sections will appear in your document outline (find the button at the top right corner of the script/editor panel or use the `shift` + `command/control` + `O` keyboard shortcut).</span>
 ]
 
 ---
@@ -233,13 +255,14 @@ COME BACK TO THIS PAGE
 my-app
 |_app
   |_app.R
-  |_processed_data.csv
+  |_processed_data
+    |_my_data.csv
   |_functions.R
-  |_header_img.png
+  |_www
+    |_my_img.png
 |_raw_data
   |_raw_data.csv
-|_processed_data
-  |_processed_data.cscv
+  
 ```
 ---
 ## Run your app
@@ -317,8 +340,55 @@ server <- function(input, output) {
 ]
 
 .footnote[
-<span style = 'font-size:80%;'>**PRACTICE:** Create a blank, two-file shiny app **in a new directory** (i.e. folder), and run the app. You can do so by clicking the "Run App" button from either the `ui.R` or `server.R` file, or run the command, `runApp("<your_directory_name>")` in the console (this also works for running your single `app.R` file).</span>
+<span style = 'font-size:80%;'>**PRACTICE:** Create a blank, two-file shiny app **in a new directory** (i.e. folder) and run the app. You can do so by clicking the "Run App" button from either the `ui.R` or `server.R` file, or run the command, `runApp("<your_directory_name>")` in the console (this also works for running your single `app.R` file).</span>
 ]
+
+---
+class: inverse, middle, center
+
+## `r fontawesome::fa("tools", fill = "#93C6C2", a11y = "sem")` Building out your Shiny app
+
+Here, we'll add our first reactive components, explore different layouts, and establish a workflow. COME BACK TO THIS
+
+---
+### Let's first add some text to our app
+
+<span style = 'font-size:80%;'>We'll do this in the **UI** within `fluidPage()`, a layout function that sets up the basic visual structure of the page and scales components in real time to fill all available browser width. Add a title and subtitle to your app, save, and run:</span>
+
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # app title ----
+  "My App Title",
+  
+  # app subtitle ----
+  "Exploring Palmer Penguins and Antarctic Temperatures"
+  
+  )
+```
+
+<span style = 'font-size:80%;'>Recall that the UI is actually just an HTML document. We can add static HTML elements using [**tags**](https://shiny.rstudio.com/articles/tag-glossary.html), a list of functions that parallel common HTML tages (e.g. `tags$h1()`) The most common tags also have wrapper functions (e.g. `h1()`). We can use some of these tags to spruce up our text:</span>
+
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # app title ----
+  tags$h1("My App Title"),
+  
+  # app subtitle ----
+  p(strong("Exploring Palmer Penguins and Antarctic Temperatures"))
+  
+  )
+```
+
+---
+### Adding inputs and outputs
+
+<span style = 'font-size:80%;'>Next, we will begin to add some inputs and outputs to our `fluidPage()` (anything that you put into `fluidPage()` will end up in our app...and we want inputs and outputs in our app!).</span>
+
+<span style = 'font-size:80%;'>**Inputs** are the things that users can interact with (e.g. toggle, slide) and provide values to your app. **Outputs** are the R objects that your user sees (e.g. tables, plots) and are what respond when a user interacts with/changes an input value.</span>
 
 ---
 class: inverse, middle, center
