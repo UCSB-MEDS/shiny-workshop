@@ -73,11 +73,13 @@ Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2"
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have git installed on your machine and have a GitHub profile. You should know how to create and clone a GitHub repository to your machine.</span>  
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` We will be using a handful of R packages throughout this workshop. You can install/update them all at once by running:</span>  
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have the required R packages installed. You can install/update them all at once by running:</span>  
 
 ```{r, echo = TRUE, eval = FALSE}
 install.packages(c("shiny", "tidyverse", "palmerpenguins", "shinythemes"))
 ```
+
+<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have downloaded the Palmer weather time series data from the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf) (`table_28.csv`)</span>
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` No prior Shiny experience is necessary!</span>  
 
@@ -225,7 +227,7 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 <span style = 'font-size:70%;'>Download the Palmer weather time series data (`table_28.csv`) and view its metadata on the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf). Alternatively, you can download the file from [Google Drive](https://drive.google.com/file/d/1du5KHtDt_zzgBKAFxNYtdEAzfp7bfuGm/view?usp=sharing).</span>
 
 .center[
-```{r, out.width = '25%', out.height = '25%', echo = FALSE, fig.alt = ""}
+```{r, out.width = '25%', out.height = '25%', echo = FALSE, fig.alt = "Three penguins standing in a row. The first is a chinstrap penguin, facing to the right so that we see its body and face profile. It has a black head, back, top of wings wings, and bill, but a white face, chin, belly, underside of wings, and light pink feet. A thin black line runs under its chin, looking similar to a chinstrap. It is standing in front of a purple background. The second is a Gentoo peguin facing towards us with its wings spread out to the side. It has a black face, back, and top of its wings, but a white belly, underside of wings, and wide white stripes above each eye that extend over the top of its head, like a bonnet. It has a bright orange bill and feet. It is standing in front of a green background. The third is an Adélie penguin with its body facing towards us but its head turned to the left so that we see its face profile. It has a completely black head, bill, back, and top of its wings. It has a white belly, underside of its wings, and thin white circles around its eyes, in addition to light pink feet. It is standing in front of an orange background."}
 knitr::include_graphics("media/lter_penguins.png")
 ```
 .center[
@@ -373,7 +375,7 @@ class: inverse, middle, center
 
 ## `r fontawesome::fa("tools", fill = "#93C6C2", a11y = "sem")` Building out your Shiny app
 
-Here, we'll add our first reactive components, explore different layouts, and establish a workflow. COME BACK TO THIS
+Here, we'll add our first reactive object to our app and establish a general Shiny coding workflow.
 
 ---
 ### Let's first add some text to our app
@@ -388,10 +390,12 @@ ui <- fluidPage(
   "My App Title",
   
   # app subtitle ----
-  "Exploring Palmer Penguins and Antarctic Temperatures"
+  "Exploring Antarctic Penguins and Temperatures"
   
   )
 ```
+
+--
 
 <span style = 'font-size:80%;'>Recall that the UI is actually just an HTML document. We can add static HTML elements using [**tags**](https://shiny.rstudio.com/articles/tag-glossary.html), a list of functions that parallel common HTML tages (e.g. `tags$h1()`) The most common tags also have wrapper functions (e.g. `h1()`). We can use some of these tags to spruce up our text:</span>
 
@@ -403,7 +407,7 @@ ui <- fluidPage(
   tags$h1("My App Title"),
   
   # app subtitle ----
-  p(strong("Exploring Palmer Penguins and Antarctic Temperatures"))
+  p(strong("Exploring Antarctic Penguins and Temperatures"))
   
   )
 ```
@@ -472,11 +476,13 @@ ui <- fluidPage(
   
   # * previous code omitted for brevity *
   
-  # body size slider input ----
+  # body mass slider input ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
               value = c(3000, 4000), min = 2700, max = 6300)
   )
 ```
+
+--
 
 <span style = 'font-size:80%;'>When you run your app, you should see something similar to the image below. It's operable, but does not yet have an associated output.</span>
 
@@ -495,9 +501,9 @@ knitr::include_graphics("media/sliderInput.png")
 
 Some examples: 
 ```{r, eval = FALSE}
-plotOutput(outputId = "bodySize_plot")
+plotOutput(outputId = "bodyMass_plot")
 
-dataTableOutput(outputId = "bodySize_dt")
+dataTableOutput(outputId = "bodyMass_dt")
 ```
 
 ---
@@ -510,17 +516,19 @@ ui <- fluidPage(
   
   # * previous code omitted for brevity *
   
-  # body size slider input ----
+  # body mass slider input ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
               value = c(3000, 4000), min = 2700, max = 6300)
   
-  # body size plot ouput ----
-  plotOutput(outputId = "bodySize_scatterPlot")
+  # body mass plot ouput ----
+  plotOutput(outputId = "bodyMass_scatterPlot")
   
   )
 ```
 
-<span style = 'font-size:70%;'>Okay, it looks like nothing changed?? Remember, `*Output()` functions create *placeholders*, but we have not yet written the server instructions on how to fill and update those placeholders. We can inspect the HTML and see that there is, in fact, a placeholder area awaiting our eventual output, which will be a plot named "bodySize_scatterPlot":</span>
+--
+
+<span style = 'font-size:70%;'>Okay, it looks like nothing changed?? Remember, `*Output()` functions create *placeholders*, but we have not yet written the server instructions on how to fill and update those placeholders. We can inspect the HTML and see that there is, in fact, a placeholder area awaiting our eventual output, which will be a plot named "bodyMass_scatterPlot":</span>
 
 .center[
 ```{r, out.width = '60%', out.height = '60%', echo = FALSE, fig.alt = "A Google Chrome browser window with our Shiny app open on the left-hand side and the underlying HTML document open on the right. The app looks the same as before, except hovering over the HTML associated with our new plotOutput highlights a blue square region beneath the sliderInput. This highlighted region is the placeholder where our plot will eventually be rendered."}
@@ -561,7 +569,7 @@ knitr::include_graphics("media/output_placeholder.png")
 **Rules:**  
 
 .footnote[
-Read more about reactivity in [Ch.3 Basic Reactivity](https://mastering-shiny.org/basic-reactivity.html#basic-reactivity) of [Mastering Shiny](https://mastering-shiny.org/index.html).
+Read more about reactivity in [Ch.3 Basic Reactivity](https://mastering-shiny.org/basic-reactivity.html#basic-reactivity) of [Mastering Shiny](https://mastering-shiny.org/index.html) and check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
 ]
 
 --
@@ -569,16 +577,17 @@ Read more about reactivity in [Ch.3 Basic Reactivity](https://mastering-shiny.or
 
 <br>
 --
-**2.** Build objects to display using a `render*()` function  
+**2.** Build objects you want to display using a `render*()` function  
 
 <br>
 --
-**3.** Use input values (from the UI) with `input$<id>`  
+**3.** Access input values with `input$<id>`  
 
 ---
-### **Rule 1:** Save objects you want to display to `output$`
+### <span style = 'font-size:90%;'>**Rule 1:** Save objects you want to display to `output$<id>`</span>
 
-<span style = 'font-size:80%;'>In our **UI**, we created a placeholder for our plot output using the `plotOutput()` function and gave it an Id called `"bodySize_scatterplot"`. We will now tell our server how to generate that plot output AHHHHHH</span>
+<span style = 'font-size:80%;'>Notice that in our **UI**, we created a placeholder for our plot using the `plotOutput()` function and gave it the Id `"bodyMass_scatterplot"`. In our **server**, we will save our plot to the `output` argument by its `outputId`:</span>
+
 ```{r, eval = FALSE}
 # user interface ----
 ui <- fluidPage(
@@ -589,8 +598,8 @@ ui <- fluidPage(
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
               value = c(3000, 4000), min = 2700, max = 6300),
   
-  # body size plot output ----
-  plotOutput(outputId = "bodySize_scatterPlot") #<<
+  # body mass plot output ----
+  plotOutput(outputId = "bodyMass_scatterPlot") #<<
   
 )
 
@@ -598,17 +607,16 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   # render the scatter plot ----
-  output$bodySize_scatterPlot <- # code here #<<
+  output$bodyMass_scatterPlot <- # code to generate plot here #<<
     
 }
 ```
 
-.footnote[
-For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
-]
+<span style = 'font-size:80%;'>**Note:** In the **UI**, our `outputId` is quoted (`"bodyMass_scatterPlot"`), but not in the **server** (`bodyMass_scatterPlot`).</span>
 ---
-### **Rule 2:** Build objects to display with `render*()`
+### <span style = 'font-size:90%;'>**Rule 2:** Build objects you want to display with `render*()`</span>
 
+<span style = 'font-size:80%;'>Write any code *inside* the braces, `{}`. This allows you to include as many lines of code as it takes to build your object.</span>
 ```{r, eval = FALSE}
 # user interface ----
 ui <- fluidPage(
@@ -620,7 +628,7 @@ ui <- fluidPage(
               value = c(3000, 4000), min = 2700, max = 6300),
   
   # body size plot output ----
-  plotOutput(outputId = "bodySize_scatterPlot") 
+  plotOutput(outputId = "bodyMass_scatterPlot") 
   
 )
 
@@ -628,19 +636,44 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   # render the scatter plot ----
-  output$bodySize_scatterPlot <- renderPlot({ #<<
-     # code here #<<
+  output$bodyMass_scatterPlot <- renderPlot({ #<<
+     # code to generate plot here #<<
   }) #<<
 }
 ```
 
-.footnote[
-For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+---
+### <span style = 'font-size:90%;'>**Rule 2:** Build objects you want to display with `render*()`</span>
+
+<span style = 'font-size:80%;'>**Tip:** I find it easier to experiment and draft my objects (e.g. plots) first in a separate script, then copy the code over to the server after. I want to make a plot that looks like this:</span>
+
+```{r, echo = TRUE, eval = TRUE}
+# practice_penguin_outputs.R
+library(palmerpenguins)
+library(tidyverse)
+
+penguin_scatterplot <- ggplot(na.omit(penguins), 
+                              aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species)) +
+  geom_point() +
+  scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
+  scale_shape_manual(values = c(19, 17, 15)) +
+  labs(x = "Flipper length (mm)", y = "Bill length (mm)", 
+       color = "Penguin species", shape = "Penguin species") +
+  theme_minimal() +
+  theme(legend.position = c(0.85, 0.2),
+        legend.background = element_rect(color = "white"))
+```
+
+.center[
+```{r, echo = FALSE, eval = TRUE, out.width = '60%', out.height = '70%', fig.alt = "A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length."}
+penguin_scatterplot
+```
 ]
 
 ---
-### **Rule 2:** Build objects to display with `render*()`
+### <span style = 'font-size:90%;'>**Rule 2:** Build objects you want to display with `render*()`</span>
 
+<span style = 'font-size:80%;'>Copy your code over to your app, placing it inside the `{}`. Run your app. What do you notice?</span>
 ```{r, eval = FALSE}
 # user interface ----
 ui <- fluidPage(
@@ -652,7 +685,7 @@ ui <- fluidPage(
               value = c(3000, 4000), min = 2700, max = 6300),
   
   # body size plot output ----
-  plotOutput(outputId = "bodySize_scatterPlot")
+  plotOutput(outputId = "bodyMass_scatterPlot")
   
 )
 
@@ -660,22 +693,194 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   # render the scatter plot ----
-  output$bodySize_scatterPlot <- renderPlot({ #<<
-     # code here #<<
+  output$bodyMass_scatterPlot <- renderPlot({ #<<
+      # plot #<<   
+      ggplot(na.omit(penguins), aes(x = flipper_length_mm, y = bill_length_mm, color = species)) + #<<
+        geom_point() + #<<
+        scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) + #<<
+        labs(x = "Flipper length (mm)", y = "Bill length (mm)", color = "Penguin species") + #<<
+        theme_minimal() + #<<
+        theme(legend.position = c(0.85, 0.2), #<<
+              legend.background = element_rect(color = "white")) #<<
   }) #<<
 }
 ```
 
-.footnote[
-For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+---
+### A non-reactive plot now lives in our `plotOutput()` placeholder
+
+<span style = 'font-size:80%;'>We have a plot (yay!), but it isn't reactive. We have not yet told the server how to update the plot based on user inputs to the `sliderInput()` in the UI. Let's do that next...</span>
+
+.pull-left[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/app_with_staticPlot1.png")
+```
+]
+
+.pull-right[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/app_with_staticPlot2.png")
+```
 ]
 
 ---
-### **Rule 3:** Use input values (from the UI) with `input$`
+### Let's first practice in our separate script
 
-.footnote[
-For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+<span style = 'font-size:70%;'>First, create a new df where we filter `body_mass_g` observations for values within a specific range:</span>
+
+--
+
+```{r, echo = TRUE, eval = TRUE}
+body_mass_dat <- penguins %>%
+  filter(body_mass_g %in% 3000:4000)
+```
+
+--
+
+<span style = 'font-size:70%;'>Then, substitute in the new filtered data and plot:</span>
+
+--
+
+```{r, echo = TRUE, eval = TRUE}
+# plot new, filtered data
+penguin_scatterplot <- ggplot(na.omit(body_mass_dat), 
+                              aes(x = flipper_length_mm, y = bill_length_mm, 
+                                  color = species, shape = species)) +
+  geom_point() +
+  scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
+  scale_shape_manual(values = c(19, 17, 15)) +
+  labs(x = "Flipper length (mm)", y = "Bill length (mm)", 
+       color = "Penguin species", shape = "Penguin species") +
+  theme_minimal() +
+  theme(legend.position = c(0.85, 0.2),
+        legend.background = element_rect(color = "white"))
+```
+
+.center[
+```{r, echo = FALSE, eval = TRUE, out.width = '60%', out.height = '70%', fig.alt = "A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length."}
+penguin_scatterplot
+```
 ]
+
+---
+### Which part of our code needs to be updated when a user changes the slider range input?
+
+--
+
+```{r, echo = TRUE, eval = TRUE}
+body_mass_dat <- penguins %>%
+  filter(body_mass_g %in% 3000:4000) # 3000:4000 needs to be update-able! 
+```
+
+--
+
+<span style = 'font-size:80%;'>**For example:**</span>
+
+.pull-left[
+```{r, echo = TRUE, eval = TRUE}
+body_mass_dat <- penguins %>%
+  filter(body_mass_g %in% 2857:5903) 
+```
+
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = "Our Shiny app with just a title, subtitle, and slider input, where the input values are at a minimum of 2,857 and a maximum of 5,903."}
+knitr::include_graphics("media/2857_5903.png")
+```
+]
+
+--
+
+.pull-right[
+```{r, echo = TRUE, eval = TRUE}
+body_mass_dat <- penguins %>%
+  filter(body_mass_g %in% 3725:5191) 
+```
+
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = "Our Shiny app with just a title, subtitle, and slider input, where the input values are at a minimum of 3,725 and a maximum of 5,191."}
+knitr::include_graphics("media/3725_5191.png")
+```
+]
+
+---
+### <span style = 'font-size:90%;'>**Rule 3:** Access input values with `input$<id>`</span>
+
+<span style = 'font-size:60%;'>In our UI, we gave our `sliderInput()` an `inputId = "body_mass"`. In our server, we can access the values of that slider input using the syntax, `input$body_mass`. If you want your output to change according to the input values, substitute hard-coded values (e.g. ` 3725:5191`) with the input values from the UI (e.g. `input$body_mass[1]:input$body_mass[2]`).</span>
+
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # * previous code omitted for brevity *
+  
+  # body mass slider ----
+  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
+              value = c(3000, 4000), min = 2700, max = 6300),
+  
+  # body mass plot output ----
+  plotOutput(outputId = "bodyMass_scatterPlot")
+  
+)
+
+# server instructions ----
+server <- function(input, output) {
+  
+  # render the scatter plot ----
+  output$bodyMass_scatterPlot <- renderPlot({ 
+      
+      # filter data based on input$body_mass #<<  
+      body_mass_dat <- penguins %>% #<<  
+        filter(body_mass_g %in% input$body_mass[1]:input$body_mass[2]) #<<  
+      
+      # plot  
+      ggplot(na.omit(penguins), 
+             aes(x = flipper_length_mm, y = bill_length_mm, 
+                 color = species, shape = species)) + 
+        geom_point() + # etc.... 
+  }) 
+}
+```
+
+---
+### Okay, RUN THAT APP!
+
+<span style = 'font-size:80%;'>You should now have a reactive Shiny app! *Note that reactivity automatically occurs whenever you use an **input value** to **render** an **output object**.*</span>
+
+.center[
+```{r, out.width = '60%', out.height = '60%', echo = FALSE, fig.alt = "A gif of our current Shiny app, demonstrating reactivity. At the top left of our app is the title, 'My App Title' in large header font. Beneath it is a subtitle, 'Exploring Antarctic Penguins and Temperatures'. Below the subtitle is the slider input with the label, 'Select a range of body masses (g)'. A gray horizontal slider bar ranges from the values 2,700 to 6,300. The interactive slider value selectors are two round white circles, which, when moved apart from one another highlight the selected value range in blue. The user is adjusting the slider value selectors and the scatterplot of penguin bill length (mm) vs. flipper length (mm) is automatically updating."}
+knitr::include_graphics("media/reactive_app_v1.gif")
+```
+]
+
+---
+### Recap so far:
+
+We created our first *reactive* Shiny app by following these steps:
+
+--
+
+1. <span style = 'font-size:80%;'>We created an `app.R` file and began our app with the template</span>
+    * <span style = 'font-size:80%;'>We saved `app.R` to its own directory where we will also save any other scripts/files used by the app</span>
+    * <span style = 'font-size:80%;'>You can also create two-file Shiny apps by creating separate `ui.R` and `server.R` files</span>
+--
+2. <span style = 'font-size:80%;'>We added an `input()` to the `fluidPage()` in our **UI** and gave it an `inputId`</span>
+    * <span style = 'font-size:80%;'>`inputId`s are surrounded by quotes, `""` (e.g. `inputId = "input_name"`)</span>
+--
+3. <span style = 'font-size:80%;'>We created a placeholder for our reactive object using an `*Output()` function in the `fluidPage()` in our **UI** and gave it an `outputId`</span>
+    * <span style = 'font-size:80%;'>`outputId`'s are also surrounded by quotes, `""` (e.g. `outputId = "output_name"`)</span>
+--
+4. <span style = 'font-size:80%;'>We wrote the **server** instructions for how to assemble inputs into outputs, following these rules:</span>
+    * <span style = 'font-size:80%;'>save objects that you want to display to `output$<id>`</span>
+    * <span style = 'font-size:80%;'>build objects you want to display using a `render*()` function</span>  
+    * <span style = 'font-size:80%;'>access input values with `input$<id>`</span>  
+
+--
+
+And we saw that reactivity automatically occurs whenever we use an **input value** to **render** an **output object**.
+
+---
+### **Coding Exercise:** Add another reactive widget to your app!
+
+[directions here]
+
 ---
 class: inverse, middle, center
 

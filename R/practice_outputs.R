@@ -7,7 +7,7 @@ ggplot(na.omit(penguins), aes(x = flipper_length_mm, y = bill_length_mm, color =
   geom_point() +
   scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
   labs(x = "Flipper length (mm)",
-       y = "Bill lenght (mm)",
+       y = "Bill length (mm)",
        color = "Penguin species",
        title = "Flipper and bill length",
        subtitle = "Dimensions for Adelie, Chinstrap and Gentoo Penguins at Palmer Station LTER") +
