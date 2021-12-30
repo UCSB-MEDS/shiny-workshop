@@ -67,9 +67,7 @@ National Center for Ecological Analysis & Synthesis<br>
 Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2", a11y = "sem")`](https://github.com/UCSB-MEDS/shiny-workshop)
 
 ---
-## Workshop prerequisites
-
-This workshop assumes the following:
+### This workshop assumes the following:
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have R/RStudio installed on your machine and have a basic familiarity with the language.</span>  
 
@@ -78,7 +76,7 @@ This workshop assumes the following:
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` We will be using a handful of R packages throughout this workshop. You can install/update them all at once by running:</span>  
 
 ```{r, echo = TRUE, eval = FALSE}
-install.packages(c("shiny", "tidyverse", "palmerpenguins", "shinythemes", "htmltools"))
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "shinythemes"))
 ```
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` No prior Shiny experience is necessary!</span>  
@@ -156,7 +154,7 @@ knitr::include_graphics("media/basic_shiny_app.png")
 ---
 ### Widgets are web elements that users can interact with via the UI
 
-<span style = 'font-size:80%;'>Widgets collect information from the user that is used to update outputs created in the server.</span>
+<span style = 'font-size:80%;'>Widgets collect information from the user which is then used to update outputs created in the server.</span>
 
 .center[
 ```{r, out.width = '80%', out.height = '80%', echo = FALSE, fig.alt = "Examples of Shiny's pre-built widget options. These include buttons, single checkbox, checkbox groups, date input, date range, file input, numeric input, radio buttons, select box, sliders, and text input. The default color scheme is black and gray with selections highlighted in blue."}
@@ -218,7 +216,34 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 *NOTE:* When setting up your GitHub repo, be sure to initialize with both a README file and a .gitignore file using the R template.
 
 ---
-## All Shiny apps begin the same way
+### The data
+
+<span style = 'font-size:70%;'>We'll be using two different data sets to create our Shiny app: **(1)** the `penguins` data set from the [`{palmerpenguins}`](https://allisonhorst.github.io/palmerpenguins/) package and **(2)** the [Palmer Station Weather - Daily Averages](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pal.28.8) dataset from the Palmer Station Antarctic LTER.</span>
+
+<span style = 'font-size:70%;'>To access the **penguin** data set, you need to install and load the `{palmerpenguins}` package into R. Type `View(penguins)` into your console to open the data frame in the viewer. Type `?penguins` into your console to pull up additional information (including metadata) in the Help window of RStudio.</span>
+
+<span style = 'font-size:70%;'>Download the Palmer weather time series data (`table_28.csv`) and view its metadata on the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf). Alternatively, you can download the file from [Google Drive](https://drive.google.com/file/d/1du5KHtDt_zzgBKAFxNYtdEAzfp7bfuGm/view?usp=sharing).</span>
+
+.center[
+```{r, out.width = '25%', out.height = '25%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/lter_penguins.png")
+```
+.center[
+<span style = 'font-size:40%;'>Artwork by [@allison_horst](https://twitter.com/allison_horst?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)</span>
+]
+]
+
+.footnote[
+<span style = 'font-size:80%;'>**Citations:**</span>
+
+<span style = 'font-size:70%;'>**(1)** Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. https://allisonhorst.github.io/palmerpenguins/. doi:10.5281/zenodo.3960x218.</span>   
+
+<span style = 'font-size:70%;'>**(2)** Palmer Station Antarctica LTER and P. Information Manager. 2019. Daily averaged weather timeseries (air temperature, pressure, wind speed, wind direction, precipitation, sky cover) at Palmer Station, Antarctica combining manual observations (1989 - Dec 12, 2003) and PALMOS automatic weather station measurements (Dec 13, 2003 - March 2019). ver 8. Environmental Data Initiative. https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf (Accessed 2021-12-29).</span>
+]
+
+
+---
+### All Shiny apps begin the same way
 
 <span style = 'font-size:80%;'>You can create your app using RStudio's built-in Shiny app template (e.g. File > New Project... > New Directory > Shiny Application), but it's just as easy to create it from scratch (and you'll memorize the structure faster!). Let's do that now.</span>
 
@@ -388,8 +413,269 @@ ui <- fluidPage(
 
 <span style = 'font-size:80%;'>Next, we will begin to add some inputs and outputs to our `fluidPage()` (anything that you put into `fluidPage()` will end up in our app...and we want inputs and outputs in our app!).</span>
 
-<span style = 'font-size:80%;'>**Inputs** are the things that users can interact with (e.g. toggle, slide) and provide values to your app. **Outputs** are the R objects that your user sees (e.g. tables, plots) and are what respond when a user interacts with/changes an input value.</span>
+<span style = 'font-size:80%;'>**Inputs** are the things that users can interact with (e.g. toggle, slide) and provide values to your app. The Input functions below correspond to the widgets you see on slide #8. **Outputs** are the R objects that your user sees (e.g. tables, plots) and are what respond when a user interacts with/changes an input value.</span>
 
+.pull-left[
+**[Inputs functions:](https://mastering-shiny.org/basic-ui.html#inputs)**  
+* <span style = 'font-size:80%;'>`actionButton()`</span>
+* <span style = 'font-size:80%;'> `actionLink()`</span>
+* <span style = 'font-size:80%;'>`checkboxInput()`</span>  
+* <span style = 'font-size:80%;'>`checkboxGroupInput()`</span>
+* <span style = 'font-size:80%;'>`dateInput()`</span>
+* <span style = 'font-size:80%;'>`dateRangeInput()`</span>
+* <span style = 'font-size:80%;'>`fileInput()`</span>
+* <span style = 'font-size:80%;'>`numericInput()`</span>
+* <span style = 'font-size:80%;'>`passwordInput()`</span>
+* <span style = 'font-size:80%;'>`radioButtons()`</span>
+* <span style = 'font-size:80%;'>`selectBox()`</span>
+* <span style = 'font-size:80%;'>`sliderInput()`</span>
+* <span style = 'font-size:80%;'>`submitButton()`</span> 
+* <span style = 'font-size:80%;'>`textInput()`</span>
+]
+
+.pull-right[
+**[Output functions:](https://mastering-shiny.org/basic-ui.html#outputs)**
+* <span style = 'font-size:80%;'>`dataTableOutput()` (inserts an interactive table)</span>
+* <span style = 'font-size:80%;'>`imageOutput()`(inserts an image)</span>
+* <span style = 'font-size:80%;'>`plotOutput()` (inserts a plot)</span>
+* <span style = 'font-size:80%;'>`verbatimTextOutput()` (inserts text)</span>
+* <span style = 'font-size:80%;'>`tableOutput()` (inserts a table)</span>
+* <span style = 'font-size:80%;'>`textOutput()` (inserts text)</span>
+* <span style = 'font-size:80%;'>`uiOutput()` (inserts a Shiny UI element)</span>
+* <span style = 'font-size:80%;'>There are also additional specialized `*Output()` functions, like [`plotlyOutput()`](https://www.rdocumentation.org/packages/plotly/versions/4.9.4.1/topics/plotly-shiny) and [`DTOutput()`](https://rstudio.github.io/DT/shiny.html)</span>
+]
+---
+### Input function syntax
+
+<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` All input functions have the same first argument, `inputId` (**NOTE:** `Id` *not* `ID`), which is used to connect the front end of your app (the UI) with the back end (the server). For example, if your UI has an `inputId = "name"`, the server function will access is using the syntax `input$name`. The `inputId` has two constraints: **(1)** it must be a simple string containing only letters, numbers, and underscores, **(2)** it must be unique.</span>
+
+<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Most input functions have a second parameter called `label`, which is used to create a human-readable label for the control, which will appear in the UI.</span>
+
+<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` The remaining arguments are unique to each input function. Oftentimes, these include  a `value` parameter, which lets you set the default value of your widget, where applicable.</span>
+
+Some examples: 
+```{r, eval = FALSE}
+sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):", value = c(3000, 4000), ...)
+
+selectInput(inputId = "island", label = "Choose and island:", ...)
+```
+
+<span style = 'font-size:80%;'>Check out the interactive [Shiny Widgets Gallery](https://shiny.rstudio.com/gallery/widget-gallery.html) to learn how to implement the most common widgets.</span>
+
+---
+### Add an input to our app
+
+<span style = 'font-size:80%;'>First let's add a `sliderInput()` that will allow users to select a range of penguin body sizes (g).</span>
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # * previous code omitted for brevity *
+  
+  # body size slider input ----
+  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
+              value = c(3000, 4000), min = 2700, max = 6300)
+  )
+```
+
+<span style = 'font-size:80%;'>When you run your app, you should see something similar to the image below. It's operable, but does not yet have an associated output.</span>
+
+.center[
+```{r, out.width = '70%', out.height = '70%', echo = FALSE, fig.alt = "A basic Shiny app, with a title that says 'My App Title', a subtitle that says, 'Exploring Palmer Penguins and Antarctic Temperatures, and a slider input with a label that says 'Select a range of body masses (g)'. The slider bar has a minimum value of 2,700 and a maximum value of 6,300, and the moveable slider selectors currently range from 3,000 to 4,000."}
+knitr::include_graphics("media/sliderInput.png")
+```
+]
+
+---
+### Output function syntax
+
+<span style = 'font-size:80%;'>Outputs in the UI create **placeholders** which are later filled by the server function.</span>
+
+<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Similar to input functions, all output functions take the same first argument, `outputId` (again, note `Id` *not* `ID`), which connects the front end UI with the back end server. For example, if your UI has an `outputId = "plot"`, the server function will access it using the syntax `output$plot`.</span>
+
+Some examples: 
+```{r, eval = FALSE}
+plotOutput(outputId = "bodySize_plot")
+
+dataTableOutput(outputId = "bodySize_dt")
+```
+
+---
+### Add an output to our app
+
+<span style = 'font-size:70%;'>Let's now add a `plotOutput()` to our app, which will be updated based on the user inputs via the `sliderInput()`.</span>
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # * previous code omitted for brevity *
+  
+  # body size slider input ----
+  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
+              value = c(3000, 4000), min = 2700, max = 6300)
+  
+  # body size plot ouput ----
+  plotOutput(outputId = "bodySize_scatterPlot")
+  
+  )
+```
+
+<span style = 'font-size:70%;'>Okay, it looks like nothing changed?? Remember, `*Output()` functions create *placeholders*, but we have not yet written the server instructions on how to fill and update those placeholders. We can inspect the HTML and see that there is, in fact, a placeholder area awaiting our eventual output, which will be a plot named "bodySize_scatterPlot":</span>
+
+.center[
+```{r, out.width = '60%', out.height = '60%', echo = FALSE, fig.alt = "A Google Chrome browser window with our Shiny app open on the left-hand side and the underlying HTML document open on the right. The app looks the same as before, except hovering over the HTML associated with our new plotOutput highlights a blue square region beneath the sliderInput. This highlighted region is the placeholder where our plot will eventually be rendered."}
+knitr::include_graphics("media/output_placeholder.png")
+```
+]
+
+---
+### Rendering outputs
+
+<span style = 'font-size:80%;'>Each `*Output()` function in the UI is coupled with a `render*()` function in the server, which contains the "instructions" for creating the output based on user inputs. A list of `*Output()` functions and their corresponding `render*()` functions are below:</span>
+
+<br>
+
+.center[
+| Output function        | Render function        |
+| ---------------------- | ---------------------- |
+| `dataTableOutput()`    | `renderDataTable()`    |
+| `imageOutput()`        | `renderImage()`        |
+| `plotOutput()`         | `renderPlot()`         |
+| `verbatimTextOutput()` | `renderPrint()`        |
+| `tableOutput()`        | `renderTable()`        |
+| `textOutput()`         | `renderText()`         |
+| `uiOutput()`           | `renderUI()`           |
+| `plotlyOutput()`       | `renderPlotly()`       |
+| `DTOutput()`           | `renderDT()`           |
+]
+
+---
+### Tell the server how to assemble inputs into outputs
+
+<span style = 'font-size:80%;'>Now that we've designed our input/output in the UI, we need to write the server instructions (i.e. write the server function) on how to actually assemble our input (body weight range via a slider input) into the output (scatter plot).</span>
+
+<span style = 'font-size:80%;'>The **server function** is defined with two arguments, `input` and `output`, both of which are list-like objects. You *must* define both of these arguments within the server function. `input` contains the values of all the different inputs at any given time, while `output` is where you'll save output objects to display in the app.</span>
+
+<span style = 'font-size:80%;'>This part can be intimidating, but if you follow these three rules, you will successfully create reactivity within your shiny app!</span>
+
+**Rules:**  
+
+.footnote[
+Read more about reactivity in [Ch.3 Basic Reactivity](https://mastering-shiny.org/basic-reactivity.html#basic-reactivity) of [Mastering Shiny](https://mastering-shiny.org/index.html).
+]
+
+--
+**1.** Save objects you want to display to `output$<id>` 
+
+<br>
+--
+**2.** Build objects to display using a `render*()` function  
+
+<br>
+--
+**3.** Use input values (from the UI) with `input$<id>`  
+
+---
+### **Rule 1:** Save objects you want to display to `output$`
+
+<span style = 'font-size:80%;'>In our **UI**, we created a placeholder for our plot output using the `plotOutput()` function and gave it an Id called `"bodySize_scatterplot"`. We will now tell our server how to generate that plot output AHHHHHH</span>
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # * previous code omitted for brevity *
+  
+  # body mass slider ----
+  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
+              value = c(3000, 4000), min = 2700, max = 6300),
+  
+  # body size plot output ----
+  plotOutput(outputId = "bodySize_scatterPlot") #<<
+  
+)
+
+# server instructions ----
+server <- function(input, output) {
+  
+  # render the scatter plot ----
+  output$bodySize_scatterPlot <- # code here #<<
+    
+}
+```
+
+.footnote[
+For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+]
+---
+### **Rule 2:** Build objects to display with `render*()`
+
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # * previous code omitted for brevity *
+  
+  # body mass slider ----
+  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
+              value = c(3000, 4000), min = 2700, max = 6300),
+  
+  # body size plot output ----
+  plotOutput(outputId = "bodySize_scatterPlot") 
+  
+)
+
+# server instructions ----
+server <- function(input, output) {
+  
+  # render the scatter plot ----
+  output$bodySize_scatterPlot <- renderPlot({ #<<
+     # code here #<<
+  }) #<<
+}
+```
+
+.footnote[
+For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+]
+
+---
+### **Rule 2:** Build objects to display with `render*()`
+
+```{r, eval = FALSE}
+# user interface ----
+ui <- fluidPage(
+  
+  # * previous code omitted for brevity *
+  
+  # body mass slider ----
+  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
+              value = c(3000, 4000), min = 2700, max = 6300),
+  
+  # body size plot output ----
+  plotOutput(outputId = "bodySize_scatterPlot")
+  
+)
+
+# server instructions ----
+server <- function(input, output) {
+  
+  # render the scatter plot ----
+  output$bodySize_scatterPlot <- renderPlot({ #<<
+     # code here #<<
+  }) #<<
+}
+```
+
+.footnote[
+For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+]
+
+---
+### **Rule 3:** Use input values (from the UI) with `input$`
+
+.footnote[
+For another example, check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+]
 ---
 class: inverse, middle, center
 
@@ -409,6 +695,7 @@ class: inverse, center, middle
 ### Additional resources
 
 * https://shiny.rstudio.com/images/shiny-cheatsheet.pdf
+* https://unleash-shiny.rinterface.com/index.html
 * https://github.com/daattali/shinyjs
 * http://rstudio.github.io/shinythemes/
 * http://rstudio.github.io/leaflet/
