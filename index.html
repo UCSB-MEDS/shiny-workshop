@@ -239,7 +239,7 @@ COME BACK TO THIS PAGE
 
 ```
 my-app
-|_app
+|_myapp # make sure the name of this directory is at least 4 characters long
   |_app.R
   |_processed_data
     |_my_data.csv
@@ -841,6 +841,49 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 class: inverse, middle, center
 
 ## <svg aria-label="Upload" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Upload</title><path d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"/></svg> Publishing your first Shiny app
+
+Sharing your Shiny app with others isn't so easy when it just lives on your computer (and your R session has to act as the server that powers it). We'll now learn how to host your app using [shinyapps.io](https://www.shinyapps.io/), a free service for sharing your Shiny apps online.
+
+---
+### Connect your shinyapps.io account to RStudio
+
+&lt;span style = 'font-size:80%;'&gt;Go to [shinyapps.io](https://www.shinyapps.io/) and login or create an account (if you don't already have one).&lt;/span&gt;
+
+&lt;span style = 'font-size:80%;'&gt;To use shinyapps.io, you first need to link your account with RStudio on your computer. Follow the instructions on shinyapps.io when you first create your account to install `{rsconnect}` and authorize your account:&lt;/span&gt;
+
+.center[
+&lt;img src="media/shinyapps_setup.png" width="80%" height="80%" /&gt;
+]
+
+---
+### Deploy your app to shinyapps.io
+
+&lt;span style = 'font-size:80%;'&gt;Once your account has been authorized, run `rsconnect::deployApp()` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",&lt;img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:60px;height:20px;"/&gt;, button in the top right corner of your app.&lt;/span&gt;
+
+&lt;span style = 'font-size:80%;'&gt;Once deployed, a browser will open to your application. Mine can be found at: https://samanthacsik.shinyapps.io/myapp/&lt;/span&gt;
+
+.center[
+&lt;img src="media/deployed_app_v1.png" title="My app open in a browswer at https://samanthacsik.shinyapps.io/myapp/" alt="My app open in a browswer at https://samanthacsik.shinyapps.io/myapp/" width="70%" height="70%" /&gt;
+]
+
+???
+You will get this error if your app directory name has less than 4 characters long: `Request Validation Error: : field 'name': is invalid application name. application name must be at least 4 characters, and may only contain letters, numbers, dashes and hyphens.`
+
+---
+### The shinyapps.io dashboard
+
+&lt;span style = 'font-size:80%;'&gt;Your shinyapps.io dashboard provides tons of information about you application(s) metrics, instance (the virtualized server that your app is hosted on) and worker (a special type of R process that an Application Instance runs to service requests to an application) settings, plan management, and more. The free plan (the plan we're using here today) allows you to deploy **five** Shiny apps.&lt;/span&gt;
+
+.center[
+&lt;img src="media/shinyapps.io_dashboard.png" title="A view of a shinyapps.io dashboard" alt="A view of a shinyapps.io dashboard" width="70%" height="70%" /&gt;
+]
+
+&lt;span style = 'font-size:80%;'&gt;Check out the [shinyapps.io user guide](https://docs.rstudio.com/shinyapps.io/index.html) by the RStudio team for more information on hosting your apps on shinyapps.io.&lt;/span&gt;
+
+---
+### Other ways to host your Shiny apps
+
+[add info here]
 
 ---
 class: inverse, center, middle

@@ -280,7 +280,7 @@ COME BACK TO THIS PAGE
 
 ```
 my-app
-|_app
+|_myapp # make sure the name of this directory is at least 4 characters long
   |_app.R
   |_processed_data
     |_my_data.csv
@@ -885,6 +885,55 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 class: inverse, middle, center
 
 ## `r fontawesome::fa("upload", fill = "#93C6C2", a11y = "sem")` Publishing your first Shiny app
+
+Sharing your Shiny app with others isn't so easy when it just lives on your computer (and your R session has to act as the server that powers it). We'll now learn how to host your app using [shinyapps.io](https://www.shinyapps.io/), a free service for sharing your Shiny apps online.
+
+---
+### Connect your shinyapps.io account to RStudio
+
+<span style = 'font-size:80%;'>Go to [shinyapps.io](https://www.shinyapps.io/) and login or create an account (if you don't already have one).</span>
+
+<span style = 'font-size:80%;'>To use shinyapps.io, you first need to link your account with RStudio on your computer. Follow the instructions on shinyapps.io when you first create your account to install `{rsconnect}` and authorize your account:</span>
+
+.center[
+```{r, out.width = '80%', out.height = '80%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/shinyapps_setup.png")
+```
+]
+
+---
+### Deploy your app to shinyapps.io
+
+<span style = 'font-size:80%;'>Once your account has been authorized, run `rsconnect::deployApp()` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",<img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:60px;height:20px;"/>, button in the top right corner of your app.</span>
+
+<span style = 'font-size:80%;'>Once deployed, a browser will open to your application. Mine can be found at: https://samanthacsik.shinyapps.io/myapp/</span>
+
+.center[
+```{r, out.width = '70%', out.height = '70%', echo = FALSE, fig.alt = "My app open in a browswer at https://samanthacsik.shinyapps.io/myapp/"}
+knitr::include_graphics("media/deployed_app_v1.png")
+```
+]
+
+???
+You will get this error if your app directory name has less than 4 characters long: `Request Validation Error: : field 'name': is invalid application name. application name must be at least 4 characters, and may only contain letters, numbers, dashes and hyphens.`
+
+---
+### The shinyapps.io dashboard
+
+<span style = 'font-size:80%;'>Your shinyapps.io dashboard provides tons of information about you application(s) metrics, instance (the virtualized server that your app is hosted on) and worker (a special type of R process that an Application Instance runs to service requests to an application) settings, plan management, and more. The free plan (the plan we're using here today) allows you to deploy **five** Shiny apps.</span>
+
+.center[
+```{r, out.width = '70%', out.height = '70%', echo = FALSE, fig.alt = "A view of a shinyapps.io dashboard"}
+knitr::include_graphics("media/shinyapps.io_dashboard.png")
+```
+]
+
+<span style = 'font-size:80%;'>Check out the [shinyapps.io user guide](https://docs.rstudio.com/shinyapps.io/index.html) by the RStudio team for more information on hosting your apps on shinyapps.io.</span>
+
+---
+### Other ways to host your Shiny apps
+
+[add info here]
 
 ---
 class: inverse, center, middle
