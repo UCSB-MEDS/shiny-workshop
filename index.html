@@ -835,14 +835,27 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 ---
 ### **Coding Exercise:** Add another reactive widget to your app!
 
-[directions here]
-* add `library(DT)`
+&lt;span style = 'font-size:80%;'&gt;Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.&lt;/span&gt;
 
-* https://shiny.rstudio.com/articles/datatables.html
-* https://rstudio.github.io/DT/shiny.html
-* https://yihui.shinyapps.io/DT-rows/
+.center[
+&lt;img src="media/DT_datatable.gif" title="A gif of __." alt="A gif of __." width="90%" height="90%" /&gt;
+]
 
+---
+### **Coding Exercise:** Add another reactive widget to your app!
 
+&lt;span style = 'font-size:80%;'&gt;Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.&lt;/span&gt;
+
+&lt;span style = 'font-size:90%;'&gt;**To Do:**&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Add a `DT` data table to your Shiny app that displays the `penguins` data set from the `{palmerpenguins}` R package&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Update the page length to display 5 rows (rather than the default 10 rows)&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Add an *italicized* caption above the top left corner of your table&lt;/span&gt;
+
+&lt;span style = 'font-size:90%;'&gt;**Some tips to get you started:**&lt;/pspan&gt;
+* &lt;span style = 'font-size:80%;'&gt;Remember, it can help to draft your R object (in this case, a `DT::datatable`) in a separate script&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Think carefully about your inputs/outputs&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Check out this helpful article, [How to use DataTables in a Shiny App](https://shiny.rstudio.com/articles/datatables.html), by Yihui Xie, for a minimal reproducible example and some info on how to get started on customizing your table further&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Explore the [`DT` documentation](https://rstudio.github.io/DT/) to learn how to add table captions&lt;/span&gt;
 ---
 class: inverse, middle, center
 
