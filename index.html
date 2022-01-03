@@ -338,7 +338,7 @@ Here, we'll add our first reactive object to our app and establish a general Shi
 ---
 ### Let's first add some text to our app
 
-&lt;span style = 'font-size:80%;'&gt;We'll do this in the **UI** within `fluidPage()`, a layout function that sets up the basic visual structure of the page and scales components in real time to fill all available browser width. Add a title and subtitle to your app, save, and run:&lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;We'll do this in the **UI** within `fluidPage()`, a layout function that sets up the basic visual structure of the page and scales components in real time to fill all available browser width. Add a title and subtitle to your app (*be sure to separate each with a comma, `,`*), save, and run:&lt;/span&gt;
 
 
 ```r
@@ -615,8 +615,9 @@ server &lt;- function(input, output) {
 library(palmerpenguins)
 library(tidyverse)
 
-penguin_scatterplot &lt;- ggplot(na.omit(penguins), 
-                              aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species)) +
+ggplot(na.omit(penguins), 
+       aes(x = flipper_length_mm, y = bill_length_mm, 
+           color = species, shape = species)) +
   geom_point() +
   scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
   scale_shape_manual(values = c(19, 17, 15)) +
@@ -627,9 +628,7 @@ penguin_scatterplot &lt;- ggplot(na.omit(penguins),
         legend.background = element_rect(color = "white"))
 ```
 
-.center[
-&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" /&gt;
-]
+&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### &lt;span style = 'font-size:90%;'&gt;**Rule 2:** Build objects you want to display with `render*()`&lt;/span&gt;
@@ -657,10 +656,13 @@ server &lt;- function(input, output) {
   # render the scatter plot ----
 * output$bodyMass_scatterPlot &lt;- renderPlot({
 *     # plot
-*     ggplot(na.omit(penguins), aes(x = flipper_length_mm, y = bill_length_mm, color = species)) +
+*     ggplot(na.omit(penguins),
+*            aes(x = flipper_length_mm, y = bill_length_mm,
+*                color = species, shape = species)) +
 *       geom_point() +
 *       scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
-*       labs(x = "Flipper length (mm)", y = "Bill length (mm)", color = "Penguin species") +
+*       labs(x = "Flipper length (mm)", y = "Bill length (mm)",
+*            color = "Penguin species", shape = "Penguin species") +
 *       theme_minimal() +
 *       theme(legend.position = c(0.85, 0.2),
 *             legend.background = element_rect(color = "white"))
@@ -690,8 +692,8 @@ server &lt;- function(input, output) {
 
 
 ```r
-body_mass_dat &lt;- penguins %&gt;%
-  filter(body_mass_g %in% 3000:4000)
+body_mass_filtered &lt;- penguins %&gt;%
+  filter(body_mass_g %in% 3000:4000) 
 ```
 
 --
@@ -703,9 +705,9 @@ body_mass_dat &lt;- penguins %&gt;%
 
 ```r
 # plot new, filtered data
-penguin_scatterplot &lt;- ggplot(na.omit(body_mass_dat), 
-                              aes(x = flipper_length_mm, y = bill_length_mm, 
-                                  color = species, shape = species)) +
+ggplot(na.omit(body_mass_filtered), # plot `body_mass_filtered' df rather than 'penguins' df
+       aes(x = flipper_length_mm, y = bill_length_mm, 
+           color = species, shape = species)) +
   geom_point() +
   scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
   scale_shape_manual(values = c(19, 17, 15)) +
@@ -716,9 +718,7 @@ penguin_scatterplot &lt;- ggplot(na.omit(body_mass_dat),
         legend.background = element_rect(color = "white"))
 ```
 
-.center[
-&lt;img src="index_files/figure-html/unnamed-chunk-32-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" /&gt;
-]
+&lt;img src="index_files/figure-html/unnamed-chunk-30-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Which part of our code needs to be updated when a user changes the slider range input?
@@ -836,6 +836,12 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 ### **Coding Exercise:** Add another reactive widget to your app!
 
 [directions here]
+* add `library(DT)`
+
+* https://shiny.rstudio.com/articles/datatables.html
+* https://rstudio.github.io/DT/shiny.html
+* https://yihui.shinyapps.io/DT-rows/
+
 
 ---
 class: inverse, middle, center
@@ -858,7 +864,7 @@ Sharing your Shiny app with others isn't so easy when it just lives on your comp
 ---
 ### Deploy your app to shinyapps.io
 
-&lt;span style = 'font-size:80%;'&gt;Once your account has been authorized, run `rsconnect::deployApp()` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",&lt;img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:60px;height:20px;"/&gt;, button in the top right corner of your app.&lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;Once your account has been authorized, run `rsconnect::deployApp()` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",&lt;img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:65px;height:20px;"/&gt;, button in the top right corner of your app.&lt;/span&gt;
 
 &lt;span style = 'font-size:80%;'&gt;Once deployed, a browser will open to your application. Mine can be found at: https://samanthacsik.shinyapps.io/myapp/&lt;/span&gt;
 
@@ -872,7 +878,7 @@ You will get this error if your app directory name has less than 4 characters lo
 ---
 ### The shinyapps.io dashboard
 
-&lt;span style = 'font-size:80%;'&gt;Your shinyapps.io dashboard provides tons of information about you application(s) metrics, instance (the virtualized server that your app is hosted on) and worker (a special type of R process that an Application Instance runs to service requests to an application) settings, plan management, and more. The free plan (the plan we're using here today) allows you to deploy **five** Shiny apps.&lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;Your shinyapps.io dashboard provides tons of information about your application(s) metrics, instance (the virtualized server that your app is hosted on) and worker (a special type of R process that an Application Instance runs to service requests to an application) settings, plan management, and more. The free plan (the plan we're using here today) allows you to deploy **five** Shiny apps.&lt;/span&gt;
 
 .center[
 &lt;img src="media/shinyapps.io_dashboard.png" title="A view of a shinyapps.io dashboard" alt="A view of a shinyapps.io dashboard" width="70%" height="70%" /&gt;
@@ -884,6 +890,13 @@ You will get this error if your app directory name has less than 4 characters lo
 ### Other ways to host your Shiny apps
 
 [add info here]
+
+---
+class: inverse, center, middle
+
+## <svg aria-label="th-large" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>th-large</title><path d="M296 32h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24H296c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24zm-80 0H24C10.745 32 0 42.745 0 56v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24zM0 296v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24V296c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24V296c0-13.255-10.745-24-24-24H296c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"/></svg> Layouts &amp; Themes
+
+[description here]
 
 ---
 class: inverse, center, middle

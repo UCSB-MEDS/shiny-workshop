@@ -380,7 +380,7 @@ Here, we'll add our first reactive object to our app and establish a general Shi
 ---
 ### Let's first add some text to our app
 
-<span style = 'font-size:80%;'>We'll do this in the **UI** within `fluidPage()`, a layout function that sets up the basic visual structure of the page and scales components in real time to fill all available browser width. Add a title and subtitle to your app, save, and run:</span>
+<span style = 'font-size:80%;'>We'll do this in the **UI** within `fluidPage()`, a layout function that sets up the basic visual structure of the page and scales components in real time to fill all available browser width. Add a title and subtitle to your app (*be sure to separate each with a comma, `,`*), save, and run:</span>
 
 ```{r, eval = FALSE}
 # user interface ----
@@ -647,13 +647,14 @@ server <- function(input, output) {
 
 <span style = 'font-size:80%;'>**Tip:** I find it easier to experiment and draft my objects (e.g. plots) first in a separate script, then copy the code over to the server after. I want to make a plot that looks like this:</span>
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = TRUE, fig.align = 'center', out.width = '60%', out.height = '70%', fig.alt = "A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length."}
 # practice_penguin_outputs.R
 library(palmerpenguins)
 library(tidyverse)
 
-penguin_scatterplot <- ggplot(na.omit(penguins), 
-                              aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species)) +
+ggplot(na.omit(penguins), 
+       aes(x = flipper_length_mm, y = bill_length_mm, 
+           color = species, shape = species)) +
   geom_point() +
   scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
   scale_shape_manual(values = c(19, 17, 15)) +
@@ -663,12 +664,6 @@ penguin_scatterplot <- ggplot(na.omit(penguins),
   theme(legend.position = c(0.85, 0.2),
         legend.background = element_rect(color = "white"))
 ```
-
-.center[
-```{r, echo = FALSE, eval = TRUE, out.width = '60%', out.height = '70%', fig.alt = "A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length."}
-penguin_scatterplot
-```
-]
 
 ---
 ### <span style = 'font-size:90%;'>**Rule 2:** Build objects you want to display with `render*()`</span>
@@ -695,10 +690,13 @@ server <- function(input, output) {
   # render the scatter plot ----
   output$bodyMass_scatterPlot <- renderPlot({ #<<
       # plot #<<   
-      ggplot(na.omit(penguins), aes(x = flipper_length_mm, y = bill_length_mm, color = species)) + #<<
+      ggplot(na.omit(penguins), #<<
+             aes(x = flipper_length_mm, y = bill_length_mm, #<<
+                 color = species, shape = species)) + #<<
         geom_point() + #<<
         scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) + #<<
-        labs(x = "Flipper length (mm)", y = "Bill length (mm)", color = "Penguin species") + #<<
+        labs(x = "Flipper length (mm)", y = "Bill length (mm)", #<<
+             color = "Penguin species", shape = "Penguin species") + #<<
         theme_minimal() + #<<
         theme(legend.position = c(0.85, 0.2), #<<
               legend.background = element_rect(color = "white")) #<<
@@ -731,8 +729,8 @@ knitr::include_graphics("media/app_with_staticPlot2.png")
 --
 
 ```{r, echo = TRUE, eval = TRUE}
-body_mass_dat <- penguins %>%
-  filter(body_mass_g %in% 3000:4000)
+body_mass_filtered <- penguins %>%
+  filter(body_mass_g %in% 3000:4000) 
 ```
 
 --
@@ -741,11 +739,11 @@ body_mass_dat <- penguins %>%
 
 --
 
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = TRUE, eval = TRUE, fig.align = 'center', out.width = '60%', out.height = '70%', fig.alt = "A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length."}
 # plot new, filtered data
-penguin_scatterplot <- ggplot(na.omit(body_mass_dat), 
-                              aes(x = flipper_length_mm, y = bill_length_mm, 
-                                  color = species, shape = species)) +
+ggplot(na.omit(body_mass_filtered), # plot `body_mass_filtered' df rather than 'penguins' df
+       aes(x = flipper_length_mm, y = bill_length_mm, 
+           color = species, shape = species)) +
   geom_point() +
   scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
   scale_shape_manual(values = c(19, 17, 15)) +
@@ -755,12 +753,6 @@ penguin_scatterplot <- ggplot(na.omit(body_mass_dat),
   theme(legend.position = c(0.85, 0.2),
         legend.background = element_rect(color = "white"))
 ```
-
-.center[
-```{r, echo = FALSE, eval = TRUE, out.width = '60%', out.height = '70%', fig.alt = "A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length."}
-penguin_scatterplot
-```
-]
 
 ---
 ### Which part of our code needs to be updated when a user changes the slider range input?
@@ -880,6 +872,12 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 ### **Coding Exercise:** Add another reactive widget to your app!
 
 [directions here]
+* add `library(DT)`
+
+* https://shiny.rstudio.com/articles/datatables.html
+* https://rstudio.github.io/DT/shiny.html
+* https://yihui.shinyapps.io/DT-rows/
+
 
 ---
 class: inverse, middle, center
@@ -904,7 +902,7 @@ knitr::include_graphics("media/shinyapps_setup.png")
 ---
 ### Deploy your app to shinyapps.io
 
-<span style = 'font-size:80%;'>Once your account has been authorized, run `rsconnect::deployApp()` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",<img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:60px;height:20px;"/>, button in the top right corner of your app.</span>
+<span style = 'font-size:80%;'>Once your account has been authorized, run `rsconnect::deployApp()` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",<img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:65px;height:20px;"/>, button in the top right corner of your app.</span>
 
 <span style = 'font-size:80%;'>Once deployed, a browser will open to your application. Mine can be found at: https://samanthacsik.shinyapps.io/myapp/</span>
 
@@ -920,7 +918,7 @@ You will get this error if your app directory name has less than 4 characters lo
 ---
 ### The shinyapps.io dashboard
 
-<span style = 'font-size:80%;'>Your shinyapps.io dashboard provides tons of information about you application(s) metrics, instance (the virtualized server that your app is hosted on) and worker (a special type of R process that an Application Instance runs to service requests to an application) settings, plan management, and more. The free plan (the plan we're using here today) allows you to deploy **five** Shiny apps.</span>
+<span style = 'font-size:80%;'>Your shinyapps.io dashboard provides tons of information about your application(s) metrics, instance (the virtualized server that your app is hosted on) and worker (a special type of R process that an Application Instance runs to service requests to an application) settings, plan management, and more. The free plan (the plan we're using here today) allows you to deploy **five** Shiny apps.</span>
 
 .center[
 ```{r, out.width = '70%', out.height = '70%', echo = FALSE, fig.alt = "A view of a shinyapps.io dashboard"}
@@ -934,6 +932,13 @@ knitr::include_graphics("media/shinyapps.io_dashboard.png")
 ### Other ways to host your Shiny apps
 
 [add info here]
+
+---
+class: inverse, center, middle
+
+## `r fontawesome::fa("th-large", fill = "#93C6C2", a11y = "sem")` Layouts & Themes
+
+[description here]
 
 ---
 class: inverse, center, middle
