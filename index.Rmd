@@ -936,7 +936,7 @@ knitr::include_graphics("media/shinyapps.io_dashboard.png")
 ---
 class: inverse, center, middle
 
-## `r fontawesome::fa("th-large", fill = "#93C6C2", a11y = "sem")` Layouts & Themes
+## `r fontawesome::fa("columns", fill = "#93C6C2", a11y = "sem")` Layouts & themes
 
 [description here]
 
@@ -944,6 +944,27 @@ class: inverse, center, middle
 class: inverse, center, middle
 
 ## `r fontawesome::fa("bug", fill = "#93C6C2", a11y = "sem")` Troubleshooting & debugging your Shiny app
+
+---
+class: inverse, center, middle
+
+## `r fontawesome::fa("tachometer-alt", fill = "#93C6C2", a11y = "sem")` Creating dashboards
+
+[description here, {shinydashboards}]
+
+---
+class: inverse, center, middle
+
+##`r fontawesome::fa("docker", fill = "#93C6C2", a11y = "sem")` Using Docker to ____
+
+[description here]
+
+---
+class: inverse, center, middle
+
+##`r fontawesome::fa("file", fill = "#93C6C2", a11y = "sem")` File formats & other considerations
+
+[description here; .rds files, caching, CSS stuff]
 
 ---
 class: inverse, center, middle
