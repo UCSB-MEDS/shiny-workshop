@@ -76,7 +76,7 @@ Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2"
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have the required R packages installed. You can install/update them all at once by running:</span>  
 
 ```{r, echo = TRUE, eval = FALSE}
-install.packages(c("shiny", "tidyverse", "palmerpenguins", "shinythemes"))
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "bslib", "thematic"))
 ```
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have downloaded the Palmer weather time series data from the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf) (`table_28.csv`)</span>
@@ -397,7 +397,7 @@ ui <- fluidPage(
 
 --
 
-<span style = 'font-size:80%;'>Recall that the UI is actually just an HTML document. We can add static HTML elements using [**tags**](https://shiny.rstudio.com/articles/tag-glossary.html), a list of functions that parallel common HTML tages (e.g. `tags$h1()`) The most common tags also have wrapper functions (e.g. `h1()`). We can use some of these tags to spruce up our text:</span>
+<span style = 'font-size:80%;'>Recall that the UI is actually just an HTML document. We can add static HTML elements using [tags](https://shiny.rstudio.com/articles/tag-glossary.html), a list of functions that parallel common HTML tages (e.g. `tags$h1()`) The most common tags also have wrapper functions (e.g. `h1()`). We can use some of these tags to spruce up our text:</span>
 
 ```{r, eval = FALSE}
 # user interface ----
@@ -417,7 +417,7 @@ ui <- fluidPage(
 
 <span style = 'font-size:80%;'>Next, we will begin to add some inputs and outputs to our `fluidPage()` (anything that you put into `fluidPage()` will end up in our app...and we want inputs and outputs in our app!).</span>
 
-<span style = 'font-size:80%;'>**Inputs** are the things that users can interact with (e.g. toggle, slide) and provide values to your app. The Input functions below correspond to the widgets you see on slide #8. **Outputs** are the R objects that your user sees (e.g. tables, plots) and are what respond when a user interacts with/changes an input value.</span>
+<span style = 'font-size:80%;'>**Inputs** are the things that users can interact with (e.g. toggle, slide) and provide values to your app. The Input functions below correspond to the widgets you see on [slide #8](https://ucsb-meds.github.io/shiny-workshop/#8). **Outputs** are the R objects that your user sees (e.g. tables, plots) and are what respond when a user interacts with/changes an input value.</span>
 
 .pull-left[
 **[Inputs functions:](https://mastering-shiny.org/basic-ui.html#inputs)**  
@@ -503,7 +503,7 @@ Some examples:
 ```{r, eval = FALSE}
 plotOutput(outputId = "bodyMass_plot")
 
-dataTableOutput(outputId = "bodyMass_dt")
+dataTableOutput(outputId = "penguin_data")
 ```
 
 ---
@@ -560,7 +560,7 @@ knitr::include_graphics("media/output_placeholder.png")
 ---
 ### Tell the server how to assemble inputs into outputs
 
-<span style = 'font-size:80%;'>Now that we've designed our input/output in the UI, we need to write the server instructions (i.e. write the server function) on how to actually assemble our input (body weight range via a slider input) into the output (scatter plot).</span>
+<span style = 'font-size:80%;'>Now that we've designed our input/output in the UI, we need to write the server instructions (i.e. write the server function) on how to actually assemble our input (body mass range via a slider input) into the output (scatter plot).</span>
 
 <span style = 'font-size:80%;'>The **server function** is defined with two arguments, `input` and `output`, both of which are list-like objects. You *must* define both of these arguments within the server function. `input` contains the values of all the different inputs at any given time, while `output` is where you'll save output objects to display in the app.</span>
 
@@ -724,7 +724,7 @@ knitr::include_graphics("media/app_with_staticPlot2.png")
 ---
 ### Let's first practice in our separate script
 
-<span style = 'font-size:70%;'>First, create a new df where we filter `body_mass_g` observations for values within a specific range:</span>
+<span style = 'font-size:70%;'>First, create a new df where we filter the `body_mass_g` column for observations within a specific range of values:</span>
 
 --
 
@@ -804,7 +804,7 @@ ui <- fluidPage(
   # ~ previous code omitted for brevity ~
   
   # body mass slider ----
-  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
+  sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):", #<<
               value = c(3000, 4000), min = 2700, max = 6300),
   
   # body mass plot output ----
@@ -899,6 +899,8 @@ knitr::include_graphics("media/DT_datatable.gif")
 ---
 ### **Coding Exercise:** Solution for adding a `DT` table
 
+<span style = 'font-size:80%;'>**Note:** No `*Input()` is needed here.</span>
+
 ```{r}
 # user interface ----
 ui <- fluidPage(
@@ -919,7 +921,6 @@ server <- function(input, output) {
   })
 }
 ```
-
 
 ---
 class: inverse, middle, center
@@ -1207,7 +1208,7 @@ knitr::include_graphics("media/ex_fluidRows.png")
 ]
 
 ---
-### **Example 2:** a navigation bar with `tabPanel()`s and `tabsetPanel()`s
+### **Example 2:** a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s
 
 ```{r, eval = FALSE, echo = TRUE}
 # load packages ----
@@ -1244,7 +1245,7 @@ shinyApp(ui = ui, server = server)
 ```
 
 ---
-### **Example 2:** a navigation bar with `tabPanel()`s and `tabsetPanel()`s
+### **Example 2:** a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s
 
 <span style = 'font-size:80%;'>The application built using the code on the previous slide:</span>
 
@@ -1263,11 +1264,11 @@ knitr::include_graphics("media/ex_navbar_tabset.gif")
 
 **Some tips to get you started:**
 * <span style = 'font-size:80%;'>If you have not yet done so, add comments or text to your layout functions specifying which elements should go where (e.g. `# scatterplot sliderInput goes here`) </span>
-* <span style = 'font-size:80%;'>Copy inputs and outputs from our original app (the one build just using `fluidPage()` to contain all of our elements) and paste them into the new application's layout function framework</span>
+* <span style = 'font-size:80%;'>Copy inputs and outputs from our original app (the one built just using `fluidPage()` to contain all of our elements) and paste them into the new application's layout function framework</span>
 * <span style = 'font-size:80%;'>Be mindful of `()` when copying/pasting -- make sure you don't leave any behind by accident (**Tip:** enable Rainbow Parentheses (under 'Code' in the menu bar) if you haven't already)</span>
 * <span style = 'font-size:80%;'>Remember to separate elements with a `,`</span>
 
-<span style = 'font-size:80%;'>If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #54]() (*Example 2: a navigation bar with `tabPanel()`s and `tabsetPanel()`s*) </span>
+<span style = 'font-size:80%;'>If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #54](https://ucsb-meds.github.io/shiny-workshop/#72) (*Example 2: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) </span>
 
 ---
 ### My app (if you're following along with this example):
@@ -1350,6 +1351,101 @@ server <- function(input, output) {
 knitr::include_graphics("media/reactive_app_v2.gif")
 ```
 ]
+
+---
+### Using `{bslib}` for themeing Shiny apps
+
+<span style = 'font-size:80%;'>There are lots of approaches (and packages) for customizing the appearance of your Shiny app (Hadley Wickham lists out a handful in [Ch 6.4](https://mastering-shiny.org/action-layout.html#bootstrap) of Mastering Shiny). Here, we'll use the [`{bslib}` package](https://rstudio.github.io/bslib/), which provides tools for customizing [Bootstrap themes](https://getbootstrap.com/docs/4.6/getting-started/theming/) from R.</span> 
+
+<span style = 'font-size:80%;'>By default, Shiny uses the Bootstrap v3 theme (which is not so exciting...). Change the theme to a slightly more exciting Bootstrap v4 theme by setting the `theme` argument of `fluidPage()` to `bslib::bs_theme()`.</span>
+```{r, echo = TRUE, eval = FALSE}
+ui <- fluidPage(
+  theme = bslib::bs_theme()
+)
+```
+
+--
+<span style = 'font-size:80%;'>Alternatively, set a pre-made [bootswatch](https://bootswatch.com/) theme using the `bootswatch` argument (type `bootswatch_themes()` into your console to get a list of theme names):</span>
+```{r, eval = FALSE, echo = TRUE}
+ui <- fluidPage(
+  theme = bslib::bs_theme(bootswatch = "darkly")
+)
+```
+
+---
+### Using `{bslib}` for themeing Shiny apps
+
+<span style = 'font-size:80%;'>If you're feeling creative, you can fully customize your own theme! Read the [`bslib` vignette](https://rstudio.github.io/bslib/articles/bslib.html) for detailed instructions.</span> 
+```{r, eval = FALSE, echo = TRUE}
+ui <- fluidPage(
+  theme = bslib::bs_theme(
+    bg = "#101010", # background color
+    fg = "#FDF7F7", # foreground color
+    primary = "#ED79F9", # primary accent color
+    base_font = font_google("Prompt"),
+    code_font = font_google("JetBrains Mono"))
+  )
+```
+
+--
+
+<span style = 'font-size:80%;'>Be sure to check out the *super cool* interactive themeing widget to test custom color/font/etc. combos before committing by running `bs_theme_preview()` in your console.</span>
+
+.center[
+```{r, out.width = '60%', out.height = '60%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/bs_theme_preview.gif")
+```
+]
+
+---
+### Simplify themeing plots with `{thematic}`
+
+<span style = 'font-size:80%;'>Call `thematic_shiny()` from the [`{thematic}` package](https://rstudio.github.io/thematic/index.html) before launching your app to generate plotOutputs that reflect your application's `bs_theme()`. For example (taken from [Carson Seivert's talk](https://talks.cpsievert.me/20201112/#1) at NHS-R Conference 2020):</span>
+
+<span style = 'font-size:80%;'>**Without calling `thematic_shiny()`:**</span>
+```{r, eval = FALSE, echo = TRUE}
+fluidPage(
+  theme = bs_theme(bg = "#002B36", fg = "#EEE8D5", primary = "#2AA198", 
+                   base_fonts = font_google(("Pacifico")),
+  tabsetPanel(type = "pills", 
+              tabPanel("ggplot", plotOutput("ggplot")), 
+              tabPanel("lattice", plotOutput("lattice")), 
+              tabPanel("base", plotOutput("base")))
+)
+```
+
+.center[
+```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/before_thematic.png")
+```
+]
+
+---
+### Simplify themeing plots with `{thematic}`
+
+<span style = 'font-size:80%;'>Call `thematic_shiny()` from the [`{thematic}` package](https://rstudio.github.io/thematic/index.html) before launching your app to generate plotOutputs that reflect your application's `bs_theme()`. For example (taken from [Carson Seivert's talk](https://talks.cpsievert.me/20201112/#1) at NHS-R Conference 2020):</span>
+
+<span style = 'font-size:80%;'>**With calling `thematic_shiny()`:**</span>
+```{r, eval = FALSE, echo = TRUE}
+thematic::thematic_shiny() #<<
+fluidPage(
+  theme = bs_theme(bg = "#002B36", fg = "#EEE8D5", primary = "#2AA198", 
+                   base_fonts = font_google("Pacifico")),
+  tabsetPanel(type = "pills", 
+              tabPanel("ggplot", plotOutput("ggplot")), 
+              tabPanel("lattice", plotOutput("lattice")), 
+              tabPanel("base", plotOutput("base")))
+)
+```
+
+.center[
+```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/after_thematic.png")
+```
+]
+
+---
+### Republish our app
 
 ---
 class: inverse, center, middle
