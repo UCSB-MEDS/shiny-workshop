@@ -431,7 +431,7 @@ ui <- fluidPage(
 * <span style = 'font-size:80%;'>`numericInput()`</span>
 * <span style = 'font-size:80%;'>`passwordInput()`</span>
 * <span style = 'font-size:80%;'>`radioButtons()`</span>
-* <span style = 'font-size:80%;'>`selectBox()`</span>
+* <span style = 'font-size:80%;'>`selectInput()`</span>
 * <span style = 'font-size:80%;'>`sliderInput()`</span>
 * <span style = 'font-size:80%;'>`submitButton()`</span> 
 * <span style = 'font-size:80%;'>`textInput()`</span>
@@ -474,7 +474,7 @@ selectInput(inputId = "island", label = "Choose and island:", ...)
 # user interface ----
 ui <- fluidPage(
   
-  # * previous code omitted for brevity *
+  # ~ previous code omitted for brevity ~
   
   # body mass slider input ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
@@ -514,7 +514,7 @@ dataTableOutput(outputId = "bodyMass_dt")
 # user interface ----
 ui <- fluidPage(
   
-  # * previous code omitted for brevity *
+  # ~ previous code omitted for brevity ~
   
   # body mass slider input ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
@@ -592,7 +592,7 @@ Read more about reactivity in [Ch.3 Basic Reactivity](https://mastering-shiny.or
 # user interface ----
 ui <- fluidPage(
   
-  # * previous code omitted for brevity *
+  # ~ previous code omitted for brevity ~
   
   # body mass slider ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
@@ -621,7 +621,7 @@ server <- function(input, output) {
 # user interface ----
 ui <- fluidPage(
   
-  # * previous code omitted for brevity *
+  # ~ previous code omitted for brevity ~
   
   # body mass slider ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
@@ -673,7 +673,7 @@ ggplot(na.omit(penguins),
 # user interface ----
 ui <- fluidPage(
   
-  # * previous code omitted for brevity *
+  # ~ previous code omitted for brevity ~
   
   # body mass slider ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
@@ -801,7 +801,7 @@ knitr::include_graphics("media/3725_5191.png")
 # user interface ----
 ui <- fluidPage(
   
-  # * previous code omitted for brevity *
+  # ~ previous code omitted for brevity ~
   
   # body mass slider ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
@@ -874,7 +874,7 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 <span style = 'font-size:80%;'>Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.</span>
 
 .center[
-```{r, out.width = '90%', out.height = '90%', echo = FALSE, fig.alt = "A gif of __."}
+```{r, out.width = '90%', out.height = '90%', echo = FALSE, fig.alt = "A gif of an interactive DT data table, displaying the penguins data set from the palmerpenguins R package. Five rows of data (out of the 344 rows) are displayed as the default. The cursor first moves to bottom of the table to click on page 2 then page 3 to display rows 6-10 then 11-15. The cursor is then moved to the 'Previous' button, which is directly to the left the page numbers and clicks twice to move back to the first page, displaying rows 1-5 again. The cursor then moves to a small drop down selector at the top left corner of the table which allows the user to select the number of entries (i.e. rows) to display. The user changes the selection from the default 5 rows to 10 rows. The cursor is then used to click into the 'Search' box at the top right of the table. The user types in 'Gentoo' to filter for any instances of 'Gentoo' throughout the displayed data table. The user deletes the word 'Gentoo' from the search box and the data returns to displaying all unfiltered data. The cursor is moved to the column labeled 'bill_depth_mm' and clicks on a small upward facing carrot to the right of the column name. This arranges the values from smallest to largest. It then clicks on the downward facing carrot to arrange the values from largest to smallest. Finally, the cursor is used to click on the upward facing carrot next to the 'species' column name to arrange species names in alphabetical order. Clicking the downward facing carrot arranges obserations in reverse alphabetical order, though the gif cuts out before the results are fully displayed."}
 knitr::include_graphics("media/DT_datatable.gif")
 ```
 ]
@@ -889,11 +889,38 @@ knitr::include_graphics("media/DT_datatable.gif")
 * <span style = 'font-size:80%;'>Update the page length to display 5 rows (rather than the default 10 rows)</span>
 * <span style = 'font-size:80%;'>Add an *italicized* caption above the top left corner of your table</span>
 
-<span style = 'font-size:90%;'>**Some tips to get you started:**</pspan>
+<span style = 'font-size:90%;'>**Some tips to get you started:**</span>
 * <span style = 'font-size:80%;'>Remember, it can help to draft your R object (in this case, a `DT::datatable`) in a separate script</span>
 * <span style = 'font-size:80%;'>Think carefully about your inputs/outputs</span>
+* <span style = 'font-size:80%;'>Both `shiny` and `DT` packages have functions named `dataTableOutput()` and `renderDataTable()`. `DT::renderDataTable()` allows you to create both server-side and client-side DataTables and supports additional DataTables features while `shiny::renderDataTable()` only provides server-side DataTables. Be sure to specify that you want to use functions from the `DT` package.</span>
 * <span style = 'font-size:80%;'>Check out this helpful article, [How to use DataTables in a Shiny App](https://shiny.rstudio.com/articles/datatables.html), by Yihui Xie, for a minimal reproducible example and some info on how to get started on customizing your table further</span>
 * <span style = 'font-size:80%;'>Explore the [`DT` documentation](https://rstudio.github.io/DT/) to learn how to add table captions</span>
+
+---
+### **Coding Exercise:** Solution for adding a `DT` table
+
+```{r}
+# user interface ----
+ui <- fluidPage(
+  # ~ previous code omitted for brevity ~
+  # penguin data table output
+  DT::dataTableOutput(outputId = "penguin_data")
+)
+# server instructions ----
+server <- function(input, output) {
+  #  ~ previous code omitted for brevity ~
+  # render the penguins data table ----
+  output$penguin_data <- DT::renderDataTable({
+    DT::datatable(penguins,
+                  options = list(pageLength = 5),
+                  caption = htmltools::tags$caption(
+                    style = 'caption-side: top; text-align: left;',
+                    'Table 1: ', htmltools::em('Size measurements for adult foraging penguins near Palmer Station, Antarctica')))
+  })
+}
+```
+
+
 ---
 class: inverse, middle, center
 
@@ -917,12 +944,12 @@ knitr::include_graphics("media/shinyapps_setup.png")
 ---
 ### Deploy your app to shinyapps.io
 
-<span style = 'font-size:80%;'>Once your account has been authorized, run `rsconnect::deployApp()` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",<img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:65px;height:20px;"/>, button in the top right corner of your app.</span>
+<span style = 'font-size:80%;'>Once your account has been authorized, run `rsconnect::deployApp("<app_directory_name>")` in your console to deploy your app to shinyapps.io. Alternatively, you can click on the "Publish",<img src="media/publish.png" alt="The word 'Publish' in black text with a small, black down facing arrow to its right. To the left of 'Publish' is a small blue circle icon with a split blue outer circle." style="display: inline-block; margin: 0; position: relative; top: 3px; width:65px;height:20px;"/>, button in the top right corner of your app.</span>
 
 <span style = 'font-size:80%;'>Once deployed, a browser will open to your application. Mine can be found at: https://samanthacsik.shinyapps.io/myapp/</span>
 
 .center[
-```{r, out.width = '70%', out.height = '70%', echo = FALSE, fig.alt = "My app open in a browswer at https://samanthacsik.shinyapps.io/myapp/"}
+```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = "My app open in a browswer at https://samanthacsik.shinyapps.io/myapp/"}
 knitr::include_graphics("media/deployed_app_v1.png")
 ```
 ]
@@ -953,7 +980,376 @@ class: inverse, center, middle
 
 ## `r fontawesome::fa("columns", fill = "#93C6C2", a11y = "sem")` Layouts & themes
 
-[description here]
+Up until now, we have been adding our text and widgets to our UI in a pretty unstructured way -- elements stack one on top of the other within a single column. Next, we'll learn how to customize the layout of our application and change the theme to make it a bit more visually pleasing. 
+
+---
+### <span style = 'font-size:80%;'>Layout functions provide the high-level visual structure of your app</span>
+
+<span style = 'font-size:70%;'>Layouts are created using a hierarchy of function calls **inside** `fluidPage()`. You'll find some minimal examples of these layout functions on the following slides.</span>
+
+<span style = 'font-size:80%;'>**Some useful layout function pairings:**</span>
+```{r, eval = FALSE, echo = TRUE}
+# sidebar for inputs & main area for outputs within the sidebarLayout() container
+sidebarLayout(
+  sidebarPanel(),
+  mainPanel()
+)
+
+# multi-row fluid layout (add any number of fluidRow()s to a fluidPage())
+fluidRow(
+  column(4, ...),
+  column(8, ...)
+)
+
+# tabPanel()s to contain HTML components (e.g. inputs/outputs) within the tabsetPanel() container
+tabsetPanel(
+  tabPanel()
+)
+
+# page with top-level navigation bar that can be used to toggle tabPanel() elements
+navbarPage(
+  tabPanel()
+)
+```
+
+.footnote[
+<span style = 'font-size:70%;'>**Note:** Under the hood, `fluidPage()` sets up all the HTML, CSS, and Javascript that Shiny needs. It's a super important function! Therefore, all layout functions are called inside `fluidPage()`. Check out the documentation for `fixedPage()` and `fillPage()` which may be substituted for `fluidPage()` in more specialized situations.</span>
+]
+
+---
+### Layouts: create a sidebar and main area
+
+<span style = 'font-size:80%;'>To create a **page with a side bar and main area** to contain your inputs and outputs (respectively), explore the following layout functions and read up on the [sidebarLayout documentation](https://shiny.rstudio.com/reference/shiny/1.6.0/sidebarLayout.html):</span>
+
+.pull-left[
+```{r, eval = FALSE, echo = TRUE}
+fluidPage(
+  titlePanel(
+    # app title/description
+  ),
+  sidebarLayout(
+    sidebarPanel(
+      # inputs here
+    ),
+    mainPanel(
+      # outputs here
+    )
+  )
+)
+```
+]
+
+.pull-right[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = "A simplified schematic of a Shiny app with a sidebar layout. The page as a whole is created with the fluidPage() function. The titlePanel() function creates a row at the top of the page for a title. The sidebarLayout() function creates a new row below titlePanel(). Within the sidebarLayout(), there are two side-by-side columns created using the sidebarPanel() function (to the left) and the mainPanel() function (to the right)."}
+knitr::include_graphics("media/sidebar_layout.png")
+```
+]
+
+.center[
+<span style = 'font-size:60%;'>Example adapted from [Mastering Shiny, Ch 6.2.2](https://mastering-shiny.org/action-layout.html#page-with-sidebar), by Hadley Wickham</span>
+]
+
+---
+### Layouts: create a page with fluid layout
+
+<span style = 'font-size:80%;'>To create a **page with multiple rows**, explore the following layout functions and check out the [fluid layout documentation](https://shiny.rstudio.com/reference/shiny/1.6.0/fluidPage.html). Note that each row is made up of **12** columns. The first argument of the `column()` function takes a value of 1-12 to specify the number of columns to occupy.</span>
+
+.pull-left[
+```{r, eval = FALSE, echo = TRUE}
+fluidPage(
+  fluidRow(
+    column(4, 
+      ...
+    ),
+    column(8, 
+      ...
+    )
+  ),
+  fluidRow(
+    column(6, 
+      ...
+    ),
+    column(6, 
+      ...
+    )
+  )
+)
+```
+]
+
+.pull-right[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = "A simplified schematic of a Shiny app with a multi-row layout. The page as a whole is created with the fluidPage() function. Within that, the fluidRow() function is used twice to create two stacked (one atop the other) rows on the page. Within each fluidRow are two side-by-side columns, each created using the column() function. Each row is made up of 12 columns. The column() function takes a value of 1-12 as the first arguement to specify how many of those 12 columns to occupy."}
+knitr::include_graphics("media/multirow_layout.png")
+```
+]
+
+.center[
+<span style = 'font-size:60%;'>Example adapted from [Mastering Shiny, Ch 6.2.3](https://mastering-shiny.org/action-layout.html#multi-row), by Hadley Wickham</span>
+]
+
+---
+### Layouts: create a tabset panel
+
+<span style = 'font-size:70%;'>You may find that you eventually end up with too much content to fit on a single application page. Enter `tabsetPanel()` and `tabPanel()`. `tabsetPanel()` creates a container for any number of `tabPanel()`s. Each `tabPanel()` can contain any number of HTML components (e.g. inputs and outputs). Find the [tabsetPanel documentation here](https://shiny.rstudio.com/reference/shiny/1.5.0/tabsetPanel.html) and check out this example:</span>
+
+.pull-left[
+```{r, eval = FALSE, echo = TRUE}
+ui <- fluidPage(
+  tabsetPanel(
+    tabPanel("Tab 1", 
+      # an input
+      # an output
+    ),
+    tabPanel("Tab 2"),
+    tabPanel("Tab 3")
+  )
+)
+```
+
+]
+
+.pull-right[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = "A simplified schematic of a Shiny app with a tabsetPanel layout. The page as a whole is created with the fluidPage() function. Within that, the tabsetPanel() function creates a container within which three tabPanel()s ('Tab 1', 'Tab 2', 'Tab 3') are defined (for this particular example). Tab 1 is highlighted and has placeholder text which says '# an input' and then on the line below, '# an output'."}
+knitr::include_graphics("media/tabsetPanel_layout.png")
+```
+]
+
+.center[
+<span style = 'font-size:60%;'>Example adapted from [Mastering Shiny, Ch 6.3.1](https://mastering-shiny.org/action-layout.html#tabsets), by Hadley Wickham</span>
+]
+
+---
+### Layouts: create a navigation bar with tabsets
+
+<span style = 'font-size:70%;'>You may also want to use a navigation bar (`navbarPage()`) with different pages (created using `tabPanel()`) to organize your application. Read through the [navbarPage documentation](https://shiny.rstudio.com/reference/shiny/1.6.0/navbarPage.html) and try running the example below:</span>
+
+.pull-left[
+```{r}
+ui <- fluidPage(
+  navbarPage(
+    "My app",
+    tabPanel("Tab 1",
+             # an input
+             # an output
+             ),
+    tabPanel("Tab 2")
+  )
+)
+```
+
+]
+
+.pull-right[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = "A simplified schematic of a Shiny app with a navbarPage layout. The page as a whole is created with the fluidPage() function. Within that, the navbarPage() function creates a top-level navigation bar that can be used to toggle between two tabPanel()s ('Tab 1', 'Tab 2'), which are definted for this particular example. Tab 1 is highlighted and has placeholder text which says '# an input' and then on the line below, '# an output'."}
+knitr::include_graphics("media/navbarPage_layout.png")
+```
+]
+
+.center[
+<span style = 'font-size:60%;'>Example adapted from [Mastering Shiny, Ch 6.3.2](https://mastering-shiny.org/action-layout.html#navlists-and-navbars), by Hadley Wickham</span>
+]
+---
+### **Coding Exercise:** Outline your app's layout
+
+<span style = 'font-size:80%;'>Take some time to experiment and outline your application's appearance using the layout functions we've just reviewed. If you need some inspiration, take a look at the minimal reproducible examples on the following slides.</span>
+
+**Some tips to get you started:**
+* <span style = 'font-size:80%;'>Sketch out your layout with a pen and paper first!</span>
+* <span style = 'font-size:80%;'>It might be easiest to comment out your current application code and write a "fresh" empty application, which we will later fill in with our text, inputs, outputs, etc.</span>
+
+---
+### **Example 1:** a multi-row layout using `fluidRows()`
+
+```{r, eval = FALSE, echo = TRUE}
+# load libraries ----
+library(shiny)
+
+# ui ----
+ui <- fluidPage(
+  titlePanel("Exploring Antarctic Penguins & Weather"),
+  fluidRow(
+    h3("Background"),
+    column(12, br(), em("some background info here"))
+  ),
+  fluidRow(
+    h3("Antarctic Penguins"),
+    column(3, em("scatterplot sliderInput here"), br(), em("histogram selectInput here")),
+    column(9, em("reactive scatterplot output here"), br(), em("reactive histogram output here"))
+  ),
+  fluidRow(
+    h3("Antarctic Weather"),
+    column(3, em("some input here")),
+    column(9, em("some output here"))
+  ),
+  fluidRow(
+    h3("Explore the Data"),
+    column(12, em("penguin DT here")),
+    column(12, em("weather DT here"))
+  )
+)
+
+# server instructions ----
+server <- function(input, output) {}
+
+# run app ----
+shinyApp(ui = ui, server = server)
+```
+
+---
+### **Example 1:** a multi-row layout using `fluidRows()`
+
+<span style = 'font-size:80%;'>The application built using the code on the previous slide:</span>
+
+.center[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/ex_fluidRows.png")
+```
+]
+
+---
+### **Example 2:** a navigation bar with `tabPanel()`s and `tabsetPanel()`s
+
+```{r, eval = FALSE, echo = TRUE}
+# load packages ----
+library(shiny)
+
+# ui ----
+ui <- fluidPage(
+  navbarPage(
+    "Exploring Antarctic Penguins & Weather",
+    tabPanel("Background",
+             em("some background information here")),
+    tabPanel("Antarctic Penguins",
+             tabsetPanel(
+               tabPanel("Scatterplot",
+                        em("scatterplot input & output here")),
+               tabPanel("Histogram",
+                        em("histogram input & output here")))),
+    tabPanel("Antarctic Weather",
+             em("some widget to explore weather data here")),
+    tabPanel("Explore the Data",
+             tabsetPanel(
+               tabPanel("Penguin Data",
+                        em("penguin DT here")),
+               tabPanel("Palmer Station Weather Data",
+                        em("weather DT here"))))
+    )
+  )
+
+# server instructions ----
+server <- function(input, output) {}
+
+# run app
+shinyApp(ui = ui, server = server)
+```
+
+---
+### **Example 2:** a navigation bar with `tabPanel()`s and `tabsetPanel()`s
+
+<span style = 'font-size:80%;'>The application built using the code on the previous slide:</span>
+
+<br>
+
+.center[
+```{r, out.width = '80%', out.height = '80%', echo = FALSE, fig.alt = "An empty shiny app with a navbar layout. The navbar is colored light gray and spans the width of the screen at the top of the webpage. The navbar title, 'Exploring Antarctice Penguins & Weather,' is written in large text on the left hand side of the navbar. The cursor is used to click on the navbar tabs, 'Background', 'Antarctic Penguins', 'Antarctic Weather', and 'Explore the Data' which are set next to one another immediately to the right of the navbar title. Italicized placeholder text is included in each navbar tab page. Clicking on the 'Antarctic Penguins' and 'Explore the Data' navbar tabs reveals nested tabsets within those pages. Under 'Antarctic Penguins', the cursor can click on the 'Scatterplot' or 'Histogram' tabsets. Under 'Explore the Data', the cursor can click on the 'Penguin Data' or 'Palmer Station Weather Data' tabsets."}
+knitr::include_graphics("media/ex_navbar_tabset.gif")
+```
+]
+
+---
+### **Coding Exercise:** Add inputs & outputs back into your app
+
+<span style = 'font-size:80%;'>Now that you have the bones of your application's layout coded up, it's time to add back in your inputs and outputs.</span>
+
+**Some tips to get you started:**
+* <span style = 'font-size:80%;'>If you have not yet done so, add comments or text to your layout functions specifying which elements should go where (e.g. `# scatterplot sliderInput goes here`) </span>
+* <span style = 'font-size:80%;'>Copy inputs and outputs from our original app (the one build just using `fluidPage()` to contain all of our elements) and paste them into the new application's layout function framework</span>
+* <span style = 'font-size:80%;'>Be mindful of `()` when copying/pasting -- make sure you don't leave any behind by accident (**Tip:** enable Rainbow Parentheses (under 'Code' in the menu bar) if you haven't already)</span>
+* <span style = 'font-size:80%;'>Remember to separate elements with a `,`</span>
+
+<span style = 'font-size:80%;'>If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #54]() (*Example 2: a navigation bar with `tabPanel()`s and `tabsetPanel()`s*) </span>
+
+---
+### My app (if you're following along with this example):
+
+**UI:**
+```{r, eval = FALSE, echo = TRUE}
+ui <- fluidPage(
+  navbarPage(
+    "Exploring Antarctic Penguins & Weather",
+    tabPanel("Background",
+             em("some background information here")),
+    tabPanel("Antarctic Penguins",
+             tabsetPanel(
+               tabPanel("Scatterplot", #<<
+                        # body mass slider input ---- #<<
+                        sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):", #<<
+                                    value = c(3000, 4000), min = 2700, max = 6300), #<<
+                        # body mass plot output ---- #<<
+                        plotOutput(outputId = "bodyMass_scatterPlot")), #<<
+               tabPanel("Histogram",
+                        em("histogram input & output here")))),
+    tabPanel("Antarctic Weather",
+             em("some widget to explore weather data here")),
+    tabPanel("Explore the Data",
+             tabsetPanel(
+               tabPanel("Penguin Data", #<<
+                        # penguin data table output ---- #<<
+                        DT::dataTableOutput(outputId = "penguin_data")), #<<
+               tabPanel("Palmer Station Weather Data",
+                        em("weather DT here"))))
+  )
+)
+```
+
+---
+### My app (if you're following along with this example):
+
+**Server:**
+```{r, eval = FALSE, echo = TRUE}
+server <- function(input, output) {
+  
+  # render the scatter plot ----
+  output$bodyMass_scatterPlot <- renderPlot({
+
+    # filter body mass data ----
+    body_mass_dat <- penguins %>%
+      filter(body_mass_g %in% input$body_mass[1]:input$body_mass[2])
+
+    # plot
+    ggplot(na.omit(body_mass_dat),
+           aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species)) +
+      geom_point() +
+      scale_color_manual(values = c("#FEA346", "#B251F1", "#4BA4A4")) +
+      scale_shape_manual(values = c(19, 17, 15)) +
+      labs(x = "Flipper length (mm)", y = "Bill length (mm)",
+           color = "Penguin species", shape = "Penguin species") +
+      theme_minimal() +
+      theme(legend.position = c(0.85, 0.2),
+            legend.background = element_rect(color = "white"))
+  })
+  
+  # render the penguins data table ----
+  output$penguin_data <- DT::renderDataTable({
+    DT::datatable(penguins,
+                  options = list(pageLength = 5),
+                  caption = htmltools::tags$caption(
+                    style = 'caption-side: top; text-align: left;',
+                    'Table 1: ', htmltools::em('Size measurements for adult foraging penguins near Palmer Station, Antarctica')))
+  })
+}
+```
+
+---
+### My app (if you're following along with this example):
+
+<span style = 'font-size:80%;'>The code from the previous two slides produces:</span>
+
+.center[
+```{r, out.width = '80%', out.height = '80%', echo = FALSE, fig.alt = "An empty shiny app with a navbar layout. The navbar is colored light gray and spans the width of the screen at the top of the webpage. The navbar title, 'Exploring Antarctice Penguins & Weather,' is written in large text on the left hand side of the navbar. The cursor is used to click on the navbar tabs, 'Background', 'Antarctic Penguins', 'Antarctic Weather', and 'Explore the Data' which are set next to one another immediately to the right of the navbar title. Italicized placeholder text is included in each navbar tab page. Clicking on the 'Antarctic Penguins' and 'Explore the Data' navbar tabs reveals nested tabsets within those pages. Under 'Antarctic Penguins', the cursor can click on the 'Scatterplot' or 'Histogram' tabsets. Now that we've added our inputs and outputs into this framework however, we can now see our reactive scatterplot that we built earlier in the workshop. Under 'Explore the Data', the cursor can click on the 'Penguin Data' or 'Palmer Station Weather Data' tabsets. Under 'Penguin Data' now lives the DT::dataTable with the penguins dataset that we built earlier in the workshop."}
+knitr::include_graphics("media/reactive_app_v2.gif")
+```
+]
 
 ---
 class: inverse, center, middle
