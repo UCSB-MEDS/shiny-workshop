@@ -40,3 +40,4 @@ vignettes/*.pdf
 
 # ignore these
 old/*
+media/*.mov
