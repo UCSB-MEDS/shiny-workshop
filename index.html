@@ -237,7 +237,7 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 
 * &lt;span style = 'font-size:70%;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
 * &lt;span style = 'font-size:70%;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
-* &lt;span style = 'font-size:70%;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;adding a second `sliderInput` for our reactive histogram output (**Exercise 5**)&lt;/span&gt;
 
 ---
 ### What to expect:
@@ -259,7 +259,7 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 
 * &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
 * &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
-* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;adding a second `sliderInput` for our reactive histogram output (**Exercise 5**)&lt;/span&gt;
 
 ---
 ### All Shiny apps begin the same way
@@ -1040,7 +1040,7 @@ You will get this error if your app directory name has less than 4 characters lo
 
 * &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
 * &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
-* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;adding a second `sliderInput` for our reactive histogram output (**Exercise 5**)&lt;/span&gt;
 
 ---
 class: inverse, center, middle
@@ -1550,7 +1550,7 @@ fluidPage(
 
 * &lt;span style = 'font-size:70%;color:#000000;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
 * &lt;span style = 'font-size:70%;color:#000000;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
-* &lt;span style = 'font-size:70%;color:#000000;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;adding a second `sliderInput` for our reactive histogram output (**Exercise 5**)&lt;/span&gt;
 
 ---
 ### **Exercise 4:** Add a reactive histogram
@@ -1611,7 +1611,7 @@ server &lt;- function(input, output) {
     
     # plot histogram ----
     ggplot(na.omit(filtered_island), aes(x = flipper_length_mm, fill = species)) +
-      geom_histogram(alpha = 0.6, binwidth = input$bin_width) +
+      geom_histogram(alpha = 0.6) +
       scale_fill_manual(values = c("Adelie" = "#FEA346", "Chinstrap" = "#B251F1", "Gentoo" = "#4BA4A4")) +
       labs(x = "Flipper length (mm)", y = "Frequency", 
            fill = "Penguin species") +
@@ -1667,22 +1667,76 @@ server &lt;- function(input, output) {
 ### Check out our new, less-alarming and more user-friendly error message:
 
 .center[
-&lt;img src="media/validate_error.gif" width="75%" height="75%" /&gt;
+&lt;img src="media/validate_error.gif" title="A user is viewing the histogram output of penguin flipper lengths for Adelie, Chinstrap, and Gentoo penguins. Above the histogram, there is a dropdown menu where a user can filter the displayed data by island (Torgersen, Dream, and Biscoe). The user clicks on the 'Deselect All' option to reveal a new, more user-friendly error message printed in gray lettering, which reads, 'Please select at least one island to visualize.'" alt="A user is viewing the histogram output of penguin flipper lengths for Adelie, Chinstrap, and Gentoo penguins. Above the histogram, there is a dropdown menu where a user can filter the displayed data by island (Torgersen, Dream, and Biscoe). The user clicks on the 'Deselect All' option to reveal a new, more user-friendly error message printed in gray lettering, which reads, 'Please select at least one island to visualize.'" width="75%" height="75%" /&gt;
 ]
 
 ---
 ### **Exercise 5:** Add a second input to your reactive histogram
 
-You can have more than one input for a given output. We'll practice doing so here.
+&lt;span style = 'font-size:80%;'&gt;You can have more than one input for a given output. We'll practice doing so here.&lt;/span&gt;
 
 **To Do:** 
-* Create a `sliderInput` that allows users to update the bin width of your histogram output
+* &lt;span style = 'font-size:80%;'&gt;Create a `sliderInput` that allows users to update the bin number for your penguin flipper length histogram output.&lt;/span&gt;
 
 **Some tips to get you started:** 
-* Where in your code would you change the histogram's `bin_width`?
+* &lt;span style = 'font-size:80%;'&gt;Identify the place in your code where you would you change the histogram's bin number in a "static" `ggplot`. How do you make this update-able based on user inputs to the UI?&lt;/span&gt;
 
 ---
-### **Exercise 5:** Solution for adding a second input
+### **Exercise 5:** Solution for adding a second `sliderInput` for your reactive histogram
+
+**UI**
+
+```r
+ui &lt;- fluidPage(
+  
+  # ~ previous code (and layout functions) omitted for brevity ~
+  
+  # island input ----
+  pickerInput(inputId = "island", label = "Select an island:",
+              choices = c("Torgersen", "Dream", "Biscoe"),
+              options = list(`actions-box` = TRUE),
+              selected = c("Torgersen", "Dream", "Biscoe"),
+              multiple = T),
+  
+* # bin number input ----
+* sliderInput(inputId = "bin_num", label = "Select number of bins:",
+*             value = 25, max = 100, min = 1),
+  
+  # flipper length plot output ----
+  plotOutput(outputId = "flipperLength_hist")
+)
+```
+
+---
+### **Exercise 5:** Solution for adding a second `sliderInput` for your reactive histogram
+
+**Server**
+
+```r
+server &lt;- function(input, output) {
+ 
+  # ~ previous code omitted for brevity ~
+
+  # render the flipper length histogram
+  output$flipperLength_hist &lt;- renderPlot({
+
+    # filter island data ----
+    filtered_island &lt;- penguins %&gt;% 
+      filter(island == input$island)
+    
+    # plot histogram ----
+    ggplot(na.omit(filtered_island), aes(x = flipper_length_mm, fill = species)) +
+*     geom_histogram(alpha = 0.6, bins = input$bin_num) +
+      scale_fill_manual(values = c("Adelie" = "#FEA346", "Chinstrap" = "#B251F1", "Gentoo" = "#4BA4A4")) +
+      labs(x = "Flipper length (mm)", y = "Frequency", 
+           fill = "Penguin species") +
+      theme_minimal() +
+      theme(legend.position = "bottom",
+            legend.background = element_rect(color = "white"))
+  })
+  
+}
+```
 
 ---
 class: inverse, center, middle
