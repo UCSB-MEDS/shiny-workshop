@@ -43,7 +43,7 @@ Slides &amp; source code available on [<svg aria-label="GitHub" role="img" viewB
 
 
 ```r
-install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "bslib", "thematic"))
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "bslib", "thematic", "shinyWidgets"))
 ```
 
 &lt;span style = 'font-size: 85%;'&gt;<svg aria-label="angle-right" role="img" viewBox="0 0 256 512" style="height:1em;width:0.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#05859B;overflow:visible;position:relative;"><title>angle-right</title><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg> You have downloaded the Palmer weather time series data from the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf) (`table_28.csv`)&lt;/span&gt;
@@ -175,8 +175,6 @@ class: inverse, middle, center
 
 Before we get started, make sure to set up a GitHub repository and R project to house our soon-to-be Shiny app. Doesn't matter what you call it--I'll call mine something like, "practice-shiny".
 
-*NOTE:* When setting up your GitHub repo, be sure to initialize with both a README file and a .gitignore file using the R template.
-
 ---
 ### The data
 
@@ -201,6 +199,53 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 &lt;span style = 'font-size:70%;'&gt;**(2)** Palmer Station Antarctica LTER and P. Information Manager. 2019. Daily averaged weather timeseries (air temperature, pressure, wind speed, wind direction, precipitation, sky cover) at Palmer Station, Antarctica combining manual observations (1989 - Dec 12, 2003) and PALMOS automatic weather station measurements (Dec 13, 2003 - March 2019). ver 8. Environmental Data Initiative. https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf (Accessed 2021-12-29).&lt;/span&gt;
 ]
 
+---
+### What to expect:
+
+&lt;span style = 'font-size:70%;'&gt;We will start by building and publishing a very basic shiny app using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;'&gt;a title and subtitle&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;a `sliderInput` to render a reactive scatterplot output&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;an interactive `DT` table (**Exercise 1**)&lt;/span&gt;
+
+--
+
+&lt;span style = 'font-size:70%;'&gt;Next, we will learn how to spruce up the appearance of our app by:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;'&gt;using layout functions to outline the visual structure of our app (**Exercise 2**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;add our text &amp; widgets back into our app (**Exercise 3**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;republish our updated app to [shinyapps.io](https://www.shinyapps.io/)&lt;/span&gt;
+
+--
+
+&lt;span style = 'font-size:70%;'&gt;We will then practice adding another reactive widget using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
+
+---
+### What to expect:
+
+&lt;span style = 'font-size:70%;color:#000000;'&gt;We will start by building and publishing a very basic shiny app using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;a title and subtitle&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;a `sliderInput` to render a reactive scatterplot output&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;an interactive `DT` table (**Exercise 1**)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;Next, we will learn how to spruce up the appearance of our app by:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;using layout functions to outline the visual structure of our app (**Exercise 2**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;add our text &amp; widgets back into our app (**Exercise 3**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;republish our updated app to [shinyapps.io](https://www.shinyapps.io/)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;We will then practice adding another reactive widget using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
 
 ---
 ### All Shiny apps begin the same way
@@ -408,6 +453,26 @@ ui &lt;- fluidPage(
 * &lt;span style = 'font-size:80%;'&gt;`uiOutput()` (inserts a Shiny UI element)&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;There are also additional specialized `*Output()` functions, like [`plotlyOutput()`](https://www.rdocumentation.org/packages/plotly/versions/4.9.4.1/topics/plotly-shiny) and [`DTOutput()`](https://rstudio.github.io/DT/shiny.html)&lt;/span&gt;
 ]
+
+---
+### Where we're going...
+
+&lt;span style = 'font-size:80%;'&gt;We're going to create a **scatterplot of penguin bill lengths vs. penguin flipper lengths** using the `penguins` data set from the `{palmerpenguins}` package. We'll make this scatterplot *reactive* by adding a `sliderInput` that allows a user to filter the displayed data points by **selecting a range of penguin body masses** (e.g. only plot bill and flipper lengths for penguins with body masses ranging from 4,500 grams to 6,000 grams).&lt;/span&gt;
+
+.pull-left[
+&lt;span style = 'font-size:80%;'&gt;**To create a reactive output, we will follow these steps:**&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;'&gt;**1.** Add an input (e.g. `sliderInput`) to the UI that users can interact with&lt;/span&gt;  
+
+&lt;span style = 'font-size:70%;'&gt;**2.** Add an output (e.g. `plotOutput`) to the UI that creates a *placeholder space* to fill with our eventual reactive output&lt;/span&gt;  
+
+&lt;span style = 'font-size:70%;'&gt;**3.** Tell the server how to assemble inputs into outputs&lt;/span&gt;  
+]
+
+.pull-right[
+&lt;img src="media/reactive_app_v1.gif" title="A gif of our current Shiny app, demonstrating reactivity. At the top left of our app is the title, 'My App Title' in large header font. Beneath it is a subtitle, 'Exploring Antarctic Penguins and Temperatures'. Below the subtitle is the slider input with the label, 'Select a range of body masses (g)'. A gray horizontal slider bar ranges from the values 2,700 to 6,300. The interactive slider value selectors are two round white circles, which, when moved apart from one another highlight the selected value range in blue. The user is adjusting the slider value selectors and the scatterplot of penguin bill length (mm) vs. flipper length (mm) is automatically updating." alt="A gif of our current Shiny app, demonstrating reactivity. At the top left of our app is the title, 'My App Title' in large header font. Beneath it is a subtitle, 'Exploring Antarctic Penguins and Temperatures'. Below the subtitle is the slider input with the label, 'Select a range of body masses (g)'. A gray horizontal slider bar ranges from the values 2,700 to 6,300. The interactive slider value selectors are two round white circles, which, when moved apart from one another highlight the selected value range in blue. The user is adjusting the slider value selectors and the scatterplot of penguin bill length (mm) vs. flipper length (mm) is automatically updating." width="100%" height="100%" /&gt;
+]
+
 ---
 ### Input function syntax
 
@@ -428,7 +493,7 @@ selectInput(inputId = "island", label = "Choose and island:", ...)
 &lt;span style = 'font-size:80%;'&gt;Check out the interactive [Shiny Widgets Gallery](https://shiny.rstudio.com/gallery/widget-gallery.html) to learn how to implement the most common widgets.&lt;/span&gt;
 
 ---
-### Add an input to our app
+### **Step 1:** Add an input to our app
 
 &lt;span style = 'font-size:80%;'&gt;First let's add a `sliderInput()` that will allow users to select a range of penguin body sizes (g).&lt;/span&gt;
 
@@ -468,7 +533,7 @@ dataTableOutput(outputId = "penguin_data")
 ```
 
 ---
-### Add an output to our app
+### **Step 2:** Add an output to our app
 
 &lt;span style = 'font-size:70%;'&gt;Let's now add a `plotOutput()` to our app, which will be updated based on the user inputs via the `sliderInput()`.&lt;/span&gt;
 
@@ -518,7 +583,7 @@ ui &lt;- fluidPage(
 ]
 
 ---
-### Tell the server how to assemble inputs into outputs
+### **Step 3:** Tell the server how to assemble inputs into outputs
 
 &lt;span style = 'font-size:80%;'&gt;Now that we've designed our input/output in the UI, we need to write the server instructions (i.e. write the server function) on how to actually assemble our input (body mass range via a slider input) into the output (scatter plot).&lt;/span&gt;
 
@@ -529,7 +594,7 @@ ui &lt;- fluidPage(
 **Rules:**  
 
 .footnote[
-Read more about reactivity in [Ch.3 Basic Reactivity](https://mastering-shiny.org/basic-reactivity.html#basic-reactivity) of [Mastering Shiny](https://mastering-shiny.org/index.html) and check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).
+&lt;span style = 'font-size:80%;'&gt;Read more about reactivity in [Ch.3 Basic Reactivity](https://mastering-shiny.org/basic-reactivity.html#basic-reactivity) of [Mastering Shiny](https://mastering-shiny.org/index.html) and check out Shiny's Tutorial, [Display Reactive Output](https://shiny.rstudio.com/tutorial/written-tutorial/lesson4/).&lt;/span&gt;
 ]
 
 --
@@ -628,12 +693,12 @@ ggplot(na.omit(penguins),
         legend.background = element_rect(color = "white"))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### &lt;span style = 'font-size:90%;'&gt;**Rule 2:** Build objects you want to display with `render*()`&lt;/span&gt;
 
-&lt;span style = 'font-size:80%;'&gt;Copy your code over to your app, placing it inside the `{}`. Run your app. What do you notice?&lt;/span&gt;
+&lt;span style = 'font-size:70%;'&gt;Copy your code over to your app, placing it inside the `{}` (and make sure to add any additional required packages to the top of your `app.R` script). Run your app. What do you notice?&lt;/span&gt;
 
 ```r
 # user interface ----
@@ -718,7 +783,7 @@ ggplot(na.omit(body_mass_filtered), # plot `body_mass_filtered' df rather than '
         legend.background = element_rect(color = "white"))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-30-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-31-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Which part of our code needs to be updated when a user changes the slider range input?
@@ -833,7 +898,7 @@ We created our first *reactive* Shiny app by following these steps:
 And we saw that reactivity automatically occurs whenever we use an **input value** to **render** an **output object**.
 
 ---
-### **Coding Exercise:** Add another reactive widget to your app!
+### **Exercise 1:** Add another reactive widget to your app!
 
 &lt;span style = 'font-size:80%;'&gt;Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.&lt;/span&gt;
 
@@ -842,7 +907,7 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 ]
 
 ---
-### **Coding Exercise:** Add another reactive widget to your app!
+### **Exercise 1:** Add another reactive widget to your app!
 
 &lt;span style = 'font-size:80%;'&gt;Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.&lt;/span&gt;
 
@@ -859,7 +924,7 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 * &lt;span style = 'font-size:80%;'&gt;Explore the [`DT` documentation](https://rstudio.github.io/DT/) to learn how to add table captions&lt;/span&gt;
 
 ---
-### **Coding Exercise:** Solution for adding a `DT` table
+### **Exercise 1:** Solution for adding a `DT` table
 
 &lt;span style = 'font-size:80%;'&gt;**Note:** No `*Input()` is needed here.&lt;/span&gt;
 
@@ -867,13 +932,19 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 ```r
 # user interface ----
 ui &lt;- fluidPage(
+  
   # ~ previous code omitted for brevity ~
+  
   # penguin data table output
   DT::dataTableOutput(outputId = "penguin_data")
+  
 )
+
 # server instructions ----
 server &lt;- function(input, output) {
+  
   #  ~ previous code omitted for brevity ~
+  
   # render the penguins data table ----
   output$penguin_data &lt;- DT::renderDataTable({
     DT::datatable(penguins,
@@ -882,6 +953,8 @@ server &lt;- function(input, output) {
                     style = 'caption-side: top; text-align: left;',
                     'Table 1: ', htmltools::em('Size measurements for adult foraging penguins near Palmer Station, Antarctica')))
   })
+  
+  # end server
 }
 ```
 
@@ -932,6 +1005,28 @@ You will get this error if your app directory name has less than 4 characters lo
 ### Other ways to host your Shiny apps
 
 [add info here]
+
+---
+### What to expect:
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;We will start by building and publishing a very basic shiny app using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a title and subtitle&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `sliderInput` to render a reactive scatterplot output&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;an interactive `DT` table (**Exercise 1**)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#000000;'&gt;Next, we will learn how to spruce up the appearance of our app by:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;using layout functions to outline the visual structure of our app (**Exercise 2**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;add our text &amp; widgets back into our app (**Exercise 3**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;republish our updated app to [shinyapps.io](https://www.shinyapps.io/)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;We will then practice adding another reactive widget using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
 
 ---
 class: inverse, center, middle
@@ -1104,16 +1199,26 @@ ui &lt;- fluidPage(
 &lt;span style = 'font-size:60%;'&gt;Example adapted from [Mastering Shiny, Ch 6.3.2](https://mastering-shiny.org/action-layout.html#navlists-and-navbars), by Hadley Wickham&lt;/span&gt;
 ]
 ---
-### **Coding Exercise:** Outline your app's layout
+### **Exercise 2:** Outline your app's layout
 
 &lt;span style = 'font-size:80%;'&gt;Take some time to experiment and outline your application's appearance using the layout functions we've just reviewed. If you need some inspiration, take a look at the minimal reproducible examples on the following slides.&lt;/span&gt;
 
+**To Do:**
+* &lt;span style = 'font-size:80%;'&gt;Outline your Shiny app creating space to fill with the following text/R objects:
+    * application intro/background info
+    * reactive `palmerpenguins` scatterplot (we've already created this one together)
+    * reactive `palmerpenguins` histogram
+    * reactive `palmerpenguins` DT table (we've created this one already too)
+    * reactive Palmer weather plot
+    * reactive Palmer weather DT table
+
 **Some tips to get you started:**
 * &lt;span style = 'font-size:80%;'&gt;Sketch out your layout with a pen and paper first!&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;It might be easiest to comment out your current application code and write a "fresh" empty application, which we will later fill in with our text, inputs, outputs, etc.&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Add some text to note where your intended inputs/outputs should live (e.g. `tabPanel("scatterplot input &amp; output here")`.)&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;It might be easiest to comment out your current UI code and write a "fresh," empty UI, which we will later fill in with our text, inputs, outputs, etc.&lt;/span&gt;
 
 ---
-### **Example 1:** a multi-row layout using `fluidRows()`
+### **Example A:** a multi-row layout using `fluidRows()`
 
 
 ```r
@@ -1152,7 +1257,7 @@ shinyApp(ui = ui, server = server)
 ```
 
 ---
-### **Example 1:** a multi-row layout using `fluidRows()`
+### **Example B:** a multi-row layout using `fluidRows()`
 
 &lt;span style = 'font-size:80%;'&gt;The application built using the code on the previous slide:&lt;/span&gt;
 
@@ -1161,7 +1266,7 @@ shinyApp(ui = ui, server = server)
 ]
 
 ---
-### **Example 2:** a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s
+### **Example B:** a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s
 
 
 ```r
@@ -1199,7 +1304,7 @@ shinyApp(ui = ui, server = server)
 ```
 
 ---
-### **Example 2:** a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s
+### **Example B:** a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s
 
 &lt;span style = 'font-size:80%;'&gt;The application built using the code on the previous slide:&lt;/span&gt;
 
@@ -1210,20 +1315,19 @@ shinyApp(ui = ui, server = server)
 ]
 
 ---
-### **Coding Exercise:** Add inputs &amp; outputs back into your app
+### **Exercise 3:** Add scatterplot and `DT` table inputs/outputs back into your app's UI
 
-&lt;span style = 'font-size:80%;'&gt;Now that you have the bones of your application's layout coded up, it's time to add back in your inputs and outputs.&lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;Now that you have the bones of your application's UI layout coded up, it's time to add back in your inputs and outputs.&lt;/span&gt;
 
 **Some tips to get you started:**
-* &lt;span style = 'font-size:80%;'&gt;If you have not yet done so, add comments or text to your layout functions specifying which elements should go where (e.g. `# scatterplot sliderInput goes here`) &lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Copy inputs and outputs from our original app (the one built just using `fluidPage()` to contain all of our elements) and paste them into the new application's layout function framework&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Be mindful of `()` when copying/pasting -- make sure you don't leave any behind by accident (**Tip:** enable Rainbow Parentheses (under 'Code' in the menu bar) if you haven't already)&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;Remember to separate elements with a `,`&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Remember to separate UI elements with a `,`&lt;/span&gt;
 
-&lt;span style = 'font-size:80%;'&gt;If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #54](https://ucsb-meds.github.io/shiny-workshop/#72) (*Example 2: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) &lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #54](https://ucsb-meds.github.io/shiny-workshop/#72) (*Example B: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) &lt;/span&gt;
 
 ---
-### My app (if you're following along with this example):
+### My app, so far:
 
 **UI:**
 
@@ -1257,7 +1361,7 @@ ui &lt;- fluidPage(
 ```
 
 ---
-### My app (if you're following along with this example):
+### My app, so far:
 
 **Server:**
 
@@ -1267,7 +1371,7 @@ server &lt;- function(input, output) {
   # render the scatter plot ----
   output$bodyMass_scatterPlot &lt;- renderPlot({
 
-    # filter body mass data ----
+    # filter 
     body_mass_dat &lt;- penguins %&gt;%
       filter(body_mass_g %in% input$body_mass[1]:input$body_mass[2])
 
@@ -1296,7 +1400,7 @@ server &lt;- function(input, output) {
 ```
 
 ---
-### My app (if you're following along with this example):
+### My app, so far:
 
 &lt;span style = 'font-size:80%;'&gt;The code from the previous two slides produces:&lt;/span&gt;
 
@@ -1322,7 +1426,7 @@ ui &lt;- fluidPage(
 
 ```r
 ui &lt;- fluidPage(
-  theme = bslib::bs_theme(bootswatch = "darkly")
+  theme = bslib::bs_theme(bootswatch = "minty")
 )
 ```
 
@@ -1397,6 +1501,173 @@ fluidPage(
 
 ---
 ### Republish our app
+
+&lt;span style = 'font-size:80%;'&gt;Now that we've refined our application's layout a bit more and spruced it up with a theme, let's republish to [shinyapps.io](https://shinyapps.io/). To do so:&lt;/span&gt;  
+
+--
+
+&lt;span style = 'font-size:80%;'&gt;1. Preserve your work by pushing scripts and associated files to GitHub.&lt;/span&gt;    
+
+--
+
+&lt;span style = 'font-size:80%;'&gt;2. Rerun `rsconnect::deployApp("&lt;app_directory_name&gt;")` in your console and select `Y` when you see the prompt, `Update application currently deployed at https:://githubUserName.shinapps.io/yourAppName? [Y/n]`&lt;/span&gt;    
+
+--
+
+&lt;span style = 'font-size:80%;'&gt;3. Give it a minute to deploy. It should open up a browser window with your republished app once processed.&lt;/span&gt;  
+
+---
+### What to expect:
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;We will start by building and publishing a very basic shiny app using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a title and subtitle&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `sliderInput` to render a reactive scatterplot output&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;an interactive `DT` table (**Exercise 1**)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;Next, we will learn how to spruce up the appearance of our app by:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;using layout functions to outline the visual structure of our app (**Exercise 2**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;add our text &amp; widgets back into our app (**Exercise 3**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;republish our updated app to [shinyapps.io](https://www.shinyapps.io/)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#000000;'&gt;We will then practice adding another reactive widget using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;adding a second `sliderInput` to our reactive histogram output (**Exercise 5**)&lt;/span&gt;
+
+---
+### **Exercise 4:** Add a reactive histogram
+
+&lt;span style = 'font-size:80%;'&gt;Time to flex your reactivity skills! Add a second reactive plot to your Shiny app.&lt;/span&gt;
+
+.pull-left[
+**To Do:**
+* &lt;span style = 'font-size:80%;'&gt;Create a reactive histogram of penguin flipper lengths (similar to the one shown here) with a `shinyWidgts::pickerInput` that allows users to filter displayed data by island(s)&lt;/span&gt;
+* &lt;span style = 'font-size:80%;'&gt;Add the `pickerInput` and rendered histogram output to your shiny app where appropriate&lt;/span&gt;
+]
+
+.pull-right[
+&lt;img src="media/hist.png" width="80%" height="80%" /&gt;
+]
+
+**Some tips to get your started:**
+* &lt;span style = 'font-size:80%;'&gt;Once you've created your reactive histogram output, pay close attention to the species colors when you select different islands. Notice anything strange? How might you address this issue?
+
+---
+### **Exercise 4:** Solution for adding a &lt;span style = 'font-size:90%;'&gt;`shinyWidgets::pickerInput`&lt;/span&gt; and &lt;span style = 'font-size:90%;'&gt;`plotOutput`&lt;/span&gt; to the UI
+
+**UI**
+
+```r
+ui &lt;- fluidPage(
+  
+  # ~ previous code (and layout functions) omitted for brevity ~
+  
+  # island input ----
+  pickerInput(inputId = "island", label = "Select an island:",
+              choices = c("Torgersen", "Dream", "Biscoe"),
+              options = list(`actions-box` = TRUE),
+              selected = c("Torgersen", "Dream", "Biscoe"),
+              multiple = T),
+  
+  # flipper length plot output ----
+  plotOutput(outputId = "flipperLength_hist")
+)
+```
+
+---
+### **Exercise 4:** Solution for rendering a reactive histogram of penguin flipper lengths
+
+**Server**
+
+```r
+server &lt;- function(input, output) {
+ 
+  # ~ previous code omitted for brevity ~
+
+  # render the flipper length histogram
+  output$flipperLength_hist &lt;- renderPlot({
+
+    # filter island data ----
+    filtered_island &lt;- penguins %&gt;% 
+      filter(island == input$island)
+    
+    # plot histogram ----
+    ggplot(na.omit(filtered_island), aes(x = flipper_length_mm, fill = species)) +
+      geom_histogram(alpha = 0.6, binwidth = input$bin_width) +
+      scale_fill_manual(values = c("Adelie" = "#FEA346", "Chinstrap" = "#B251F1", "Gentoo" = "#4BA4A4")) +
+      labs(x = "Flipper length (mm)", y = "Frequency", 
+           fill = "Penguin species") +
+      theme_minimal() +
+      theme(legend.position = "bottom",
+            legend.background = element_rect(color = "white"))
+  })
+  
+}
+```
+
+---
+### &lt;span style = 'font-size:90%;'&gt;What happens if you **Deselect All** islands using the `pickerInput`?&lt;/span&gt;
+
+--
+
+&lt;span style = 'font-size:70%;'&gt;You get a pretty alarming, bright red error message in your app's UI:&lt;/span&gt;
+
+.center[
+&lt;img src="media/island_error.png" width="45%" height="45%" /&gt;
+]
+
+&lt;span style = 'font-size:70%;'&gt;These error messages include information that you as the application developer may understand, but that your users may not. We can instead generate a user-friendly [validation error](https://shiny.rstudio.com/articles/validation.html) message that helps to guide our users through the UI.&lt;/span&gt;
+
+--
+
+
+```r
+server &lt;- function(input, output) {
+  
+  # render the flipper length histogram
+  output$flipperLength_hist &lt;- renderPlot({
+    
+*   # validate ----
+*   validate(
+*     need(input$island != "", "Please select at least one island to visualize.")
+*   )
+    
+    # filter island data ----
+    filtered_island &lt;- penguins %&gt;% 
+      filter(island == input$island)
+    
+    # plot histogram ----
+    
+    # ~ omitted for brevity ~
+  })
+}
+```
+
+---
+
+### Check out our new, less-alarming and more user-friendly error message:
+
+.center[
+&lt;img src="media/validate_error.gif" width="75%" height="75%" /&gt;
+]
+
+---
+### **Exercise 5:** Add a second input to your reactive histogram
+
+You can have more than one input for a given output. We'll practice doing so here.
+
+**To Do:** 
+* Create a `sliderInput` that allows users to update the bin width of your histogram output
+
+**Some tips to get you started:** 
+* Where in your code would you change the histogram's `bin_width`?
+
+---
+### **Exercise 5:** Solution for adding a second input
 
 ---
 class: inverse, center, middle
