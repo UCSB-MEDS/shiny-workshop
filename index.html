@@ -130,7 +130,7 @@ What does a shiny app look like under the hood?
 &lt;span style = 'font-size:80%;'&gt;Reactivity is what makes Shiny apps responsive i.e. it lets the app instantly update itself whenever the user makes a change. At a very basic level, it looks something like this:&lt;/span&gt;
 
 .center[
-&lt;img src="media/reactivity_intro.png" title="A schematic of Shiny reactivity. (1) A widget gets information from a user which (2) is then passed to the server where it is used to update a data frame based on the users choice. (3) The new data frame is used to update outputs in the server, and (4) those outputs are then rendered in the UI." alt="A schematic of Shiny reactivity. (1) A widget gets information from a user which (2) is then passed to the server where it is used to update a data frame based on the users choice. (3) The new data frame is used to update outputs in the server, and (4) those outputs are then rendered in the UI." width="90%" height="90%" /&gt;
+&lt;img src="media/reactivity_intro.png" title="A schematic of Shiny reactivity. The UI is represented by a light blue box. Inside the blue UI box, there is a radio button widget that says, 'Make a choice:' and three round radio buttons beneath it. Underneath that, there is a placeholder space for a reactive output to be created by the server. The server is to the left of the UI and is represented by an orange box. At a basic level, reactivity occurs after the following steps: (1) A widget gets information from a user which (2) is then passed to the server where it is used to update a data frame based on the users choice. (3) The new data frame is used to update outputs in the server, and (4) those outputs are then rendered in the UI." alt="A schematic of Shiny reactivity. The UI is represented by a light blue box. Inside the blue UI box, there is a radio button widget that says, 'Make a choice:' and three round radio buttons beneath it. Underneath that, there is a placeholder space for a reactive output to be created by the server. The server is to the left of the UI and is represented by an orange box. At a basic level, reactivity occurs after the following steps: (1) A widget gets information from a user which (2) is then passed to the server where it is used to update a data frame based on the users choice. (3) The new data frame is used to update outputs in the server, and (4) those outputs are then rendered in the UI." width="90%" height="90%" /&gt;
 ]
 
 &lt;span style = 'font-size:80%;'&gt;Check out Garrett Grolemund's article, [How to understand reactivity in R](https://shiny.rstudio.com/articles/understanding-reactivity.html) for a more detailed overview of Shiny reactivity.&lt;/span&gt;
@@ -143,30 +143,44 @@ class: inverse, middle, center
 I'm glad you asked!
 
 ---
-### The Shiny package comes with **11** built-in examples to explore
+### &lt;span style = 'font-size:90%;'&gt;The Shiny package comes with **11** built-in examples to explore&lt;/span&gt;
 
-&lt;span style = 'font-size:80%;'&gt;Install (if you have not yet done so) the `{shiny}` package by running the following code in your console:&lt;/span&gt;
+&lt;span style = 'font-size:65%;'&gt;Install (if you have not yet done so) the `{shiny}` package by running the following code in your console:&lt;/span&gt;
 
 ```r
 install.packages("shiny")
 ```
 
-&lt;span style = 'font-size:80%;'&gt;Check out the available Shiny app examples by running this code in your console:&lt;/span&gt;
+&lt;span style = 'font-size:65%;'&gt;Check out the available Shiny app examples by running this code in your console:&lt;/span&gt;
 
 ```r
 library(shiny)
 runExample(example = NA)
 ```
 
-&lt;span style = 'font-size:80%;'&gt;Run the first example, which plots R’s built-in `faithful` data set with a configurable number of bins:&lt;/span&gt;
+&lt;span style = 'font-size:65%;'&gt;Run the first example, which plots R’s built-in `faithful` data set with a configurable number of bins:&lt;/span&gt;
 
 ```r
 runExample("01_hello")
 ```
 
 .footnote[
-Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html) article, by Shiny from RStudio for an overview of some additional examples.
+&lt;span style = 'font-size:65%;'&gt;Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html) article, by Shiny from RStudio for an overview of some additional examples.&lt;/span&gt;
 ]
+
+--
+
+&lt;span style = 'font-size:65%;'&gt;Change the number of bins using the `sliderInput` widget and watch the histogram re-render. These working examples also come paired with source code for you to see how the application is built. For example, the `sliderInput` is built with the following code:&lt;/span&gt;
+
+
+```r
+# Input: Slider for the number of bins ----
+sliderInput(inputId = "bins",
+            label = "Number of bins:",
+             min = 1,
+             max = 50,
+             value = 30)
+```
 
 ---
 class: inverse, middle, center
@@ -476,7 +490,7 @@ ui &lt;- fluidPage(
 ---
 ### Input function syntax
 
-&lt;span style = 'font-size:80%;'&gt;<svg aria-label="angle-right" role="img" viewBox="0 0 256 512" style="height:1em;width:0.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#05859B;overflow:visible;position:relative;"><title>angle-right</title><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg> All input functions have the same first argument, `inputId` (**NOTE:** `Id` *not* `ID`), which is used to connect the front end of your app (the UI) with the back end (the server). For example, if your UI has an `inputId = "name"`, the server function will access is using the syntax `input$name`. The `inputId` has two constraints: **(1)** it must be a simple string containing only letters, numbers, and underscores, **(2)** it must be unique.&lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;<svg aria-label="angle-right" role="img" viewBox="0 0 256 512" style="height:1em;width:0.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#05859B;overflow:visible;position:relative;"><title>angle-right</title><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg> **All input functions have the same first argument, `inputId`** (**NOTE:** `Id` *not* `ID`), **which is used to connect the front end of your app (the UI) with the back end (the server).** For example, if your UI has an `inputId = "name"`, the server function will access is using the syntax `input$name`. The `inputId` has two constraints: **(1)** it must be a simple string containing only letters, numbers, and underscores, **(2)** it must be unique.&lt;/span&gt;
 
 &lt;span style = 'font-size:80%;'&gt;<svg aria-label="angle-right" role="img" viewBox="0 0 256 512" style="height:1em;width:0.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#05859B;overflow:visible;position:relative;"><title>angle-right</title><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg> Most input functions have a second parameter called `label`, which is used to create a human-readable label for the control, which will appear in the UI.&lt;/span&gt;
 
@@ -522,7 +536,7 @@ ui &lt;- fluidPage(
 
 &lt;span style = 'font-size:80%;'&gt;Outputs in the UI create **placeholders** which are later filled by the server function.&lt;/span&gt;
 
-&lt;span style = 'font-size:80%;'&gt;<svg aria-label="angle-right" role="img" viewBox="0 0 256 512" style="height:1em;width:0.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#05859B;overflow:visible;position:relative;"><title>angle-right</title><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg> Similar to input functions, all output functions take the same first argument, `outputId` (again, note `Id` *not* `ID`), which connects the front end UI with the back end server. For example, if your UI has an `outputId = "plot"`, the server function will access it using the syntax `output$plot`.&lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;<svg aria-label="angle-right" role="img" viewBox="0 0 256 512" style="height:1em;width:0.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#05859B;overflow:visible;position:relative;"><title>angle-right</title><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg> Similar to input functions, **all output functions take the same first argument, `outputId`** (again, note `Id` *not* `ID`), **which connects the front end UI with the back end server.** For example, if your UI has an `outputId = "plot"`, the server function will access it using the syntax `output$plot`.&lt;/span&gt;
 
 Some examples: 
 
@@ -693,7 +707,7 @@ ggplot(na.omit(penguins),
         legend.background = element_rect(color = "white"))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-27-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### &lt;span style = 'font-size:90%;'&gt;**Rule 2:** Build objects you want to display with `render*()`&lt;/span&gt;
@@ -783,7 +797,7 @@ ggplot(na.omit(body_mass_filtered), # plot `body_mass_filtered' df rather than '
         legend.background = element_rect(color = "white"))
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-31-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-32-1.png" title="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." alt="A scatterplot of penguin Bill length (mm) vs. Flipper length (mm) for Adelie (orange circles), Chinstrap (purple triangles), and Gentoo (green squares) penguins. For all species, bill length tends to increase with flipper length." width="60%" height="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Which part of our code needs to be updated when a user changes the slider range input?
@@ -1631,9 +1645,10 @@ server &lt;- function(input, output) {
   # render the flipper length histogram
   output$flipperLength_hist &lt;- renderPlot({
     
-*   # validate ----
+*    # validate (tests a condition, returns error if test fails) ----
 *   validate(
-*     need(input$island != "", "Please select at least one island to visualize.")
+*     # need() takes an R exp that returns T or F + chr string to return if exp is FALSE
+*     need(length(input$island) &gt; 0,, "Please select at least one island to visualize.")
 *   )
     
     # filter island data ----

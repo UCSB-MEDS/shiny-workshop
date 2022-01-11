@@ -171,7 +171,7 @@ knitr::include_graphics("media/basic_widgets.png")
 <span style = 'font-size:80%;'>Reactivity is what makes Shiny apps responsive i.e. it lets the app instantly update itself whenever the user makes a change. At a very basic level, it looks something like this:</span>
 
 .center[
-```{r, out.width = '90%', out.height = '90%', echo = FALSE, fig.alt = "A schematic of Shiny reactivity. (1) A widget gets information from a user which (2) is then passed to the server where it is used to update a data frame based on the users choice. (3) The new data frame is used to update outputs in the server, and (4) those outputs are then rendered in the UI."}
+```{r, out.width = '90%', out.height = '90%', echo = FALSE, fig.alt = "A schematic of Shiny reactivity. The UI is represented by a light blue box. Inside the blue UI box, there is a radio button widget that says, 'Make a choice:' and three round radio buttons beneath it. Underneath that, there is a placeholder space for a reactive output to be created by the server. The server is to the left of the UI and is represented by an orange box. At a basic level, reactivity occurs after the following steps: (1) A widget gets information from a user which (2) is then passed to the server where it is used to update a data frame based on the users choice. (3) The new data frame is used to update outputs in the server, and (4) those outputs are then rendered in the UI."}
 knitr::include_graphics("media/reactivity_intro.png")
 ```
 ]
@@ -186,27 +186,40 @@ class: inverse, middle, center
 I'm glad you asked!
 
 ---
-### The Shiny package comes with **11** built-in examples to explore
+### <span style = 'font-size:90%;'>The Shiny package comes with **11** built-in examples to explore</span>
 
-<span style = 'font-size:80%;'>Install (if you have not yet done so) the `{shiny}` package by running the following code in your console:</span>
+<span style = 'font-size:65%;'>Install (if you have not yet done so) the `{shiny}` package by running the following code in your console:</span>
 ```{r install shiny, eval = FALSE}
 install.packages("shiny")
 ```
 
-<span style = 'font-size:80%;'>Check out the available Shiny app examples by running this code in your console:</span>
+<span style = 'font-size:65%;'>Check out the available Shiny app examples by running this code in your console:</span>
 ```{r shiny built-in example 1, eval = TRUE}
 library(shiny)
 runExample(example = NA)
 ```
 
-<span style = 'font-size:80%;'>Run the first example, which plots R’s built-in `faithful` data set with a configurable number of bins:</span>
+<span style = 'font-size:65%;'>Run the first example, which plots R’s built-in `faithful` data set with a configurable number of bins:</span>
 ```{r, eval = FALSE}
 runExample("01_hello")
 ```
 
 .footnote[
-Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html) article, by Shiny from RStudio for an overview of some additional examples.
+<span style = 'font-size:65%;'>Check out [The basic parts of a Shiny app](https://shiny.rstudio.com/articles/basics.html) article, by Shiny from RStudio for an overview of some additional examples.</span>
 ]
+
+--
+
+<span style = 'font-size:65%;'>Change the number of bins using the `sliderInput` widget and watch the histogram re-render. These working examples also come paired with source code for you to see how the application is built. For example, the `sliderInput` is built with the following code:</span>
+
+```{r, eval = FALSE, echo = TRUE}
+# Input: Slider for the number of bins ----
+sliderInput(inputId = "bins",
+            label = "Number of bins:",
+             min = 1,
+             max = 50,
+             value = 30)
+```
 
 ---
 class: inverse, middle, center
@@ -518,7 +531,7 @@ knitr::include_graphics("media/reactive_app_v1.gif")
 ---
 ### Input function syntax
 
-<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` All input functions have the same first argument, `inputId` (**NOTE:** `Id` *not* `ID`), which is used to connect the front end of your app (the UI) with the back end (the server). For example, if your UI has an `inputId = "name"`, the server function will access is using the syntax `input$name`. The `inputId` has two constraints: **(1)** it must be a simple string containing only letters, numbers, and underscores, **(2)** it must be unique.</span>
+<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` **All input functions have the same first argument, `inputId`** (**NOTE:** `Id` *not* `ID`), **which is used to connect the front end of your app (the UI) with the back end (the server).** For example, if your UI has an `inputId = "name"`, the server function will access is using the syntax `input$name`. The `inputId` has two constraints: **(1)** it must be a simple string containing only letters, numbers, and underscores, **(2)** it must be unique.</span>
 
 <span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Most input functions have a second parameter called `label`, which is used to create a human-readable label for the control, which will appear in the UI.</span>
 
@@ -564,7 +577,7 @@ knitr::include_graphics("media/sliderInput.png")
 
 <span style = 'font-size:80%;'>Outputs in the UI create **placeholders** which are later filled by the server function.</span>
 
-<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Similar to input functions, all output functions take the same first argument, `outputId` (again, note `Id` *not* `ID`), which connects the front end UI with the back end server. For example, if your UI has an `outputId = "plot"`, the server function will access it using the syntax `output$plot`.</span>
+<span style = 'font-size:80%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Similar to input functions, **all output functions take the same first argument, `outputId`** (again, note `Id` *not* `ID`), **which connects the front end UI with the back end server.** For example, if your UI has an `outputId = "plot"`, the server function will access it using the syntax `output$plot`.</span>
 
 Some examples: 
 ```{r, eval = FALSE}
@@ -1683,9 +1696,10 @@ server <- function(input, output) {
   # render the flipper length histogram
   output$flipperLength_hist <- renderPlot({
     
-    # validate ---- #<<
-    validate( #<<
-      need(input$island != "", "Please select at least one island to visualize.") #<<
+     # validate (tests a condition, returns error if test fails) ---- #<<
+    validate(  #<<
+      # need() takes an R exp that returns T or F + chr string to return if exp is FALSE #<<
+      need(length(input$island) > 0,, "Please select at least one island to visualize.") #<<
     ) #<<
     
     # filter island data ----
