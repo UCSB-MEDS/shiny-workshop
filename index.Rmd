@@ -231,7 +231,7 @@ class: inverse, middle, center
 
 ## `r fontawesome::fa("play", fill = "#93C6C2", a11y = "sem")` Creating your first Shiny app
 
-Before we get started, make sure to set up a GitHub repository and R project to house our soon-to-be Shiny app. Doesn't matter what you call it--I'll call mine something like, "practice-shiny".
+Before we get started, make sure to set up a GitHub repository and R project to house our soon-to-be Shiny app. I'll call mine something like, "practice-shiny".
 
 ---
 ### The data
@@ -339,21 +339,21 @@ shinyApp(ui = ui, server = server)
 ---
 ## Shiny app repository structure
 
-COME BACK TO THIS PAGE 
+<span style = 'font-size:80%;'>Not much is *required* to make a functional app (which is awesome!) -- for a basic app, you really just need an `app.R` file where you'll write the code for your UI and server. To stay organized we'll place `app.R` into a subdirectory (e.g. `myapp`), which will also house any dependencies (e.g. other scripts/files/etc.) used by `app.R`.</span>
 
+.pull-left[
+```{r, out.width = '100%', out.height = '100%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/repo_structure.png")
 ```
-my-app
-|_myapp # make sure the name of this directory is at least 4 characters long
-  |_app.R
-  |_processed_data
-    |_my_data.csv
-  |_functions.R
-  |_www
-    |_my_img.png
-|_raw_data
-  |_raw_data.csv
-  
-```
+]
+
+.pull-right[
+* <span style = 'font-size:80%;'>**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app</span>
+* <span style = 'font-size:80%;'>**`global.R`:** a script for storing commonly used pieces of logic; not required for a Shiny app, but can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`</span>
+* <span style = 'font-size:80%;'>**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can store your data externally</span>
+* <span style = 'font-size:80%;'>**`www` directory:** the directory expected by a Shiny application to locally store the elements that will be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.</span>
+]
+
 ---
 ## Run your app
 
@@ -1139,12 +1139,12 @@ knitr::include_graphics("media/shinyapps.io_dashboard.png")
 ---
 ### Other ways to host your Shiny apps
 
-[continue filling out this slide]
+[continue filling out this slide including *why* you'd choose to use something other than shinyapps.io]
 
 [shinyapps.io](https://www.shinyapps.io/) is not the only Shiny app hosting service (though it's the easiest to get started with and the only one we'll be covering in detail in this workshop).
 
-* https://shiny.rstudio.com/articles/shiny-server.html
-* docker?
+* https://shiny.rstudio.com/articles/shiny-server.html (shiny server)
+* r-bloggers.com/2019/02/deploying-an-r-shiny-app-with-docker/ (docker)
 
 ---
 ### What to expect:
@@ -1890,16 +1890,10 @@ class: inverse, center, middle
 ---
 class: inverse, center, middle
 
-## `r fontawesome::fa("tachometer-alt", fill = "#93C6C2", a11y = "sem")` Creating dashboards
+## `r fontawesome::fa("tachometer-alt", fill = "#93C6C2", a11y = "sem")` Other application frameworks
 
-[description here, {shinydashboards}]
-
----
-class: inverse, center, middle
-
-##`r fontawesome::fa("docker", fill = "#93C6C2", a11y = "sem")` Using Docker to ____
-
-[description here]
+* `r fontawesome::fa("tachometer-alt", fill = "#93C6C2", a11y = "sem")` {shinydashboards} (https://rstudio.github.io/shinydashboard/)
+* `r fontawesome::fa("star", fill = "#93C6C2", a11y = "sem")` golem (https://github.com/ThinkR-open/golem)
 
 ---
 class: inverse, center, middle
@@ -1914,7 +1908,9 @@ class: inverse, center, middle
 ## `r fontawesome::fa("plus", fill = "#93C6C2", a11y = "sem")` Additional resources
 
 ---
-### Additional resources
+### Additional resources 
+
+[organize these]
 
 * https://shiny.rstudio.com/images/shiny-cheatsheet.pdf
 * https://unleash-shiny.rinterface.com/index.html
@@ -1922,6 +1918,5 @@ class: inverse, center, middle
 * http://rstudio.github.io/shinythemes/
 * http://rstudio.github.io/leaflet/
 * https://ggvis.rstudio.com/
-* https://rstudio.github.io/shinydashboard/ 
 * https://deanattali.com/blog/shinydisconnect-package/
 * https://engineering-shiny.org/structuring-project.html#using-shiny-modules & https://mastering-shiny.org/scaling-modules.html#scaling-modules
