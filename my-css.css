@@ -21,7 +21,7 @@
 }
 
 /* resize embedded tweet -- see https://wordpress.com/forums/topic/css-code-to-resize-embedded-tweets/ */
-.embed-witter {
+.embed-twitter {
     width: 75% !important;
 }
 
