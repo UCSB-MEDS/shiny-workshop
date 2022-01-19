@@ -246,7 +246,8 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 
 &lt;span style = 'font-size:70%;'&gt;Make it pretty:&lt;/span&gt;
 
-* &lt;span style = 'font-size:70%;'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;apply a theme using the `{bslib}` package (**Exercise 6**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;add images to  your app(**Exercise 7**)&lt;/span&gt;
 
 ---
 ### What to expect:
@@ -271,7 +272,8 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 
 &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;Make it pretty:&lt;/span&gt;
 
-* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;apply a theme using the `{bslib}` package (**Exercise 6**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;add images to  your app(**Exercise 7**)&lt;/span&gt;
 
 ---
 ### All Shiny apps begin the same way
@@ -1143,7 +1145,8 @@ You will get this error if your app directory name has less than 4 characters lo
 
 &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;Make it pretty:&lt;/span&gt;
 
-* &lt;span style = 'font-size:70%;color:#c9c6c5'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5'&gt;apply a theme using the `{bslib}` package (**Exercise 6**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;add images to  your app(**Exercise 7**)&lt;/span&gt;
 
 ---
 class: inverse, center, middle
@@ -1566,7 +1569,8 @@ server &lt;- function(input, output) {
 
 &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;Make it pretty:&lt;/span&gt;
 
-* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;apply a theme using the `{bslib}` package&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;apply a theme using the `{bslib}` package (**Exercise 6**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;add images to  your app(**Exercise 7**)&lt;/span&gt;
 
 ---
 ### **Exercise 4:** Add a reactive histogram
@@ -1778,7 +1782,32 @@ class: inverse, center, middle
 Is any app *really* complete without an updated theme and some pictures (technically, yes...but that's less fun)?
 
 ---
+### What to expect:
 
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;We will start by building and publishing a very basic shiny app using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a title and subtitle&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `sliderInput` to render a reactive scatterplot output&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;an interactive `DT` table (**Exercise 1**)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;Next, we will learn how to spruce up the appearance of our app by:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;using layout functions to outline the visual structure of our app (**Exercise 2**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;add our text &amp; widgets back into our app (**Exercise 3**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;republish our updated app to [shinyapps.io](https://www.shinyapps.io/)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;We will then practice adding another reactive widget using `{palmerpenguins}` data that includes:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;a `pickerInput` (from the `{shinyWidgets}` package) to render a reactive histogram output (**Exercise 4**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;writing a user-friendly error message for our UI&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#c9c6c5;'&gt;adding a second `sliderInput` for our reactive histogram output (**Exercise 5**)&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;color:#000000;'&gt;Make it pretty:&lt;/span&gt;
+
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;apply a theme using the `{bslib}` package (**Exercise 6**)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;color:#000000;'&gt;add images to  your app(**Exercise 7**)&lt;/span&gt;
+
+---
 ### Using `{bslib}` for themeing Shiny apps
 
 &lt;span style = 'font-size:80%;'&gt;There are lots of approaches (and packages) for customizing the appearance of your Shiny app (Hadley Wickham lists out a handful in [Ch 6.4](https://mastering-shiny.org/action-layout.html#bootstrap) of Mastering Shiny). Here, we'll use the [`{bslib}` package](https://rstudio.github.io/bslib/), which provides tools for customizing [Bootstrap themes](https://getbootstrap.com/docs/4.6/getting-started/theming/) from R.&lt;/span&gt; 
@@ -1825,6 +1854,15 @@ ui &lt;- fluidPage(
 ]
 
 ---
+### **Exercise 6:** Add a theme to your app using `{bslib}`
+
+**To Do:**
+* Try adding a `bootswatch theme` or customize your own (see [slide #80]())
+
+**Some tips to get you started:**
+* Remember: typing `bootswatch_themes()` into your console will return valid pre-built theme names, or play around with the `bs_theme_preview()` widget for customizing themes!
+
+---
 ### Simplify themeing plots with `{thematic}`
 
 &lt;span style = 'font-size:80%;'&gt;Call `thematic_shiny()` from the [`{thematic}` package](https://rstudio.github.io/thematic/index.html) before launching your app to generate plotOutputs that reflect your application's `bs_theme()`. For example (taken from [Carson Seivert's talk](https://talks.cpsievert.me/20201112/#1) at NHS-R Conference 2020):&lt;/span&gt;
@@ -1854,7 +1892,7 @@ fluidPage(
 &lt;span style = 'font-size:80%;'&gt;**With calling `thematic_shiny()`:**&lt;/span&gt;
 
 ```r
-`thematic::thematic_shiny()`
+thematic::thematic_shiny()
 fluidPage(
   theme = bs_theme(bg = "#002B36", fg = "#EEE8D5", primary = "#2AA198", 
                    base_fonts = font_google("Pacifico")),
@@ -1870,9 +1908,9 @@ fluidPage(
 ]
 
 ---
-### &lt;span style = 'font-size:90%;'&gt;Allow users to display chosen images using `renderImage()`&lt;/span&gt;
+### &lt;span style = 'font-size:90%;'&gt;**Exercise 7:** Add an image(s) to your app&lt;/span&gt;
 
-&lt;span style = 'font-size:80%;'&gt;You and include static images in your Shiny app using the `img()` function, or even create a reactive `imageOutput` that allows using to select which image they want to display. For example:&lt;span&gt;
+&lt;span style = 'font-size:70%;'&gt;You and include static images in your Shiny app using the `img()` function, or even create a reactive `imageOutput` that allows using to select which image they want to display. For example:&lt;span&gt;
 
 .center[
 &lt;img src="media/penguin_photo.gif" width="66%" height="66%" /&gt;
@@ -1881,13 +1919,13 @@ fluidPage(
 --
 
 **To Do:**
-* &lt;span style = 'font-size:80%;'&gt;Try adding an image(s) to your Shiny app.&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;Try adding an image(s) to your Shiny app.&lt;/span&gt;
 
 **Some tips to get you started:**
-* &lt;span style = 'font-size:80%;'&gt;Shiny Lesson 2, [Build a User Interface](http://shiny.rstudio-staging.com/tutorial/written-tutorial/lesson2/) is a great place to start if you want to add a static image.&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;If you want to create a reactive output using `renderImage()`, check out the [Render images in a Shiny app](https://shiny.rstudio.com/articles/images.html) article.&lt;/span&gt; 
-* &lt;span style = 'font-size:80%;'&gt;To create my app (above), I found this [StackOverflow](https://stackoverflow.com/questions/45801594/changing-an-image-with-user-input-shiny-renderimage) answer to be particularly helpful.&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;If needed, check out the [source code](https://github.com/samanthacsik/practice-shiny) for my app.&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;Shiny Lesson 2, [Build a User Interface](http://shiny.rstudio-staging.com/tutorial/written-tutorial/lesson2/) is a great place to start if you want to add a static image.&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;If you want to create a reactive output using `renderImage()`, check out the [Render images in a Shiny app](https://shiny.rstudio.com/articles/images.html) article.&lt;/span&gt; 
+* &lt;span style = 'font-size:70%;'&gt;To create my app (above), I found this [StackOverflow](https://stackoverflow.com/questions/45801594/changing-an-image-with-user-input-shiny-renderimage) answer to be particularly helpful.&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;If needed, check out the [source code](https://github.com/samanthacsik/practice-shiny) for my app.&lt;/span&gt;
 
 ---
 class: inverse, center, middle
