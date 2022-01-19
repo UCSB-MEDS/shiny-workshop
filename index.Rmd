@@ -77,7 +77,7 @@ Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2"
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have the required R packages installed. You can install/update them all at once by running:</span>  
 
 ```{r, echo = TRUE, eval = FALSE}
-install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "bslib", "thematic", "shinyWidgets"))
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "shinyWidgets", "bslib", "thematic"))
 ```
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have downloaded the Palmer weather time series data from the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf) (`table_28.csv`)</span>
@@ -318,11 +318,11 @@ knitr::include_graphics("media/lter_penguins.png")
 ---
 ### All Shiny apps begin the same way
 
-<span style = 'font-size:80%;'>You can create your app using RStudio's built-in Shiny app template (e.g. File > New Project... > New Directory > Shiny Application), but it's just as easy to create it from scratch (and you'll memorize the structure faster!). Let's do that now.</span>
+<span style = 'font-size:70%;'>You can create your app using RStudio's built-in Shiny app template (e.g. File > New Project... > New Directory > Shiny Application), but it's just as easy to create it from scratch (and you'll memorize the structure faster!). Let's do that now.</span>
 
 --
 
-<span style = 'font-size:80%;'>Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script, or use the `shinyapp` snippet to automatically generate a shiny app template.</span>
+<span style = 'font-size:70%;'>Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script, or use the `shinyapp` snippet to automatically generate a shiny app template.</span>
 
 ```{r, echo = TRUE, eval = FALSE}
 # load packages ----
@@ -338,7 +338,7 @@ server <- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
 
-<span style = 'font-size:80%;'>It's best practice to place this `app.R` file into its own folder and *not* in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...</span>
+<span style = 'font-size:70%;'>It's best practice to place this `app.R` file into its own folder and *not* in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...</span>
 
 .footnote[
 <span style = 'font-size:80%;'>**Tip:** Use code sections (denoted by `# some text ----`) to make navigating different sections of your application code a bit easier. Code sections will appear in your document outline (find the button at the top right corner of the script/editor panel or use the `shift` + `command/control` + `O` keyboard shortcut).</span>
@@ -1371,9 +1371,9 @@ knitr::include_graphics("media/navbarPage_layout.png")
 **To Do:**
 * <span style = 'font-size:80%;'>Outline your Shiny app creating space to fill with the following text/R objects:
     * application intro/background info
-    * reactive `palmerpenguins` scatterplot (we've already created this one together)
+    * reactive `palmerpenguins` scatterplot (*we've already created this one together*)
     * reactive `palmerpenguins` histogram
-    * reactive `palmerpenguins` DT table (we've created this one already too)
+    * reactive `palmerpenguins` DT table (*we've created this one already too*)
     * reactive Palmer weather plot
     * reactive Palmer weather DT table
 
@@ -1491,7 +1491,7 @@ knitr::include_graphics("media/ex_navbar_tabset.gif")
 * <span style = 'font-size:80%;'>Be mindful of `()` when copying/pasting -- make sure you don't leave any behind by accident (**Tip:** enable Rainbow Parentheses (under 'Code' in the menu bar) if you haven't already)</span>
 * <span style = 'font-size:80%;'>Remember to separate UI elements with a `,`</span>
 
-<span style = 'font-size:80%;'>If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #54](https://ucsb-meds.github.io/shiny-workshop/#72) (*Example B: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) </span>
+<span style = 'font-size:80%;'>If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #60](https://ucsb-meds.github.io/shiny-workshop/#86) (*Example B: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) </span>
 
 ---
 ### My app, so far:
@@ -1579,7 +1579,7 @@ knitr::include_graphics("media/reactive_app_v2.gif")
 ---
 ### Republish our app
 
-<span style = 'font-size:80%;'>Now that we've refined our application's layout a bit more and spruced it up with a theme, let's republish to [shinyapps.io](https://shinyapps.io/). To do so:</span>  
+<span style = 'font-size:80%;'>Now that we've refined our application's layout a bit more, let's republish to [shinyapps.io](https://shinyapps.io/). To do so:</span>  
 
 --
 
@@ -1591,7 +1591,7 @@ knitr::include_graphics("media/reactive_app_v2.gif")
 
 --
 
-<span style = 'font-size:80%;'>3. Give it a minute to deploy. It should open up a browser window with your republished app once processed.</span>  
+<span style = 'font-size:80%;'>3. Give it a minute (or a few) to deploy. It should open up a browser window with your republished app once processed.</span>  
 
 ---
 ### What to expect:
@@ -1621,13 +1621,13 @@ knitr::include_graphics("media/reactive_app_v2.gif")
 ---
 ### **Exercise 4:** Add a reactive histogram
 
-<span style = 'font-size:80%;'>Time to flex your reactivity skills! Add a second reactive plot to your Shiny app.</span>
+<span style = 'font-size:70%;'>Time to flex your reactivity skills! Add a second reactive plot to your Shiny app.</span>
 
 .pull-left[
 **To Do:**
-* <span style = 'font-size:80%;'>Create a reactive histogram of penguin flipper lengths (similar to the one shown here) with a `shinyWidgets::pickerInput` that allows users to filter displayed data by island(s)</span>
-* <span style = 'font-size:80%;'>Be sure to include a `label`, default to all islands selected, and include buttons that allow users to "Select All" or "Deselect All" islands at once</span>
-* <span style = 'font-size:80%;'>Add the `pickerInput` and rendered histogram output to your shiny app where appropriate</span>
+* <span style = 'font-size:70%;'>Create a reactive histogram of penguin flipper lengths (similar to the one shown here) with a `shinyWidgets::pickerInput` that allows users to filter displayed data by island(s)</span>
+* <span style = 'font-size:70%;'>Be sure to include a `label`, default to all islands selected, and include buttons that allow users to "Select All" or "Deselect All" islands at once</span>
+* <span style = 'font-size:70%;'>Add the `pickerInput` and rendered histogram output to your shiny app where appropriate</span>
 ]
 
 .pull-right[
@@ -1637,7 +1637,8 @@ knitr::include_graphics("media/hist.png")
 ]
 
 **Some tips to get your started:**
-* <span style = 'font-size:80%;'>Once you've created your reactive histogram output, pay close attention to the species colors when you select different islands. Notice anything strange? How might you address this issue (if you haven't already done so)?
+* <span style = 'font-size:70%;'>Check out the [`pickerInput` documentation](https://dreamrs.github.io/shinyWidgets/reference/pickerInput.html) to learn more about the arguments you'll need to include</span>
+* <span style = 'font-size:70%;'>Once you've created your reactive histogram output, pay close attention to the species colors when you select different islands. Notice anything strange? How might you address this issue (if you haven't already done so)?
 
 ---
 ### **Exercise 4:** Solution for adding a <span style = 'font-size:90%;'>`shinyWidgets::pickerInput`</span> and <span style = 'font-size:90%;'>`plotOutput`</span> to the UI
@@ -1823,14 +1824,9 @@ server <- function(input, output) {
 ---
 class: inverse, center, middle
 
-## `r fontawesome::fa("bug", fill = "#93C6C2", a11y = "sem")` Troubleshooting & debugging your Shiny app
-
----
-class: inverse, center, middle
-
 ## `r fontawesome::fa("magic", fill = "#93C6C2", a11y = "sem")` Adding some fun touches
 
-Adding themes, photos, etc.
+Is any app *really* complete without an updated theme and some pictures (technically, yes...but that's less fun)?
 
 ---
 
@@ -1908,7 +1904,7 @@ knitr::include_graphics("media/before_thematic.png")
 
 <span style = 'font-size:80%;'>**With calling `thematic_shiny()`:**</span>
 ```{r, eval = FALSE, echo = TRUE}
-`thematic::thematic_shiny()` 
+`thematic::thematic_shiny()`
 fluidPage(
   theme = bs_theme(bg = "#002B36", fg = "#EEE8D5", primary = "#2AA198", 
                    base_fonts = font_google("Pacifico")),
@@ -1946,6 +1942,11 @@ knitr::include_graphics("media/penguin_photo.gif")
 * <span style = 'font-size:80%;'>If you want to create a reactive output using `renderImage()`, check out the [Render images in a Shiny app](https://shiny.rstudio.com/articles/images.html) article.</span> 
 * <span style = 'font-size:80%;'>To create my app (above), I found this [StackOverflow](https://stackoverflow.com/questions/45801594/changing-an-image-with-user-input-shiny-renderimage) answer to be particularly helpful.</span>
 * <span style = 'font-size:80%;'>If needed, check out the [source code](https://github.com/samanthacsik/practice-shiny) for my app.</span>
+
+---
+class: inverse, center, middle
+
+## `r fontawesome::fa("bug", fill = "#93C6C2", a11y = "sem")` Troubleshooting & debugging your Shiny app
 
 ---
 class: inverse, center, middle

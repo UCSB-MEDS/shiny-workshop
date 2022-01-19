@@ -43,7 +43,7 @@ Slides &amp; source code available on [<svg aria-label="GitHub" role="img" viewB
 
 
 ```r
-install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "bslib", "thematic", "shinyWidgets"))
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "shinyWidgets", "bslib", "thematic"))
 ```
 
 &lt;span style = 'font-size: 85%;'&gt;<svg aria-label="angle-right" role="img" viewBox="0 0 256 512" style="height:1em;width:0.5em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#05859B;overflow:visible;position:relative;"><title>angle-right</title><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg> You have downloaded the Palmer weather time series data from the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf) (`table_28.csv`)&lt;/span&gt;
@@ -276,11 +276,11 @@ Before we get started, make sure to set up a GitHub repository and R project to 
 ---
 ### All Shiny apps begin the same way
 
-&lt;span style = 'font-size:80%;'&gt;You can create your app using RStudio's built-in Shiny app template (e.g. File &gt; New Project... &gt; New Directory &gt; Shiny Application), but it's just as easy to create it from scratch (and you'll memorize the structure faster!). Let's do that now.&lt;/span&gt;
+&lt;span style = 'font-size:70%;'&gt;You can create your app using RStudio's built-in Shiny app template (e.g. File &gt; New Project... &gt; New Directory &gt; Shiny Application), but it's just as easy to create it from scratch (and you'll memorize the structure faster!). Let's do that now.&lt;/span&gt;
 
 --
 
-&lt;span style = 'font-size:80%;'&gt;Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script, or use the `shinyapp` snippet to automatically generate a shiny app template.&lt;/span&gt;
+&lt;span style = 'font-size:70%;'&gt;Create a new R script and name it `app.R` -- you **must** name your script `app.R`, otherwise it will not be recognized as a Shiny app. Copy the following code into your `app.R` script, or use the `shinyapp` snippet to automatically generate a shiny app template.&lt;/span&gt;
 
 
 ```r
@@ -297,7 +297,7 @@ server &lt;- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
 
-&lt;span style = 'font-size:80%;'&gt;It's best practice to place this `app.R` file into its own folder and *not* in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...&lt;/span&gt;
+&lt;span style = 'font-size:70%;'&gt;It's best practice to place this `app.R` file into its own folder and *not* in a folder that contains other scripts/files, *unless* those other files are used by your app. This is a good segue into talking about repository files structure...&lt;/span&gt;
 
 .footnote[
 &lt;span style = 'font-size:80%;'&gt;**Tip:** Use code sections (denoted by `# some text ----`) to make navigating different sections of your application code a bit easier. Code sections will appear in your document outline (find the button at the top right corner of the script/editor panel or use the `shift` + `command/control` + `O` keyboard shortcut).&lt;/span&gt;
@@ -1323,9 +1323,9 @@ ui &lt;- fluidPage(
 **To Do:**
 * &lt;span style = 'font-size:80%;'&gt;Outline your Shiny app creating space to fill with the following text/R objects:
     * application intro/background info
-    * reactive `palmerpenguins` scatterplot (we've already created this one together)
+    * reactive `palmerpenguins` scatterplot (*we've already created this one together*)
     * reactive `palmerpenguins` histogram
-    * reactive `palmerpenguins` DT table (we've created this one already too)
+    * reactive `palmerpenguins` DT table (*we've created this one already too*)
     * reactive Palmer weather plot
     * reactive Palmer weather DT table
 
@@ -1441,7 +1441,7 @@ shinyApp(ui = ui, server = server)
 * &lt;span style = 'font-size:80%;'&gt;Be mindful of `()` when copying/pasting -- make sure you don't leave any behind by accident (**Tip:** enable Rainbow Parentheses (under 'Code' in the menu bar) if you haven't already)&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Remember to separate UI elements with a `,`&lt;/span&gt;
 
-&lt;span style = 'font-size:80%;'&gt;If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #54](https://ucsb-meds.github.io/shiny-workshop/#72) (*Example B: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) &lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #60](https://ucsb-meds.github.io/shiny-workshop/#86) (*Example B: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) &lt;/span&gt;
 
 ---
 ### My app, so far:
@@ -1529,7 +1529,7 @@ server &lt;- function(input, output) {
 ---
 ### Republish our app
 
-&lt;span style = 'font-size:80%;'&gt;Now that we've refined our application's layout a bit more and spruced it up with a theme, let's republish to [shinyapps.io](https://shinyapps.io/). To do so:&lt;/span&gt;  
+&lt;span style = 'font-size:80%;'&gt;Now that we've refined our application's layout a bit more, let's republish to [shinyapps.io](https://shinyapps.io/). To do so:&lt;/span&gt;  
 
 --
 
@@ -1541,7 +1541,7 @@ server &lt;- function(input, output) {
 
 --
 
-&lt;span style = 'font-size:80%;'&gt;3. Give it a minute to deploy. It should open up a browser window with your republished app once processed.&lt;/span&gt;  
+&lt;span style = 'font-size:80%;'&gt;3. Give it a minute (or a few) to deploy. It should open up a browser window with your republished app once processed.&lt;/span&gt;  
 
 ---
 ### What to expect:
@@ -1571,13 +1571,13 @@ server &lt;- function(input, output) {
 ---
 ### **Exercise 4:** Add a reactive histogram
 
-&lt;span style = 'font-size:80%;'&gt;Time to flex your reactivity skills! Add a second reactive plot to your Shiny app.&lt;/span&gt;
+&lt;span style = 'font-size:70%;'&gt;Time to flex your reactivity skills! Add a second reactive plot to your Shiny app.&lt;/span&gt;
 
 .pull-left[
 **To Do:**
-* &lt;span style = 'font-size:80%;'&gt;Create a reactive histogram of penguin flipper lengths (similar to the one shown here) with a `shinyWidgets::pickerInput` that allows users to filter displayed data by island(s)&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;Be sure to include a `label`, default to all islands selected, and include buttons that allow users to "Select All" or "Deselect All" islands at once&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;Add the `pickerInput` and rendered histogram output to your shiny app where appropriate&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;Create a reactive histogram of penguin flipper lengths (similar to the one shown here) with a `shinyWidgets::pickerInput` that allows users to filter displayed data by island(s)&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;Be sure to include a `label`, default to all islands selected, and include buttons that allow users to "Select All" or "Deselect All" islands at once&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;Add the `pickerInput` and rendered histogram output to your shiny app where appropriate&lt;/span&gt;
 ]
 
 .pull-right[
@@ -1585,7 +1585,8 @@ server &lt;- function(input, output) {
 ]
 
 **Some tips to get your started:**
-* &lt;span style = 'font-size:80%;'&gt;Once you've created your reactive histogram output, pay close attention to the species colors when you select different islands. Notice anything strange? How might you address this issue (if you haven't already done so)?
+* &lt;span style = 'font-size:70%;'&gt;Check out the [`pickerInput` documentation](https://dreamrs.github.io/shinyWidgets/reference/pickerInput.html) to learn more about the arguments you'll need to include&lt;/span&gt;
+* &lt;span style = 'font-size:70%;'&gt;Once you've created your reactive histogram output, pay close attention to the species colors when you select different islands. Notice anything strange? How might you address this issue (if you haven't already done so)?
 
 ---
 ### **Exercise 4:** Solution for adding a &lt;span style = 'font-size:90%;'&gt;`shinyWidgets::pickerInput`&lt;/span&gt; and &lt;span style = 'font-size:90%;'&gt;`plotOutput`&lt;/span&gt; to the UI
@@ -1772,14 +1773,9 @@ server &lt;- function(input, output) {
 ---
 class: inverse, center, middle
 
-## <svg aria-label="Bug" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Bug</title><path d="M511.988 288.9c-.478 17.43-15.217 31.1-32.653 31.1H424v16c0 21.864-4.882 42.584-13.6 61.145l60.228 60.228c12.496 12.497 12.496 32.758 0 45.255-12.498 12.497-32.759 12.496-45.256 0l-54.736-54.736C345.886 467.965 314.351 480 280 480V236c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v244c-34.351 0-65.886-12.035-90.636-32.108l-54.736 54.736c-12.498 12.497-32.759 12.496-45.256 0-12.496-12.497-12.496-32.758 0-45.255l60.228-60.228C92.882 378.584 88 357.864 88 336v-16H32.666C15.23 320 .491 306.33.013 288.9-.484 270.816 14.028 256 32 256h56v-58.745l-46.628-46.628c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0L141.255 160h229.489l54.627-54.627c12.498-12.497 32.758-12.497 45.256 0 12.496 12.497 12.496 32.758 0 45.255L424 197.255V256h56c17.972 0 32.484 14.816 31.988 32.9zM257 0c-61.856 0-112 50.144-112 112h224C369 50.144 318.856 0 257 0z"/></svg> Troubleshooting &amp; debugging your Shiny app
-
----
-class: inverse, center, middle
-
 ## <svg aria-label="magic" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>magic</title><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"/></svg> Adding some fun touches
 
-Adding themes, photos, etc.
+Is any app *really* complete without an updated theme and some pictures (technically, yes...but that's less fun)?
 
 ---
 
@@ -1858,7 +1854,7 @@ fluidPage(
 &lt;span style = 'font-size:80%;'&gt;**With calling `thematic_shiny()`:**&lt;/span&gt;
 
 ```r
-`thematic::thematic_shiny()` 
+`thematic::thematic_shiny()`
 fluidPage(
   theme = bs_theme(bg = "#002B36", fg = "#EEE8D5", primary = "#2AA198", 
                    base_fonts = font_google("Pacifico")),
@@ -1892,6 +1888,11 @@ fluidPage(
 * &lt;span style = 'font-size:80%;'&gt;If you want to create a reactive output using `renderImage()`, check out the [Render images in a Shiny app](https://shiny.rstudio.com/articles/images.html) article.&lt;/span&gt; 
 * &lt;span style = 'font-size:80%;'&gt;To create my app (above), I found this [StackOverflow](https://stackoverflow.com/questions/45801594/changing-an-image-with-user-input-shiny-renderimage) answer to be particularly helpful.&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;If needed, check out the [source code](https://github.com/samanthacsik/practice-shiny) for my app.&lt;/span&gt;
+
+---
+class: inverse, center, middle
+
+## <svg aria-label="Bug" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Bug</title><path d="M511.988 288.9c-.478 17.43-15.217 31.1-32.653 31.1H424v16c0 21.864-4.882 42.584-13.6 61.145l60.228 60.228c12.496 12.497 12.496 32.758 0 45.255-12.498 12.497-32.759 12.496-45.256 0l-54.736-54.736C345.886 467.965 314.351 480 280 480V236c0-6.627-5.373-12-12-12h-24c-6.627 0-12 5.373-12 12v244c-34.351 0-65.886-12.035-90.636-32.108l-54.736 54.736c-12.498 12.497-32.759 12.496-45.256 0-12.496-12.497-12.496-32.758 0-45.255l60.228-60.228C92.882 378.584 88 357.864 88 336v-16H32.666C15.23 320 .491 306.33.013 288.9-.484 270.816 14.028 256 32 256h56v-58.745l-46.628-46.628c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0L141.255 160h229.489l54.627-54.627c12.498-12.497 32.758-12.497 45.256 0 12.496 12.497 12.496 32.758 0 45.255L424 197.255V256h56c17.972 0 32.484 14.816 31.988 32.9zM257 0c-61.856 0-112 50.144-112 112h224C369 50.144 318.856 0 257 0z"/></svg> Troubleshooting &amp; debugging your Shiny app
 
 ---
 class: inverse, center, middle
