@@ -1996,7 +1996,7 @@ class: inverse, center, middle
 <span style = 'font-size: 80%;'>**3.** there's no error in the console to help you troubleshoot</span>  
 
 .footnote[
-Reactivity is *confusing*. I recommend watching Barret Schloerke's talk, linked above, and reading through the [Shiny Reactlog vignette ](https://rstudio.github.io/reactlog/articles/reactlog.html).
+Reactivity can be *confusing*. I recommend watching Barret Schloerke's talk, linked above, and reading through the [Shiny Reactlog vignette ](https://rstudio.github.io/reactlog/articles/reactlog.html).
 ]
 
 --
@@ -2024,7 +2024,7 @@ Reactivity is *confusing*. I recommend watching Barret Schloerke's talk, linked 
 
 <span style = 'font-size: 80%;'>**1.** Call `reactlog_enable()` in your console</span>  
 <span style = 'font-size: 80%;'>**2.** Run your app and interact with it</span>  
-<span style = 'font-size: 80%;'>**3.** Use the keyboard shortcut `cmd`/`cntrl` + `F3` to launch reactlog</span>  
+<span style = 'font-size: 80%;'>**3.** Use the keyboard shortcut `cmd`/`ctrl` + `F3` to launch reactlog</span>  
 <span style = 'font-size: 80%;'>**4.** Use your `<-` and `->` arrow keys (or <img src="media/previous.png" alt="A gray, left-facing play button" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/> and <img src="media/forward.png" alt="A gray, right-facing play button" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/>) to move forward and backward through your app's reactive life cycle.</span>
 
 .footnote[
@@ -2036,7 +2036,7 @@ Read about the [components of the status bar](https://rstudio.github.io/reactlog
 
 <span style = 'font-size: 80%;'>Let's explore `reactlog` using a small app, though it becomes increasingly more useful as you need to debug larger, more complex apps.</span>
 
-<span style = 'font-size: 80%;'>I've created two apps, one that's working the way I expect and another that's not. You can fork and clone both apps below if you'd like to run the code yourself.</span> 
+<span style = 'font-size: 80%;'>I've created two apps, one that's working the way I expect and another that is not. You can fork and clone both apps below if you'd like to run the code yourself.</span> 
 
 * <span style = 'font-size: 80%;'>A functioning app: https://github.com/samanthacsik/reactlog-practice-working</span>
 * <span style = 'font-size: 80%;'>A borked app: https://github.com/samanthacsik/reactlog-practice-broken</span>
@@ -2086,9 +2086,9 @@ knitr::include_graphics("media/reactlog_working.gif")
 ---
 ### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
 
-<span style = 'font-size: 80%;'>Let's try out reactlog on an intentionally borked app. Here, our images change when the `radioButton` user inputs are updated, but our text doesn't appear.</span>
+<span style = 'font-size: 70%;'>Let's try out reactlog on an intentionally borked app. Here, our images change when the `radioButton` user inputs are updated, but our text doesn't appear.</span>
 
-<span style = 'font-size: 80%;'>As in our functioning app, the **All penguins** image is selected by default. For demonstration purposes, I'll select each option moving down the list (**Sassy chinstrap**, **Staring gentoo**, **Adorable adelie**) before launching reactlog.</span>
+<span style = 'font-size: 70%;'>As in our functioning app, the **All penguins** image is selected by default. For demonstration purposes, I'll select each option moving down the list (**Sassy chinstrap**, **Staring gentoo**, **Adorable adelie**) before launching reactlog.</span>
 
 .center[
 ```{r, out.width = '60%', out.height = '60%', echo = FALSE, fig.alt = ""}
@@ -2112,9 +2112,9 @@ knitr::include_graphics("media/reactlog_notworking.gif")
 ---
 ### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
 
-<span style = 'font-size: 80%;'>This suggests that it might be wise to ensure that our UI and server are actually able to communicate about our desired text output. After careful inspection of our `textOutput()` and `renderText()` code, we find that a spelling error is to blame:</span>
+<span style = 'font-size: 70%;'>This suggests that we ensure that our UI and server are actually able to communicate about our desired text output. After careful inspection of our `textOutput()` and `renderText()` code, we find that a spelling error is to blame:</span>
 
-<span style = 'font-size: 80%;'>Our `outputId` in the **UI** is set to `penguin_text`:</span>
+<span style = 'font-size: 70%;'>Our `outputId` in the **UI** is set to `penguin_text`:</span>
 ```{r, echo = TRUE, eval = FALSE}
 ui <- fluidPage(
   
@@ -2126,7 +2126,7 @@ ui <- fluidPage(
 )
 ```
 
-<span style = 'font-size: 80%;'>But we call `penguins_text` when rendering our output in the **server**:</span>
+<span style = 'font-size: 70%;'>But we call `penguins_text` when rendering our output in the **server**:</span>
 ```{r, echo = TRUE, eval = FALSE}
 server <- function(input, output){
   
@@ -2140,6 +2140,8 @@ server <- function(input, output){
   })
 }
 ```
+
+<span style = 'font-size: 70%;'>By updating our `outputId` to match in both the UI and the server, we fix our app.</span>
 
 ---
 class: inverse, center, middle
