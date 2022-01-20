@@ -1,7 +1,7 @@
 ---
 title: "An Intro to Shiny"
 author: "Sam Csik | Data Training Coordinator<br><span style = 'font-size: 65%;'>National Center for Ecological Analysis & Synthesis<br></span>"
-date: "<span style = 'font-size: 85%;'>Masters of Environmental Data Science | Fall 2021</span><br><span style = 'font-size: 65%;'>Slides & source code available on [GitHub](https://github.com/UCSB-MEDS/teach-me-how-to-google)</span>"
+date: "<span style = 'font-size: 85%;'>Master of Environmental Data Science | Fall 2021</span><br><span style = 'font-size: 65%;'>Slides & source code available on [GitHub](https://github.com/UCSB-MEDS/teach-me-how-to-google)</span>"
 output:
   xaringan::moon_reader:
     css: ['xaringan-themer.css', 'my-css.css']
@@ -63,7 +63,7 @@ National Center for Ecological Analysis & Synthesis<br>
 
 <br>
 
-<span style = 'font-size: 130%;'>Masters of Environmental Data Science | Winter 2022</span>   
+<span style = 'font-size: 130%;'>Master of Environmental Data Science | Winter 2022</span>   
 
 Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2", a11y = "sem")`](https://github.com/UCSB-MEDS/shiny-workshop)
 
@@ -1907,7 +1907,7 @@ knitr::include_graphics("media/bs_theme_preview.gif")
 ### **Exercise 6:** Add a theme to your app using `{bslib}`
 
 **To Do:**
-* Try adding a `bootswatch theme` or customize your own (see [slide #80]())
+* Try adding a `bootswatch` theme or customize your own (see [slide #80]())
 
 **Some tips to get you started:**
 * Remember: typing `bootswatch_themes()` into your console will return valid pre-built theme names, or play around with the `bs_theme_preview()` widget for customizing themes!
@@ -1985,6 +1985,161 @@ knitr::include_graphics("media/penguin_photo.gif")
 class: inverse, center, middle
 
 ## `r fontawesome::fa("bug", fill = "#93C6C2", a11y = "sem")` Troubleshooting & debugging your Shiny app
+
+---
+### `{reactlog}` can help you debug your shiny app
+
+<span style = 'font-size: 80%;'>You'll likely find yourself in this situation during your shiny development journey:</span>
+
+<span style = 'font-size: 80%;'>**1.** you add a new reactive feature to your app, BUT</span>  
+<span style = 'font-size: 80%;'>**2.** your reactive input doesn't update, AND</span>  
+<span style = 'font-size: 80%;'>**3.** there's no error in the console to help you troubleshoot</span>  
+
+.footnote[
+Reactivity is *confusing*. I recommend watching Barret Schloerke's talk, linked above, and reading through the [Shiny Reactlog vignette ](https://rstudio.github.io/reactlog/articles/reactlog.html).
+]
+
+--
+
+<span style = 'font-size: 80%;'>Debugging reactive code is particularly challenging because it involves lots of different components (R values, dependencies) which update over time.</span>
+
+<span style = 'font-size: 80%;'>Enter `{reactlog}`, which provides:</span> 
+
+<br>
+
+.center[
+> "A snapshot of the history (**log**) of all **react**ive interactions within a shiny application"
+
+.right[
+<span style = 'font-size: 60%;'>- Barret Schloerke in his 2019 RSTUDIO::CONF talk, [Reactlog 2.0: Debugging the state of Shiny](https://www.rstudio.com/resources/rstudioconf-2019/reactlog-2-0-debugging-the-state-of-shiny/)</span>
+]
+]
+
+---
+### Using `reactlog`
+
+<span style = 'font-size: 80%;'>`reactlog` should already be installed as a dependency of `shiny` (but be sure to import the package at the top of your script using `library(reactlog)`). When enabled, it provides an interactive browser-based tool to visualize reactive dependencies and executions in your app.</span>
+
+**Steps:** 
+
+<span style = 'font-size: 80%;'>**1.** Call `reactlog_enable()` in your console</span>  
+<span style = 'font-size: 80%;'>**2.** Run your app and interact with it</span>  
+<span style = 'font-size: 80%;'>**3.** Use the keyboard shortcut `cmd`/`cntrl` + `F3` to launch reactlog</span>  
+<span style = 'font-size: 80%;'>**4.** Use your `<-` and `->` arrow keys (or <img src="media/previous.png" alt="A gray, left-facing play button" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/> and <img src="media/forward.png" alt="A gray, right-facing play button" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/>) to move forward and backward through your app's reactive life cycle.</span>
+
+.footnote[
+Read about the [components of the status bar](https://rstudio.github.io/reactlog/articles/reactlog.html#status-bar) and the meaning of different [reactive states](https://rstudio.github.io/reactlog/articles/reactlog.html#reactive-states) in the reactlog vignette.
+]
+
+---
+### Using `reactlog` -- two examples
+
+<span style = 'font-size: 80%;'>Let's explore `reactlog` using a small app, though it becomes increasingly more useful as you need to debug larger, more complex apps.</span>
+
+<span style = 'font-size: 80%;'>I've created two apps, one that's working the way I expect and another that's not. You can fork and clone both apps below if you'd like to run the code yourself.</span> 
+
+* <span style = 'font-size: 80%;'>A functioning app: https://github.com/samanthacsik/reactlog-practice-working</span>
+* <span style = 'font-size: 80%;'>A borked app: https://github.com/samanthacsik/reactlog-practice-broken</span>
+
+<span style = 'font-size: 80%;'>When functioning correctly, both image and text outputs should update based on a `radioButton` user input.<span>
+
+.center[
+```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/simple_img_text_app.gif")
+```
+]
+
+---
+### Using `reactlog` -- [a correctly functioning app](https://github.com/samanthacsik/reactlog-practice-working)
+
+<span style = 'font-size: 80%;'>To visualize the reactive life cycle of this app, I'll first call `reactlog_enable()` in my console, then run my app. By default, **All penguins** is selected. For demonstration purposes, I'll click down the list (**Sassy chinstrap**, **Staring gentoo**, and finally **Adorable adelie**), as shown in the gif on the previous slide.</span>
+
+--
+
+<span style = 'font-size: 80%;'>I can launch reactlog by using the `cmd`/`ctrl` + `F3` keyboard shortcut and use the <img src="media/forward.png" alt="A gray, right-facing play button" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/> button to move forward through each step:</span>
+
+.center[
+```{r, out.width = '60%', out.height = '60%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/reactlog_working.gif")
+```
+]
+
+---
+### Using `reactlog` -- [a correctly functioning app](https://github.com/samanthacsik/reactlog-practice-working)
+
+<span style = 'font-size: 70%;'>There's a lot to take in here, so let's take it one step at a time:</span>
+
+<span style = 'font-size: 70%;'>**1.** The `radioButton` input defaults to show the **All penguins** image and associated text. When we launch reactlog, our input <img src="media/input.png" alt="" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/>, reactive expression <img src="media/expression.png" alt="" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/>, and outputs <img src="media/output.png" alt="" style="display: inline-block; margin: 0; position: relative; top: 3px; width:15px;height:15px;"/> are **Ready**, meaning the calculated values are available (defaults in this case) and reactive elements have finished executing (i.e. the image and text is displayed). This **Ready** state is indicated by the green icons.</span>
+
+--
+
+<span style = 'font-size: 70%;'>**2.** I (the user) then updated the input by choosing **Sassy chinstrap**, invalidating (i.e. resetting) the input and thereby invalidating any dependencies -- in this case both the image and text outputs. This **Invalidating** state is indicated by the gray icons.</span> 
+
+--
+
+<span style = 'font-size: 70%;'>**3.** Once all dependencies are invalidated, the reactive elements can begin **Calculating** (i.e. executing) based on the new input (**Sassy chinstrap**). Elements are colored yellow when they are being calculated, then green when calculations are complete and the reactive element has been updated. In this example, first the image and then the text are calculated and updated.</span>
+
+--
+
+<span style = 'font-size: 70%;'>**4.** These same steps are repeated when I select the **Staring gentoo**, then **Adorable adelie** `radioButtons`</span> 
+
+---
+### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
+
+<span style = 'font-size: 80%;'>Let's try out reactlog on an intentionally borked app. Here, our images change when the `radioButton` user inputs are updated, but our text doesn't appear.</span>
+
+<span style = 'font-size: 80%;'>As in our functioning app, the **All penguins** image is selected by default. For demonstration purposes, I'll select each option moving down the list (**Sassy chinstrap**, **Staring gentoo**, **Adorable adelie**) before launching reactlog.</span>
+
+.center[
+```{r, out.width = '60%', out.height = '60%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/simple_img_text_app_notworking.gif")
+```
+]
+
+---
+### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
+
+<span style = 'font-size: 70%;'>Similar to our functioning app, the default input, **All penguins**, and image output are **Ready** (green). However, in this example our text output is *not a dependency* of our application's input -- there's no linkage and the text output is **Invalidated** (gray).</span>
+
+<span style = 'font-size: 70%;'>As we click down the list of `radioButton`s, the image output is invalidated, then updated accordingly but the text output remains disconnected from our input.</span>
+
+.center[
+```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/reactlog_notworking.gif")
+```
+]
+
+---
+### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
+
+<span style = 'font-size: 80%;'>This suggests that it might be wise to ensure that our UI and server are actually able to communicate about our desired text output. After careful inspection of our `textOutput()` and `renderText()` code, we find that a spelling error is to blame:</span>
+
+<span style = 'font-size: 80%;'>Our `outputId` in the **UI** is set to `penguin_text`:</span>
+```{r, echo = TRUE, eval = FALSE}
+ui <- fluidPage(
+  
+  # ~ previous code excluded for brevity ~
+  
+  # text output ----
+  textOutput(outputId = `"penguin_text"`)
+  
+)
+```
+
+<span style = 'font-size: 80%;'>But we call `penguins_text` when rendering our output in the **server**:</span>
+```{r, echo = TRUE, eval = FALSE}
+server <- function(input, output){
+  
+  # ~ previous code excluded for brevity ~
+  
+  # render penguin text ----
+  output$`penguins_text` <- renderText({
+    
+    # ~ code excluded for brevity ~
+    
+  })
+}
+```
 
 ---
 class: inverse, center, middle
