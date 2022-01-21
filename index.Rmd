@@ -358,10 +358,11 @@ knitr::include_graphics("media/repo_structure.png")
 ]
 
 .pull-right[
-* <span style = 'font-size:80%;'>**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app</span>
-* <span style = 'font-size:80%;'>**`global.R`:** a script for storing commonly used pieces of logic; not required for a Shiny app, but can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`</span>
-* <span style = 'font-size:80%;'>**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can store your data externally</span>
-* <span style = 'font-size:80%;'>**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.</span>
+* <span style = 'font-size:65%;'>**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app</span>
+* <span style = 'font-size:65%;'>**`global.R`:** a script for storing commonly used pieces of logic; not required, but can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`</span>
+* <span style = 'font-size:65%;'>**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can [store your data remotely](https://shiny.rstudio.com/articles/persistent-data-storage.html) (e.g. Google Sheets, Dropbox)</span>
+* <span style = 'font-size:65%;'>**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.</span>
+* <span style = 'font-size:65%;'>**`R` directory (outside of app folder):** a place for any scripts not used by your app; I find that building my outputs first in a separate script helps me from going cross-eyed -- I store them here </span>
 ]
 
 ---
@@ -1047,7 +1048,7 @@ We created our first *reactive* Shiny app by following these steps:
 And we saw that reactivity automatically occurs whenever we use an **input value** to **render** an **output object**.
 
 ---
-### **Exercise 1:** Add another reactive widget to your app!
+### **Exercise 1:** Add another widget to your app!
 
 <span style = 'font-size:80%;'>Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.</span>
 
@@ -1058,7 +1059,7 @@ knitr::include_graphics("media/DT_datatable.gif")
 ]
 
 ---
-### **Exercise 1:** Add another reactive widget to your app!
+### **Exercise 1:** Add another widget to your app!
 
 <span style = 'font-size:80%;'>Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.</span>
 
@@ -1069,7 +1070,6 @@ knitr::include_graphics("media/DT_datatable.gif")
 
 <span style = 'font-size:90%;'>**Some tips to get you started:**</span>
 * <span style = 'font-size:80%;'>Remember, it can help to draft your R object (in this case, a `DT::datatable`) in a separate script</span>
-* <span style = 'font-size:80%;'>Think carefully about your inputs/outputs</span>
 * <span style = 'font-size:80%;'>Both `shiny` and `DT` packages have functions named `dataTableOutput()` and `renderDataTable()`. `DT::renderDataTable()` allows you to create both server-side and client-side DataTables and supports additional DataTables features while `shiny::renderDataTable()` only provides server-side DataTables. Be sure to specify that you want to use functions from the `DT` package.</span>
 * <span style = 'font-size:80%;'>Check out this helpful article, [How to use DataTables in a Shiny App](https://shiny.rstudio.com/articles/datatables.html), by Yihui Xie, for a minimal reproducible example and some info on how to get started on customizing your table further</span>
 * <span style = 'font-size:80%;'>Explore the [`DT` documentation](https://rstudio.github.io/DT/) to learn how to add table captions</span>
@@ -1828,6 +1828,13 @@ server <- function(input, output) {
 ---
 class: inverse, center, middle
 
+##`r fontawesome::fa("file", fill = "#93C6C2", a11y = "sem")` Reading in data
+
+More likely than not, you'll be loading data into your app rather than using built-in data sets. Here we'll talk about how you might choose to store those data, and of course, practice building more reactive widgets (no such thing as too much practice, right?).
+
+---
+class: inverse, center, middle
+
 ## `r fontawesome::fa("magic", fill = "#93C6C2", a11y = "sem")` Adding some fun touches
 
 Is any app *really* complete without an updated theme and some pictures (technically, yes...but that's less fun)?
@@ -2101,7 +2108,7 @@ knitr::include_graphics("media/simple_img_text_app_notworking.gif")
 
 <span style = 'font-size: 70%;'>Similar to our functioning app, the default input, **All penguins**, and image output are **Ready** (green). However, in this example our text output is *not a dependency* of our application's input -- there's no linkage and the text output is **Invalidated** (gray).</span>
 
-<span style = 'font-size: 70%;'>As we click down the list of `radioButton`s, the image output is invalidated, then updated accordingly but the text output remains disconnected from our input.</span>
+<span style = 'font-size: 70%;'>As we click down the list of `radioButtons`, the image output is invalidated, then updated accordingly but the text output remains disconnected from our input.</span>
 
 .center[
 ```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = ""}
@@ -2148,15 +2155,20 @@ class: inverse, center, middle
 
 ## `r fontawesome::fa("tachometer-alt", fill = "#93C6C2", a11y = "sem")` Other application frameworks
 
-* `r fontawesome::fa("tachometer-alt", fill = "#93C6C2", a11y = "sem")` {shinydashboards} (https://rstudio.github.io/shinydashboard/)
-* `r fontawesome::fa("star", fill = "#93C6C2", a11y = "sem")` golem (https://github.com/ThinkR-open/golem)
+Shiny alone provides pretty much everything you need to produce high-quality web applications. *But* there are additional packages and development frameworks that you might explore to help you take your app to the next level.
 
 ---
-class: inverse, center, middle
+### Take your shiny app to the next level 
 
-##`r fontawesome::fa("file", fill = "#93C6C2", a11y = "sem")` File formats & other considerations
+* <span style = 'font-size: 80%;'>[`{shinydashboard}`](https://rstudio.github.io/shinydashboard/) makes it easy to use shiny to produce visually-appealing dashboards. If you're looking for inspriation, check out this *awesome* [shiny dashboard exploring kelp forest monitoring data](https://github.com/cullen-molitor/KFM_Shiny_App) from the Channel Islands National Park Service, built by our very own [Cullen Molitor](https://cullen-molitor.github.io/) (MEDS 2022)!</span>
 
-[description here; .rds files, caching, CSS stuff]
+--
+
+*  <span style = 'font-size: 80%;'>[`{golem}`](https://github.com/ThinkR-open/golem) is an opinionated framework for building production-grade shiny applications and is a part of a growing ecosystem of packages called the [`{golemverse}`](https://golemverse.org/). There are *lots* of accompanying learning materials, including the book, [Engineering Production Grade Shiny Apps](https://engineering-shiny.org/), by Colin Fay, Sébastien Rochette, Vincent Guyader, and Cervan Girard.</span>
+
+--
+
+* <span style = 'font-size: 80%;'>Though it's *not* a shiny framework, [`{flexdashboard}`](https://pkgs.rstudio.com/flexdashboard/index.html) allows you to produce interactive dashboards using R Markdown. Find example projects and their source code [here](https://pkgs.rstudio.com/flexdashboard/articles/examples.html).</span>
 
 ---
 class: inverse, center, middle

@@ -315,10 +315,11 @@ shinyApp(ui = ui, server = server)
 ]
 
 .pull-right[
-* &lt;span style = 'font-size:80%;'&gt;**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;**`global.R`:** a script for storing commonly used pieces of logic; not required for a Shiny app, but can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can store your data externally&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.&lt;/span&gt;
+* &lt;span style = 'font-size:65%;'&gt;**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app&lt;/span&gt;
+* &lt;span style = 'font-size:65%;'&gt;**`global.R`:** a script for storing commonly used pieces of logic; not required, but can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`&lt;/span&gt;
+* &lt;span style = 'font-size:65%;'&gt;**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can [store your data remotely](https://shiny.rstudio.com/articles/persistent-data-storage.html) (e.g. Google Sheets, Dropbox)&lt;/span&gt;
+* &lt;span style = 'font-size:65%;'&gt;**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.&lt;/span&gt;
+* &lt;span style = 'font-size:65%;'&gt;**`R` directory (outside of app folder):** a place for any scripts not used by your app; I find that building my outputs first in a separate script helps me from going cross-eyed -- I store them here &lt;/span&gt;
 ]
 
 ---
@@ -1009,7 +1010,7 @@ We created our first *reactive* Shiny app by following these steps:
 And we saw that reactivity automatically occurs whenever we use an **input value** to **render** an **output object**.
 
 ---
-### **Exercise 1:** Add another reactive widget to your app!
+### **Exercise 1:** Add another widget to your app!
 
 &lt;span style = 'font-size:80%;'&gt;Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.&lt;/span&gt;
 
@@ -1018,7 +1019,7 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 ]
 
 ---
-### **Exercise 1:** Add another reactive widget to your app!
+### **Exercise 1:** Add another widget to your app!
 
 &lt;span style = 'font-size:80%;'&gt;Add a data table widget using `{DT}`, a package that provides an R interface to the JavaScript library [DataTables](https://datatables.net/) (you may have already used the `DT` package in your knitted RMarkdown HTML documents!). DataTables provides filtering, pagination, sorting, and lots of other neat features for tables on your HTML pages.&lt;/span&gt;
 
@@ -1029,7 +1030,6 @@ And we saw that reactivity automatically occurs whenever we use an **input value
 
 &lt;span style = 'font-size:90%;'&gt;**Some tips to get you started:**&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Remember, it can help to draft your R object (in this case, a `DT::datatable`) in a separate script&lt;/span&gt;
-* &lt;span style = 'font-size:80%;'&gt;Think carefully about your inputs/outputs&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Both `shiny` and `DT` packages have functions named `dataTableOutput()` and `renderDataTable()`. `DT::renderDataTable()` allows you to create both server-side and client-side DataTables and supports additional DataTables features while `shiny::renderDataTable()` only provides server-side DataTables. Be sure to specify that you want to use functions from the `DT` package.&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Check out this helpful article, [How to use DataTables in a Shiny App](https://shiny.rstudio.com/articles/datatables.html), by Yihui Xie, for a minimal reproducible example and some info on how to get started on customizing your table further&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Explore the [`DT` documentation](https://rstudio.github.io/DT/) to learn how to add table captions&lt;/span&gt;
@@ -1777,6 +1777,13 @@ server &lt;- function(input, output) {
 ---
 class: inverse, center, middle
 
+##<svg aria-label="File" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>File</title><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg> Reading in data
+
+More likely than not, you'll be loading data into your app rather than using built-in data sets. Here we'll talk about how you might choose to store those data, and of course, practice building more reactive widgets (no such thing as too much practice, right?).
+
+---
+class: inverse, center, middle
+
 ## <svg aria-label="magic" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>magic</title><path d="M224 96l16-32 32-16-32-16-16-32-16 32-32 16 32 16 16 32zM80 160l26.66-53.33L160 80l-53.34-26.67L80 0 53.34 53.33 0 80l53.34 26.67L80 160zm352 128l-26.66 53.33L352 368l53.34 26.67L432 448l26.66-53.33L512 368l-53.34-26.67L432 288zm70.62-193.77L417.77 9.38C411.53 3.12 403.34 0 395.15 0c-8.19 0-16.38 3.12-22.63 9.38L9.38 372.52c-12.5 12.5-12.5 32.76 0 45.25l84.85 84.85c6.25 6.25 14.44 9.37 22.62 9.37 8.19 0 16.38-3.12 22.63-9.37l363.14-363.15c12.5-12.48 12.5-32.75 0-45.24zM359.45 203.46l-50.91-50.91 86.6-86.6 50.91 50.91-86.6 86.6z"/></svg> Adding some fun touches
 
 Is any app *really* complete without an updated theme and some pictures (technically, yes...but that's less fun)?
@@ -2041,7 +2048,7 @@ Read about the [components of the status bar](https://rstudio.github.io/reactlog
 
 &lt;span style = 'font-size: 70%;'&gt;Similar to our functioning app, the default input, **All penguins**, and image output are **Ready** (green). However, in this example our text output is *not a dependency* of our application's input -- there's no linkage and the text output is **Invalidated** (gray).&lt;/span&gt;
 
-&lt;span style = 'font-size: 70%;'&gt;As we click down the list of `radioButton`s, the image output is invalidated, then updated accordingly but the text output remains disconnected from our input.&lt;/span&gt;
+&lt;span style = 'font-size: 70%;'&gt;As we click down the list of `radioButtons`, the image output is invalidated, then updated accordingly but the text output remains disconnected from our input.&lt;/span&gt;
 
 .center[
 &lt;img src="media/reactlog_notworking.gif" width="50%" height="50%" /&gt;
@@ -2088,15 +2095,20 @@ class: inverse, center, middle
 
 ## <svg aria-label="Alternate Tachometer" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Alternate Tachometer</title><path d="M288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm0 64c14.71 0 26.58 10.13 30.32 23.65-1.11 2.26-2.64 4.23-3.45 6.67l-9.22 27.67c-5.13 3.49-10.97 6.01-17.64 6.01-17.67 0-32-14.33-32-32S270.33 96 288 96zM96 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm48-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm246.77-72.41l-61.33 184C343.13 347.33 352 364.54 352 384c0 11.72-3.38 22.55-8.88 32H232.88c-5.5-9.45-8.88-20.28-8.88-32 0-33.94 26.5-61.43 59.9-63.59l61.34-184.01c4.17-12.56 17.73-19.45 30.36-15.17 12.57 4.19 19.35 17.79 15.17 30.36zm14.66 57.2l15.52-46.55c3.47-1.29 7.13-2.23 11.05-2.23 17.67 0 32 14.33 32 32s-14.33 32-32 32c-11.38-.01-20.89-6.28-26.57-15.22zM480 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"/></svg> Other application frameworks
 
-* <svg aria-label="Alternate Tachometer" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Alternate Tachometer</title><path d="M288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm0 64c14.71 0 26.58 10.13 30.32 23.65-1.11 2.26-2.64 4.23-3.45 6.67l-9.22 27.67c-5.13 3.49-10.97 6.01-17.64 6.01-17.67 0-32-14.33-32-32S270.33 96 288 96zM96 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm48-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm246.77-72.41l-61.33 184C343.13 347.33 352 364.54 352 384c0 11.72-3.38 22.55-8.88 32H232.88c-5.5-9.45-8.88-20.28-8.88-32 0-33.94 26.5-61.43 59.9-63.59l61.34-184.01c4.17-12.56 17.73-19.45 30.36-15.17 12.57 4.19 19.35 17.79 15.17 30.36zm14.66 57.2l15.52-46.55c3.47-1.29 7.13-2.23 11.05-2.23 17.67 0 32 14.33 32 32s-14.33 32-32 32c-11.38-.01-20.89-6.28-26.57-15.22zM480 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"/></svg> {shinydashboards} (https://rstudio.github.io/shinydashboard/)
-* <svg aria-label="Star" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Star</title><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/></svg> golem (https://github.com/ThinkR-open/golem)
+Shiny alone provides pretty much everything you need to produce high-quality web applications. *But* there are additional packages and development frameworks that you might explore to help you take your app to the next level.
 
 ---
-class: inverse, center, middle
+### Take your shiny app to the next level 
 
-##<svg aria-label="File" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>File</title><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg> File formats &amp; other considerations
+* &lt;span style = 'font-size: 80%;'&gt;[`{shinydashboard}`](https://rstudio.github.io/shinydashboard/) makes it easy to use shiny to produce visually-appealing dashboards. If you're looking for inspriation, check out this *awesome* [shiny dashboard exploring kelp forest monitoring data](https://github.com/cullen-molitor/KFM_Shiny_App) from the Channel Islands National Park Service, built by our very own [Cullen Molitor](https://cullen-molitor.github.io/) (MEDS 2022)!&lt;/span&gt;
 
-[description here; .rds files, caching, CSS stuff]
+--
+
+*  &lt;span style = 'font-size: 80%;'&gt;[`{golem}`](https://github.com/ThinkR-open/golem) is an opinionated framework for building production-grade shiny applications and is a part of a growing ecosystem of packages called the [`{golemverse}`](https://golemverse.org/). There are *lots* of accompanying learning materials, including the book, [Engineering Production Grade Shiny Apps](https://engineering-shiny.org/), by Colin Fay, Sébastien Rochette, Vincent Guyader, and Cervan Girard.&lt;/span&gt;
+
+--
+
+* &lt;span style = 'font-size: 80%;'&gt;Though it's *not* a shiny framework, [`{flexdashboard}`](https://pkgs.rstudio.com/flexdashboard/index.html) allows you to produce interactive dashboards using R Markdown. Find example projects and their source code [here](https://pkgs.rstudio.com/flexdashboard/articles/examples.html).&lt;/span&gt;
 
 ---
 class: inverse, center, middle
