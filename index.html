@@ -217,7 +217,11 @@ sliderInput(inputId = "bins",
 
 --
 
-&lt;span style = 'font-size:80%;'&gt;**7.** briefly talk about other application frameworks and additional considerations&lt;/span&gt; 
+&lt;span style = 'font-size:80%;'&gt;**7.** flex your creative shiny muscles to design and add a reactive element using the Palmer weather data set
+
+--
+
+&lt;span style = 'font-size:80%;'&gt;**8.** briefly talk about other application frameworks and additional considerations&lt;/span&gt; 
 
 ---
 ### The data
@@ -1773,7 +1777,7 @@ ui &lt;- fluidPage(
 ]
 
 ---
-### **Exercise 8:** Add a theme to your app using `{bslib}`
+### **Exercise 7:** Add a theme to your app using `{bslib}`
 
 **To Do:**
 * Try adding a `bootswatch` theme or customize your own (see [slide #80]())
@@ -1827,7 +1831,7 @@ fluidPage(
 ]
 
 ---
-### &lt;span style = 'font-size:90%;'&gt;**Exercise 9:** Add an image(s) to your app&lt;/span&gt;
+### &lt;span style = 'font-size:90%;'&gt;**Exercise 8:** Add an image(s) to your app&lt;/span&gt;
 
 &lt;span style = 'font-size:70%;'&gt;You and include static images in your Shiny app using the `img()` function, or even create a reactive `imageOutput` that allows using to select which image they want to display. For example:&lt;span&gt;
 
@@ -2005,6 +2009,31 @@ server &lt;- function(input, output){
 ---
 class: inverse, center, middle
 
+## <svg aria-label="Brain" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Brain</title><path d="M208 0c-29.9 0-54.7 20.5-61.8 48.2-.8 0-1.4-.2-2.2-.2-35.3 0-64 28.7-64 64 0 4.8.6 9.5 1.7 14C52.5 138 32 166.6 32 200c0 12.6 3.2 24.3 8.3 34.9C16.3 248.7 0 274.3 0 304c0 33.3 20.4 61.9 49.4 73.9-.9 4.6-1.4 9.3-1.4 14.1 0 39.8 32.2 72 72 72 4.1 0 8.1-.5 12-1.2 9.6 28.5 36.2 49.2 68 49.2 39.8 0 72-32.2 72-72V64c0-35.3-28.7-64-64-64zm368 304c0-29.7-16.3-55.3-40.3-69.1 5.2-10.6 8.3-22.3 8.3-34.9 0-33.4-20.5-62-49.7-74 1-4.5 1.7-9.2 1.7-14 0-35.3-28.7-64-64-64-.8 0-1.5.2-2.2.2C422.7 20.5 397.9 0 368 0c-35.3 0-64 28.6-64 64v376c0 39.8 32.2 72 72 72 31.8 0 58.4-20.7 68-49.2 3.9.7 7.9 1.2 12 1.2 39.8 0 72-32.2 72-72 0-4.8-.5-9.5-1.4-14.1 29-12 49.4-40.6 49.4-73.9z"/></svg> Okay, time flex all of your new Shiny skills!
+
+---
+### **Exercise 9:** Add your own reactive output to your app
+
+**To Do:**
+
+* &lt;span style = 'font-size: 70%;'&gt;Add a reactive output -- whatever type of you want -- to your application using the **Palmer weather** data set.&lt;/span&gt;
+
+**Some tips to get you started:**
+
+* &lt;span style = 'font-size: 70%;'&gt;Review [slide #40](https://ucsb-meds.github.io/shiny-workshop/#70) if you need a reminder of the steps we took to add reactive outputs to our app.&lt;/span&gt;
+* &lt;span style = 'font-size: 70%;'&gt;Remember that drafting outputs in a separate script may help you test concepts before jumping back into the Shiny framework.&lt;/span&gt;
+* &lt;span style = 'font-size: 70%;'&gt;If you're stuck, here are a couple ideas to get you started:&lt;/span&gt;
+  + &lt;span style = 'font-size: 60%;'&gt;a plot of temperature (or SST, rainfall, snow depth, etc.) through time, where the user can select a date range to display&lt;/span&gt;
+  + &lt;span style = 'font-size: 60%;'&gt;a plot of monthly averages (to compliment our `DT` table from **Exercise 6**), where the user can select which month(s) to display&lt;/span&gt;
+  + &lt;span style = 'font-size: 60%;'&gt;a plot of multiple attributes (e.g. SST, rainfall, and snow depth) through time, where users can select both the date range *and* which attribute(s) to display&lt;/span&gt;
+
+.center[
+&lt;img src="media/question_mark.png" width="50%" height="50%" /&gt;
+]
+
+---
+class: inverse, center, middle
+
 ## <svg aria-label="Alternate Tachometer" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>Alternate Tachometer</title><path d="M288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm0 64c14.71 0 26.58 10.13 30.32 23.65-1.11 2.26-2.64 4.23-3.45 6.67l-9.22 27.67c-5.13 3.49-10.97 6.01-17.64 6.01-17.67 0-32-14.33-32-32S270.33 96 288 96zM96 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm48-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm246.77-72.41l-61.33 184C343.13 347.33 352 364.54 352 384c0 11.72-3.38 22.55-8.88 32H232.88c-5.5-9.45-8.88-20.28-8.88-32 0-33.94 26.5-61.43 59.9-63.59l61.34-184.01c4.17-12.56 17.73-19.45 30.36-15.17 12.57 4.19 19.35 17.79 15.17 30.36zm14.66 57.2l15.52-46.55c3.47-1.29 7.13-2.23 11.05-2.23 17.67 0 32 14.33 32 32s-14.33 32-32 32c-11.38-.01-20.89-6.28-26.57-15.22zM480 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"/></svg> Other application frameworks
 
 Shiny alone provides pretty much everything you need to produce high-quality web applications. *But* there are additional packages and development frameworks that you might explore to help you take your app to the next level.
@@ -2025,21 +2054,30 @@ Shiny alone provides pretty much everything you need to produce high-quality web
 ---
 class: inverse, center, middle
 
-## <svg aria-label="plus" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>plus</title><path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/></svg> Additional resources
+## <svg aria-label="plus" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#93C6C2;overflow:visible;position:relative;"><title>plus</title><path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/></svg> Additional considerations and resources
+
+We've only scratched the surface of what's possible with Shiny. Here are some additional considerations as you begin to develop more complex applications.
 
 ---
-### Additional resources 
+### Just a few resources to get you started
 
-[organize these]
+&lt;span style = 'font-size: 80%;'&gt;Write UI and server **functions**, which helps to spread out your app across multiple files, making it easier to manage large apps) and to debug&lt;/span&gt;  
+* &lt;span style = 'font-size: 70%;'&gt;[Chapter 18: Functions](https://mastering-shiny.org/scaling-functions.html#scaling-functions) from Mastering Shiny, by Hadley Wickham&lt;/span&gt;
 
-* https://shiny.rstudio.com/images/shiny-cheatsheet.pdf
-* https://unleash-shiny.rinterface.com/index.html
-* https://github.com/daattali/shinyjs
-* http://rstudio.github.io/shinythemes/
-* http://rstudio.github.io/leaflet/
-* https://ggvis.rstudio.com/
-* https://deanattali.com/blog/shinydisconnect-package/
-* https://engineering-shiny.org/structuring-project.html#using-shiny-modules &amp; https://mastering-shiny.org/scaling-modules.html#scaling-modules
+--
+
+&lt;span style = 'font-size: 80%;'&gt;Build **Shiny modules**, which are like functions but bundle up both UI and server elements into smaller (and oftentimes resuable) *pieces* of a Shiny app.&lt;/span&gt;   
+* &lt;span style = 'font-size: 70%;'&gt;[Ch 19: Shiny modules](https://mastering-shiny.org/scaling-modules.html#scaling-modules) from Mastering Shiny, by Hadley Wickham&lt;/span&gt;  
+* &lt;span style = 'font-size: 70%;'&gt;[Modularizing Shiny app code](https://shiny.rstudio.com/articles/modules.html#:~:text=A%20Shiny%20module%20is%20a%20piece%20of%20a%20Shiny%20app.&amp;text=Modules%20can%20represent%20input%2C%20output,multiple%20reactive%20expressions%20and%20observers.) from Shiny Articles, by Winston Chang&lt;/span&gt;  
+* &lt;span style = 'font-size: 70%;'&gt;[Modules](https://www.rstudio.com/resources/shiny-dev-con/modules/), a video tutorial by Garrett Grolemund from Shiny Dev Con 2016&lt;/span&gt;  
+
+--
+
+&lt;span style = 'font-size: 80%;'&gt;Build **advanced application UIs** using CSS and JavaScript&lt;/span&gt;
+* &lt;span style = 'font-size: 70%;'&gt;[Outstanding User Interfaces with Shiny](https://unleash-shiny.rinterface.com/index.html), by David Granjon&lt;/span&gt;
+* &lt;span style = 'font-size: 70%;'&gt;[`{shinyjs}` package](https://github.com/daattali/shinyjs), by Dean Attali&lt;/span&gt;
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

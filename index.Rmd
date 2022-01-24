@@ -257,7 +257,11 @@ sliderInput(inputId = "bins",
 
 --
 
-<span style = 'font-size:80%;'>**7.** briefly talk about other application frameworks and additional considerations</span> 
+<span style = 'font-size:80%;'>**7.** flex your creative shiny muscles to design and add a reactive element using the Palmer weather data set
+
+--
+
+<span style = 'font-size:80%;'>**8.** briefly talk about other application frameworks and additional considerations</span> 
 
 ---
 ### The data
@@ -1823,7 +1827,7 @@ knitr::include_graphics("media/bs_theme_preview.gif")
 ]
 
 ---
-### **Exercise 8:** Add a theme to your app using `{bslib}`
+### **Exercise 7:** Add a theme to your app using `{bslib}`
 
 **To Do:**
 * Try adding a `bootswatch` theme or customize your own (see [slide #80]())
@@ -1879,7 +1883,7 @@ knitr::include_graphics("media/after_thematic.png")
 ]
 
 ---
-### <span style = 'font-size:90%;'>**Exercise 9:** Add an image(s) to your app</span>
+### <span style = 'font-size:90%;'>**Exercise 8:** Add an image(s) to your app</span>
 
 <span style = 'font-size:70%;'>You and include static images in your Shiny app using the `img()` function, or even create a reactive `imageOutput` that allows using to select which image they want to display. For example:<span>
 
@@ -2065,6 +2069,33 @@ server <- function(input, output){
 ---
 class: inverse, center, middle
 
+## `r fontawesome::fa("brain", fill = "#93C6C2", a11y = "sem")` Okay, time flex all of your new Shiny skills!
+
+---
+### **Exercise 9:** Add your own reactive output to your app
+
+**To Do:**
+
+* <span style = 'font-size: 70%;'>Add a reactive output -- whatever type of you want -- to your application using the **Palmer weather** data set.</span>
+
+**Some tips to get you started:**
+
+* <span style = 'font-size: 70%;'>Review [slide #40](https://ucsb-meds.github.io/shiny-workshop/#70) if you need a reminder of the steps we took to add reactive outputs to our app.</span>
+* <span style = 'font-size: 70%;'>Remember that drafting outputs in a separate script may help you test concepts before jumping back into the Shiny framework.</span>
+* <span style = 'font-size: 70%;'>If you're stuck, here are a couple ideas to get you started:</span>
+  + <span style = 'font-size: 60%;'>a plot of temperature (or SST, rainfall, snow depth, etc.) through time, where the user can select a date range to display</span>
+  + <span style = 'font-size: 60%;'>a plot of monthly averages (to compliment our `DT` table from **Exercise 6**), where the user can select which month(s) to display</span>
+  + <span style = 'font-size: 60%;'>a plot of multiple attributes (e.g. SST, rainfall, and snow depth) through time, where users can select both the date range *and* which attribute(s) to display</span>
+
+.center[
+```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/question_mark.png")
+```
+]
+
+---
+class: inverse, center, middle
+
 ## `r fontawesome::fa("tachometer-alt", fill = "#93C6C2", a11y = "sem")` Other application frameworks
 
 Shiny alone provides pretty much everything you need to produce high-quality web applications. *But* there are additional packages and development frameworks that you might explore to help you take your app to the next level.
@@ -2085,18 +2116,27 @@ Shiny alone provides pretty much everything you need to produce high-quality web
 ---
 class: inverse, center, middle
 
-## `r fontawesome::fa("plus", fill = "#93C6C2", a11y = "sem")` Additional resources
+## `r fontawesome::fa("plus", fill = "#93C6C2", a11y = "sem")` Additional considerations and resources
+
+We've only scratched the surface of what's possible with Shiny. Here are some additional considerations as you begin to develop more complex applications.
 
 ---
-### Additional resources 
+### Just a few resources to get you started
 
-[organize these]
+<span style = 'font-size: 80%;'>Write UI and server **functions**, which helps to spread out your app across multiple files, making it easier to manage large apps) and to debug</span>  
+* <span style = 'font-size: 70%;'>[Chapter 18: Functions](https://mastering-shiny.org/scaling-functions.html#scaling-functions) from Mastering Shiny, by Hadley Wickham</span>
 
-* https://shiny.rstudio.com/images/shiny-cheatsheet.pdf
-* https://unleash-shiny.rinterface.com/index.html
-* https://github.com/daattali/shinyjs
-* http://rstudio.github.io/shinythemes/
-* http://rstudio.github.io/leaflet/
-* https://ggvis.rstudio.com/
-* https://deanattali.com/blog/shinydisconnect-package/
-* https://engineering-shiny.org/structuring-project.html#using-shiny-modules & https://mastering-shiny.org/scaling-modules.html#scaling-modules
+--
+
+<span style = 'font-size: 80%;'>Build **Shiny modules**, which are like functions but bundle up both UI and server elements into smaller (and oftentimes resuable) *pieces* of a Shiny app.</span>   
+* <span style = 'font-size: 70%;'>[Ch 19: Shiny modules](https://mastering-shiny.org/scaling-modules.html#scaling-modules) from Mastering Shiny, by Hadley Wickham</span>  
+* <span style = 'font-size: 70%;'>[Modularizing Shiny app code](https://shiny.rstudio.com/articles/modules.html#:~:text=A%20Shiny%20module%20is%20a%20piece%20of%20a%20Shiny%20app.&text=Modules%20can%20represent%20input%2C%20output,multiple%20reactive%20expressions%20and%20observers.) from Shiny Articles, by Winston Chang</span>  
+* <span style = 'font-size: 70%;'>[Modules](https://www.rstudio.com/resources/shiny-dev-con/modules/), a video tutorial by Garrett Grolemund from Shiny Dev Con 2016</span>  
+
+--
+
+<span style = 'font-size: 80%;'>Build **advanced application UIs** using CSS and JavaScript</span>
+* <span style = 'font-size: 70%;'>[Outstanding User Interfaces with Shiny](https://unleash-shiny.rinterface.com/index.html), by David Granjon</span>
+* <span style = 'font-size: 70%;'>[`{shinyjs}` package](https://github.com/daattali/shinyjs), by Dean Attali</span>
+
+
