@@ -1766,12 +1766,14 @@ class: inverse, center, middle
 
 ##`r fontawesome::fa("file", fill = "#93C6C2", a11y = "sem")` Reading in data
 
-More likely than not, you'll be loading data into your app rather than using built-in data sets. Here we'll talk about how you might choose to store those data, and of course, practice building more reactive widgets (no such thing as too much practice, right?).
+More likely than not, you'll be loading data into your app rather than using built-in data sets. Here we'll do just that, and of course, practice building more reactive widgets (no such thing as too much practice, right?).
+
+If you have not yet already done so, be sure to download the *daily averaged weather time series data from Palmer Station, Antarctica* ([table_28.csv](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pal.28.8)).
 
 ---
 ### Saving and accessing your data
 
-<span style = 'font-size:70%;'>Where you choose to store the data used by your Shiny app will depend largely on the type and size of the file(s) and who "owns" those data. This is outside the scope of this workshop, but I suggest reading Dean Attali's article, [Persistent data storage in Shiny apps](https://shiny.rstudio.com/articles/persistent-data-storage.html) to start. Because we are going to be working with a relatively small data set, we'll be downloading and storing our data locally (i.e. on our machines and in our GitHub repo).</span>
+<span style = 'font-size:70%;'>Where you choose to store the data used by your Shiny app will depend largely on the type and size of the file(s) and who "owns" those data. It is likely that you'll be working with data stored in a database or on a server. This is outside the scope of this workshop, but I suggest reading Dean Attali's article, [Persistent data storage in Shiny apps](https://shiny.rstudio.com/articles/persistent-data-storage.html) to start. Because we are going to be working with a relatively small data set, we'll be downloading and storing our data locally (i.e. on our machines and in our GitHub repo).</span>
 
 <span style = 'font-size:70%;'>Regardless of where you choose to store your data, you can help your application more quickly process inputs/outputs by providing it only as much data as needed to run. This means **pre-processing** your data.</span>
 
@@ -1783,12 +1785,12 @@ knitr::include_graphics("media/repo_structure_data.png")
 ```
 ]
 
-<span style = 'font-size:70%;'>[`table_28.csv`](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pal.28.8) contains 24 attributes and 10,674 observations (you can review the full metadata record [here](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-pal.28.8)), though we'll only need a subset of those data for our app. We will save the original data file *outside* of our app directory and pre-process it in a separate script (i.e. *not* in `app.R`).</span>
+<span style = 'font-size:70%;'>[`table_28.csv`](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pal.28.8) contains 24 attributes and 10,674 observations (you can review the full metadata record [here](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-pal.28.8)), though we'll only need a subset of those data for our app. We will save the original (raw) data file *outside* of our app directory and pre-process it in a separate script (i.e. *not* in `app.R`).</span>
 
 ---
 ### Where we're going...
 
-<span style = 'font-size:80%;'>We're going to create a **`DT` datatable that displays the mean, maximum, and minimum air temperatures by year and month**. We'll make this table *reactive* by adding a `radioButtons` input that allows a user to **select which month** to display the summary stats for.</span>
+<span style = 'font-size:80%;'>We're going to create a **`DT` datatable that displays the mean, maximum, and minimum air temperatures by year and month**. We'll make this table *reactive* by adding a `checkboxGroupInput` that allows a user to **select which month(s)** to display summary stats for.</span>
 
 .center[
 ```{r, out.width = '70%', out.height = '70%', echo = FALSE, fig.alt = ""}
@@ -1830,12 +1832,11 @@ temp_month_summary <- weather_data %>%
 
 <span style = 'font-size:80%;'>If you are working with tabular data (as we are in this example), you may choose to save your processed data frame as a `.rds` file (R's own data file format which stores a single R object). Not only are `.rds` file are relatively small (and therefore take up little storage space), but they also preserve data types and classes (e.g. factors and dates), eliminating the need to redefine data types after loading the file.</span>
 
-<span style = 'font-size:80%;'>I'm going to save my wrangled data as both a `.csv` and `.rds` file for demonstration purposes:</span>
+<span style = 'font-size:80%;'>I'm going to save my wrangled data as a `.rds` file using the function `saveRDS()`:</span>
 
 ```{r, eval = FALSE, echo = TRUE}
 # be sure to update this code with YOUR file path
-write_csv(temp_month_summary, "./myapp/data/temp_month_summary.csv")
-saveRDS(temp_month_summary, "./myapp/data/temp_month_summary.rds")
+saveRDS(temp_month_summary, here::here(".", "myapp", "data", "temp_month_summary.rds"))
 ```
 
 .footnote[
@@ -1845,8 +1846,98 @@ saveRDS(temp_month_summary, "./myapp/data/temp_month_summary.rds")
 ---
 ### Reading your data into your app
 
-* read in data at the top of your `app.R` file 
-* if building a two-file shiny app, read in data in your `server.R` file
+<span style = 'font-size:80%;'>It's best practice to read your data into your `app.R` file at the top of the script (I've done so just below where I load my packages). Here, I'm using the function `readRDS()`.</span>
+
+```{r, eval = FALSE, echo = TRUE}
+# load packages ----
+library(shiny)
+
+# import data ----
+temp_summary <- readRDS("data/temp_month_summary.rds") #<<
+
+# ui ----
+ui <- fluidPage()
+
+# server ----
+server <- function(input, output) {}
+
+# combine UI & server into an app ----
+shinyApp(ui = ui, server = server)
+```
+
+.footnote[
+**Note:** If you are building a two-file shiny app, make sure to import your data into `server.R`.
+]
+
+---
+### **Exercise 6:** Add a reactive `DT` table using the Palmer weather data
+
+<span style = 'font-size:80%;'>In **Exercise 1**, you added a `DT` table to your app, which was *interactive* but not *reactive*. Now, we'll practice adding a `DT` table with a `checkboxGroupInput` that allows users to select a subset of the data to display.</span>
+
+**To Do:**
+* <span style = 'font-size:80%;'>Add a `DT` table to your Shiny app in the appropriate location (i.e. replace any placeholder text) that displays our processed data: year, month, mean air temperature, maximum air temperature, and minimum air temperature. You may make any formatting updates (e.g. number of displayed rows, change default styling options) as you see fit.</span>
+* <span style = 'font-size:80%;'>Add a `checkboxGroupInput` that allows users to select the **month(s)** that they wish to display data for.</span>
+
+**Some tips to get you started:**
+* <span style = 'font-size:80%;'>As in our previous exercises, try this out in a separate script first before moving back into the Shiny framework to make it reactive!</span>  
+
+---
+### **Exercise 6:** Solution for adding a `checkboxGroupInput` to the UI
+
+**UI**
+```{r, eval = FALSE, echo = TRUE}
+
+ui <- fluidPage(
+  
+  # ~ previous code (and layout functions) omitted for brevity ~
+  
+  # weather checkboxGroupInput ----
+  checkboxGroupInput(
+    inputId = "month", label = "Choose a month(s):",
+    choices = c("January", "February", "March", "April",
+                "May", "June", "July", "August",
+                "September", "October", "November", "December"),
+    selected = c("January", "February")
+    )
+  
+  # weather table output----
+  DT::dataTableOutput(outputId = "temp_table")
+  
+)
+```
+
+---
+### **Exercise 6:** Solution for rendering a reactive `DT` table of air temperature summary stats
+
+**Server**
+```{r, eval = FALSE, echo = TRUE}
+
+server <- function(input, output) {
+  
+  # ~ previous code omitted for brevity ~
+  
+  # filter weather data by month ----
+  month_df <- reactive({
+    
+    temp_summary %>% 
+      filter(month_name %in% input$month)
+    
+  })
+  
+  # render the temperature data table ----
+  output$temp_table <- renderDataTable({
+    DT::datatable(month_df(),
+                  class = 'cell-border stripe',
+                  colnames = c('Year', "Month", 'Mean Air Temp.', 'Max. Air Temp.', 'Min. Air Temp.'),
+                  caption = htmltools::tags$caption(
+                    style = 'caption-side: top; text-align: left;',
+                    'Table 2: ', htmltools::em('Mean, maximum, and minimum monthly air temperatures (°C) recorded at Palmer Station, Antarctica from 1989 - 2019.'))) 
+
+  })
+
+}
+
+```
 
 ---
 class: inverse, center, middle
@@ -1939,7 +2030,7 @@ knitr::include_graphics("media/before_thematic.png")
 
 <span style = 'font-size:80%;'>**With calling `thematic_shiny()`:**</span>
 ```{r, eval = FALSE, echo = TRUE}
-thematic::thematic_shiny()
+thematic::thematic_shiny() #<<
 fluidPage(
   theme = bs_theme(bg = "#002B36", fg = "#EEE8D5", primary = "#2AA198", 
                    base_fonts = font_google("Pacifico")),
@@ -2176,15 +2267,36 @@ Shiny alone provides pretty much everything you need to produce high-quality web
 ---
 ### Take your shiny app to the next level 
 
-* <span style = 'font-size: 80%;'>[`{shinydashboard}`](https://rstudio.github.io/shinydashboard/) makes it easy to use shiny to produce visually-appealing dashboards. If you're looking for inspriation, check out this *awesome* [shiny dashboard exploring kelp forest monitoring data](https://github.com/cullen-molitor/KFM_Shiny_App) from the Channel Islands National Park Service, built by our very own [Cullen Molitor](https://cullen-molitor.github.io/) (MEDS 2022)!</span>
-
---
+* <span style = 'font-size: 80%;'>[`{shinydashboard}`](https://rstudio.github.io/shinydashboard/) makes it easy to use shiny to produce visually-appealing dashboards. The new [`{shinydashboardPlus}`](https://rinterface.github.io/shinydashboardPlus/index.html) package also provides additional extensions for `shinydashboard`. If you're looking for inspiration, check out this *awesome* [shiny dashboard exploring kelp forest monitoring data](https://github.com/cullen-molitor/KFM_Shiny_App) from the Channel Islands National Park Service, built by our very own [Cullen Molitor](https://cullen-molitor.github.io/) (MEDS 2022)!</span>
 
 *  <span style = 'font-size: 80%;'>[`{golem}`](https://github.com/ThinkR-open/golem) is an opinionated framework for building production-grade shiny applications and is a part of a growing ecosystem of packages called the [`{golemverse}`](https://golemverse.org/). There are *lots* of accompanying learning materials, including the book, [Engineering Production Grade Shiny Apps](https://engineering-shiny.org/), by Colin Fay, Sébastien Rochette, Vincent Guyader, and Cervan Girard.</span>
 
---
+.pull-left[
+```{r echo = FALSE, out.width = '70%'}
+knitr::include_graphics("media/shinydashboardPlus.png")
+```
+]
 
-* <span style = 'font-size: 80%;'>Though it's *not* a shiny framework, [`{flexdashboard}`](https://pkgs.rstudio.com/flexdashboard/index.html) allows you to produce dynamic dashboards using R Markdown. This may be useful if you're looking to display your data in an organized way, but don't need the full functionality that shiny provides. Find example projects and their source code [here](https://pkgs.rstudio.com/flexdashboard/articles/examples.html).</span>
+.pull-right[
+```{r echo = FALSE, out.width = '60%'}
+knitr::include_graphics("media/golem.png")
+```
+]
+
+---
+### But also consider if you even need Shiny at all
+
+<span style = 'font-size: 80%;'>Shiny is *awesome*, but depending on your goals, vision, and end users, you may not *need* the full functionality that shiny provides. Consider the following options:</span>
+
+* <span style = 'font-size: 80%;'>Widgets aren't only for Shiny! Embed interactive [htmlwidgets](https://www.htmlwidgets.org/) into your R Markdown documents that range from geo-spatial mapping with [`{leaflet}`](https://rstudio.github.io/leaflet/) to generating interactive phylogenetic trees with [`{phylocanvas}`](https://zachcp.github.io/phylocanvas/). Check out the [htmlwidgets for R - gallery](http://gallery.htmlwidgets.org/) for many more options.</span>
+
+* <span style = 'font-size: 80%;'>Compose multiple widgets into a dashboard using [`{flexdashboard}`](https://pkgs.rstudio.com/flexdashboard/index.html). Based in R Markdown, this framework allows you to produce dynamic dashboards using tools you are already familiar with. Find example projects and their source code [here](https://pkgs.rstudio.com/flexdashboard/articles/examples.html).</span>
+
+.center[
+```{r echo = FALSE, out.width = '25%', out.height = '60%'}
+knitr::include_graphics("media/flexdashboard.png")
+```
+]
 
 ---
 class: inverse, center, middle
