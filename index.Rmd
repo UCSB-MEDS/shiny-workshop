@@ -339,11 +339,11 @@ knitr::include_graphics("media/repo_structure.png")
 ]
 
 .pull-right[
-* <span style = 'font-size:65%;'>**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app</span>
-* <span style = 'font-size:65%;'>**`global.R`:** a script for storing commonly used pieces of logic; not required, but can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`</span>
-* <span style = 'font-size:65%;'>**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can [store your data remotely](https://shiny.rstudio.com/articles/persistent-data-storage.html) (e.g. Google Sheets, Dropbox)</span>
-* <span style = 'font-size:65%;'>**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.</span>
-* <span style = 'font-size:65%;'>**`R` directory (outside of app folder):** a place for any scripts not used by your app; I find that building my outputs first in a separate script helps me from going cross-eyed -- I store them here </span>
+* <span style = 'font-size:55%;'>**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app</span>
+* <span style = 'font-size:55%;'>**`global.R`:** a script for storing commonly used pieces of logic and objects you want available to both your `ui.R` and `server.R`; can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`</span>
+* <span style = 'font-size:55%;'>**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can [store your data remotely](https://shiny.rstudio.com/articles/persistent-data-storage.html) (e.g. Google Sheets, Dropbox)</span>
+* <span style = 'font-size:55%;'>**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.</span>
+* <span style = 'font-size:55%;'>**`R` directory (outside of app folder):** a place for any scripts not used by your app; I find that building my outputs first in a separate script helps me from going cross-eyed -- I store them here </span>
 ]
 
 ---
@@ -1769,11 +1769,85 @@ class: inverse, center, middle
 More likely than not, you'll be loading data into your app rather than using built-in data sets. Here we'll talk about how you might choose to store those data, and of course, practice building more reactive widgets (no such thing as too much practice, right?).
 
 ---
-* reading in data & storing in 'raw'
-* wrangling data in separate script + saving as .rds into app directory 
-* import wrangled data into app.R
-* add reactive DT table
-* add reactive plot
+### Saving and accessing your data
+
+<span style = 'font-size:70%;'>Where you choose to store the data used by your Shiny app will depend largely on the type and size of the file(s) and who "owns" those data. This is outside the scope of this workshop, but I suggest reading Dean Attali's article, [Persistent data storage in Shiny apps](https://shiny.rstudio.com/articles/persistent-data-storage.html) to start. Because we are going to be working with a relatively small data set, we'll be downloading and storing our data locally (i.e. on our machines and in our GitHub repo).</span>
+
+<span style = 'font-size:70%;'>Regardless of where you choose to store your data, you can help your application more quickly process inputs/outputs by providing it only as much data as needed to run. This means **pre-processing** your data.</span>
+
+--
+
+.center[
+```{r, out.width = '50%', out.height = '50%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/repo_structure_data.png")
+```
+]
+
+<span style = 'font-size:70%;'>[`table_28.csv`](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pal.28.8) contains 24 attributes and 10,674 observations (you can review the full metadata record [here](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-pal.28.8)), though we'll only need a subset of those data for our app. We will save the original data file *outside* of our app directory and pre-process it in a separate script (i.e. *not* in `app.R`).</span>
+
+---
+### Where we're going...
+
+<span style = 'font-size:80%;'>We're going to create a **`DT` datatable that displays the mean, maximum, and minimum air temperatures by year and month**. We'll make this table *reactive* by adding a `radioButtons` input that allows a user to **select which month** to display the summary stats for.</span>
+
+.center[
+```{r, out.width = '70%', out.height = '70%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/temp_DT_demo.gif")
+```
+]
+
+---
+### Pre-processing your data
+
+<span style = 'font-size:70%;'>I'll wrangle my data in a separate script, which I've stored in my `R` directory (if you're referencing the GitHub repo for my example app, this is the [`summarize_temp_data.R` script](https://github.com/samanthacsik/practice-shiny/blob/main/R/summarize_temp_data.R)).</span>
+
+```{r, echo = TRUE, eval = FALSE}
+# import packages 
+library(tidyverse)
+library(janitor)
+
+# load in data 
+weather_data <- read_csv(here::here("raw_data", "table_28.csv"))
+
+# temps by month and year 
+temp_month_summary <- weather_data %>% 
+  clean_names() %>% 
+  mutate(year = format(date, format="%Y")) %>% 
+  mutate(month = format(date, format="%m")) %>% 
+  group_by(year, month) %>% 
+  summarize(
+    mean_temp = round(mean(temperature_average_c), 1),
+    max_temp  = max(temperature_high_c),
+    min_temp  = min(temperature_low_c),
+  ) %>% 
+  mutate(month_numeric = as.numeric(month),
+         month_name = month.name[month_numeric]) %>% 
+  select(year, month_name, mean_temp, max_temp, min_temp)
+```
+
+---
+### Saving your processed data
+
+<span style = 'font-size:80%;'>If you are working with tabular data (as we are in this example), you may choose to save your processed data frame as a `.rds` file (R's own data file format which stores a single R object). Not only are `.rds` file are relatively small (and therefore take up little storage space), but they also preserve data types and classes (e.g. factors and dates), eliminating the need to redefine data types after loading the file.</span>
+
+<span style = 'font-size:80%;'>I'm going to save my wrangled data as both a `.csv` and `.rds` file for demonstration purposes:</span>
+
+```{r, eval = FALSE, echo = TRUE}
+# be sure to update this code with YOUR file path
+write_csv(temp_month_summary, "./myapp/data/temp_month_summary.csv")
+saveRDS(temp_month_summary, "./myapp/data/temp_month_summary.rds")
+```
+
+.footnote[
+**Reminder:** You can check out my GitHub repo repository structure [here](https://github.com/samanthacsik/practice-shiny).
+]
+
+---
+### Reading your data into your app
+
+* read in data at the top of your `app.R` file 
+* if building a two-file shiny app, read in data in your `server.R` file
+
 ---
 class: inverse, center, middle
 
@@ -2008,8 +2082,7 @@ knitr::include_graphics("media/reactlog_working.gif")
 
 ---
 ### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
-
-<span style = 'font-size: 70%;'>Let's try out reactlog on an intentionally borked app. Here, our images change when the `radioButton` user inputs are updated, but our text doesn't appear.</span>
+ <span style = 'font-size: 70%;'>Let's try out reactlog on an intentionally borked app. Here, our images change when the `radioButton` user inputs are updated, but our text doesn't appear.</span>
 
 <span style = 'font-size: 70%;'>As in our functioning app, the **All penguins** image is selected by default. For demonstration purposes, I'll select each option moving down the list (**Sassy chinstrap**, **Staring gentoo**, **Adorable adelie**) before launching reactlog.</span>
 
@@ -2139,4 +2212,18 @@ We've only scratched the surface of what's possible with Shiny. Here are some ad
 * <span style = 'font-size: 70%;'>[Outstanding User Interfaces with Shiny](https://unleash-shiny.rinterface.com/index.html), by David Granjon</span>
 * <span style = 'font-size: 70%;'>[`{shinyjs}` package](https://github.com/daattali/shinyjs), by Dean Attali</span>
 
+---
+class: center, middle
+
+### I'm excited to see what *Shiny* new apps you all create!
+```{r echo = FALSE, out.width = '40%'}
+knitr::include_graphics("media/sparkle.gif")
+```
+
+Slides created via the R packages:
+
+[**xaringan**](https://github.com/yihui/xaringan)<br>
+[**gadenbuie/xaringanthemer**](https://github.com/gadenbuie/xaringanthemer)
+
+<span style = 'font-size: 75%;'>*If you see mistakes or want to suggest changes, please create an [issue](https://github.com/UCSB-MEDS/shiny-workshop/issues) on the source repository.*</span>
 

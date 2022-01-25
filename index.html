@@ -296,11 +296,11 @@ shinyApp(ui = ui, server = server)
 ]
 
 .pull-right[
-* &lt;span style = 'font-size:65%;'&gt;**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app&lt;/span&gt;
-* &lt;span style = 'font-size:65%;'&gt;**`global.R`:** a script for storing commonly used pieces of logic; not required, but can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`&lt;/span&gt;
-* &lt;span style = 'font-size:65%;'&gt;**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can [store your data remotely](https://shiny.rstudio.com/articles/persistent-data-storage.html) (e.g. Google Sheets, Dropbox)&lt;/span&gt;
-* &lt;span style = 'font-size:65%;'&gt;**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.&lt;/span&gt;
-* &lt;span style = 'font-size:65%;'&gt;**`R` directory (outside of app folder):** a place for any scripts not used by your app; I find that building my outputs first in a separate script helps me from going cross-eyed -- I store them here &lt;/span&gt;
+* &lt;span style = 'font-size:55%;'&gt;**app directory (e.g. the `myapp` folder):** stores your app (`app.R`) and all other scripts/files/etc. used by your app&lt;/span&gt;
+* &lt;span style = 'font-size:55%;'&gt;**`global.R`:** a script for storing commonly used pieces of logic and objects you want available to both your `ui.R` and `server.R`; can reduce redundant code and increase the app's speed; must be in the same directory as `app.R`&lt;/span&gt;
+* &lt;span style = 'font-size:55%;'&gt;**data directory (e.g. the `data` folder):** stores the data used by your app; alternatively, you can [store your data remotely](https://shiny.rstudio.com/articles/persistent-data-storage.html) (e.g. Google Sheets, Dropbox)&lt;/span&gt;
+* &lt;span style = 'font-size:55%;'&gt;**`www` directory:** a directory expected by Shiny that stores any elements to be rendered in the web browser (and are not the output of the scripts); includes image files (e.g. `.png`, `.jpeg`), HTML, CSS, and JavaScript files, etc.&lt;/span&gt;
+* &lt;span style = 'font-size:55%;'&gt;**`R` directory (outside of app folder):** a place for any scripts not used by your app; I find that building my outputs first in a separate script helps me from going cross-eyed -- I store them here &lt;/span&gt;
 ]
 
 ---
@@ -1718,11 +1718,83 @@ class: inverse, center, middle
 More likely than not, you'll be loading data into your app rather than using built-in data sets. Here we'll talk about how you might choose to store those data, and of course, practice building more reactive widgets (no such thing as too much practice, right?).
 
 ---
-* reading in data &amp; storing in 'raw'
-* wrangling data in separate script + saving as .rds into app directory 
-* import wrangled data into app.R
-* add reactive DT table
-* add reactive plot
+### Saving and accessing your data
+
+&lt;span style = 'font-size:70%;'&gt;Where you choose to store the data used by your Shiny app will depend largely on the type and size of the file(s) and who "owns" those data. This is outside the scope of this workshop, but I suggest reading Dean Attali's article, [Persistent data storage in Shiny apps](https://shiny.rstudio.com/articles/persistent-data-storage.html) to start. Because we are going to be working with a relatively small data set, we'll be downloading and storing our data locally (i.e. on our machines and in our GitHub repo).&lt;/span&gt;
+
+&lt;span style = 'font-size:70%;'&gt;Regardless of where you choose to store your data, you can help your application more quickly process inputs/outputs by providing it only as much data as needed to run. This means **pre-processing** your data.&lt;/span&gt;
+
+--
+
+.center[
+&lt;img src="media/repo_structure_data.png" width="50%" height="50%" /&gt;
+]
+
+&lt;span style = 'font-size:70%;'&gt;[`table_28.csv`](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-pal.28.8) contains 24 attributes and 10,674 observations (you can review the full metadata record [here](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-pal.28.8)), though we'll only need a subset of those data for our app. We will save the original data file *outside* of our app directory and pre-process it in a separate script (i.e. *not* in `app.R`).&lt;/span&gt;
+
+---
+### Where we're going...
+
+&lt;span style = 'font-size:80%;'&gt;We're going to create a **`DT` datatable that displays the mean, maximum, and minimum air temperatures by year and month**. We'll make this table *reactive* by adding a `radioButtons` input that allows a user to **select which month** to display the summary stats for.&lt;/span&gt;
+
+.center[
+&lt;img src="media/temp_DT_demo.gif" width="70%" height="70%" /&gt;
+]
+
+---
+### Pre-processing your data
+
+&lt;span style = 'font-size:70%;'&gt;I'll wrangle my data in a separate script, which I've stored in my `R` directory (if you're referencing the GitHub repo for my example app, this is the [`summarize_temp_data.R` script](https://github.com/samanthacsik/practice-shiny/blob/main/R/summarize_temp_data.R)).&lt;/span&gt;
+
+
+```r
+# import packages 
+library(tidyverse)
+library(janitor)
+
+# load in data 
+weather_data &lt;- read_csv(here::here("raw_data", "table_28.csv"))
+
+# temps by month and year 
+temp_month_summary &lt;- weather_data %&gt;% 
+  clean_names() %&gt;% 
+  mutate(year = format(date, format="%Y")) %&gt;% 
+  mutate(month = format(date, format="%m")) %&gt;% 
+  group_by(year, month) %&gt;% 
+  summarize(
+    mean_temp = round(mean(temperature_average_c), 1),
+    max_temp  = max(temperature_high_c),
+    min_temp  = min(temperature_low_c),
+  ) %&gt;% 
+  mutate(month_numeric = as.numeric(month),
+         month_name = month.name[month_numeric]) %&gt;% 
+  select(year, month_name, mean_temp, max_temp, min_temp)
+```
+
+---
+### Saving your processed data
+
+&lt;span style = 'font-size:80%;'&gt;If you are working with tabular data (as we are in this example), you may choose to save your processed data frame as a `.rds` file (R's own data file format which stores a single R object). Not only are `.rds` file are relatively small (and therefore take up little storage space), but they also preserve data types and classes (e.g. factors and dates), eliminating the need to redefine data types after loading the file.&lt;/span&gt;
+
+&lt;span style = 'font-size:80%;'&gt;I'm going to save my wrangled data as both a `.csv` and `.rds` file for demonstration purposes:&lt;/span&gt;
+
+
+```r
+# be sure to update this code with YOUR file path
+write_csv(temp_month_summary, "./myapp/data/temp_month_summary.csv")
+saveRDS(temp_month_summary, "./myapp/data/temp_month_summary.rds")
+```
+
+.footnote[
+**Reminder:** You can check out my GitHub repo repository structure [here](https://github.com/samanthacsik/practice-shiny).
+]
+
+---
+### Reading your data into your app
+
+* read in data at the top of your `app.R` file 
+* if building a two-file shiny app, read in data in your `server.R` file
+
 ---
 class: inverse, center, middle
 
@@ -1950,8 +2022,7 @@ Read about the [components of the status bar](https://rstudio.github.io/reactlog
 
 ---
 ### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
-
-&lt;span style = 'font-size: 70%;'&gt;Let's try out reactlog on an intentionally borked app. Here, our images change when the `radioButton` user inputs are updated, but our text doesn't appear.&lt;/span&gt;
+ &lt;span style = 'font-size: 70%;'&gt;Let's try out reactlog on an intentionally borked app. Here, our images change when the `radioButton` user inputs are updated, but our text doesn't appear.&lt;/span&gt;
 
 &lt;span style = 'font-size: 70%;'&gt;As in our functioning app, the **All penguins** image is selected by default. For demonstration purposes, I'll select each option moving down the list (**Sassy chinstrap**, **Staring gentoo**, **Adorable adelie**) before launching reactlog.&lt;/span&gt;
 
@@ -2077,6 +2148,18 @@ We've only scratched the surface of what's possible with Shiny. Here are some ad
 * &lt;span style = 'font-size: 70%;'&gt;[Outstanding User Interfaces with Shiny](https://unleash-shiny.rinterface.com/index.html), by David Granjon&lt;/span&gt;
 * &lt;span style = 'font-size: 70%;'&gt;[`{shinyjs}` package](https://github.com/daattali/shinyjs), by Dean Attali&lt;/span&gt;
 
+---
+class: center, middle
+
+### I'm excited to see what *Shiny* new apps you all create!
+&lt;img src="media/sparkle.gif" width="40%" /&gt;
+
+Slides created via the R packages:
+
+[**xaringan**](https://github.com/yihui/xaringan)&lt;br&gt;
+[**gadenbuie/xaringanthemer**](https://github.com/gadenbuie/xaringanthemer)
+
+&lt;span style = 'font-size: 75%;'&gt;*If you see mistakes or want to suggest changes, please create an [issue](https://github.com/UCSB-MEDS/shiny-workshop/issues) on the source repository.*&lt;/span&gt;
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
