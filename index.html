@@ -1400,7 +1400,7 @@ shinyApp(ui = ui, server = server)
 * &lt;span style = 'font-size:80%;'&gt;Be mindful of `()` when copying/pasting -- make sure you don't leave any behind by accident (**Tip:** enable Rainbow Parentheses (under 'Code' in the menu bar) if you haven't already)&lt;/span&gt;
 * &lt;span style = 'font-size:80%;'&gt;Remember to separate UI elements with a `,`&lt;/span&gt;
 
-&lt;span style = 'font-size:80%;'&gt;If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #60](https://ucsb-meds.github.io/shiny-workshop/#86) (*Example B: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) &lt;/span&gt;
+&lt;span style = 'font-size:80%;'&gt;If you want to reproduce the app I'm building, start with the layout structure detailed on [slide #58](https://ucsb-meds.github.io/shiny-workshop/#89) (*Example B: a navigation bar with `tabPanel()`s and nested `tabsetPanel()`s*) &lt;/span&gt;
 
 ---
 ### My app, so far:
@@ -1943,7 +1943,7 @@ ui &lt;- fluidPage(
 ### **Exercise 7:** Add a theme to your app using `{bslib}`
 
 **To Do:**
-* Try adding a `bootswatch` theme or customize your own (see [slide #80]())
+* Try adding a `bootswatch` theme or customize your own (see [slide #84](https://ucsb-meds.github.io/shiny-workshop/#123))
 
 **Some tips to get you started:**
 * Remember: typing `bootswatch_themes()` into your console will return valid pre-built theme names, or play around with the `bs_theme_preview()` widget for customizing themes!
@@ -2182,7 +2182,7 @@ class: inverse, center, middle
 
 **Some tips to get you started:**
 
-* &lt;span style = 'font-size: 70%;'&gt;Review [slide #40](https://ucsb-meds.github.io/shiny-workshop/#70) if you need a reminder of the steps we took to add reactive outputs to our app.&lt;/span&gt;
+* &lt;span style = 'font-size: 70%;'&gt;Review [slide #40](https://ucsb-meds.github.io/shiny-workshop/#71) if you need a reminder of the steps we took to add reactive outputs to our app.&lt;/span&gt;
 * &lt;span style = 'font-size: 70%;'&gt;Remember that drafting outputs in a separate script may help you test concepts before jumping back into the Shiny framework.&lt;/span&gt;
 * &lt;span style = 'font-size: 70%;'&gt;If you're stuck, here are a couple ideas to get you started:&lt;/span&gt;
   + &lt;span style = 'font-size: 60%;'&gt;a plot of temperature (or SST, rainfall, snow depth, etc.) through time, where the user can select a date range to display&lt;/span&gt;
@@ -2203,16 +2203,12 @@ Shiny alone provides pretty much everything you need to produce high-quality web
 ---
 ### Take your shiny app to the next level 
 
-* &lt;span style = 'font-size: 80%;'&gt;[`{shinydashboard}`](https://rstudio.github.io/shinydashboard/) makes it easy to use shiny to produce visually-appealing dashboards. The new [`{shinydashboardPlus}`](https://rinterface.github.io/shinydashboardPlus/index.html) package also provides additional extensions for `shinydashboard`. If you're looking for inspiration, check out this *awesome* [shiny dashboard exploring kelp forest monitoring data](https://github.com/cullen-molitor/KFM_Shiny_App) from the Channel Islands National Park Service, built by our very own [Cullen Molitor](https://cullen-molitor.github.io/) (MEDS 2022)!&lt;/span&gt;
+* &lt;span style = 'font-size: 80%;'&gt;[`{shinydashboard}`](https://rstudio.github.io/shinydashboard/) makes it easy to use shiny to produce visually-appealing dashboards. Pair it with [`{shinydashboardPlus}`](https://rinterface.github.io/shinydashboardPlus/index.html) to enrich your `shinydashboard` with additional functions. If you're looking for inspiration, check out this *awesome* [shiny dashboard exploring kelp forest monitoring data](https://github.com/cullen-molitor/KFM_Shiny_App) from the Channel Islands National Park Service, built by our very own [Cullen Molitor](https://cullen-molitor.github.io/) (MEDS 2022)!&lt;/span&gt;
 
 *  &lt;span style = 'font-size: 80%;'&gt;[`{golem}`](https://github.com/ThinkR-open/golem) is an opinionated framework for building production-grade shiny applications and is a part of a growing ecosystem of packages called the [`{golemverse}`](https://golemverse.org/). There are *lots* of accompanying learning materials, including the book, [Engineering Production Grade Shiny Apps](https://engineering-shiny.org/), by Colin Fay, Sébastien Rochette, Vincent Guyader, and Cervan Girard.&lt;/span&gt;
 
-.pull-left[
-&lt;img src="media/shinydashboardPlus.png" width="70%" /&gt;
-]
-
-.pull-right[
-&lt;img src="media/golem.png" width="60%" /&gt;
+.center[
+&lt;img src="media/SD_and_golem.png" width="60%" /&gt;
 ]
 
 ---
