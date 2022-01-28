@@ -1764,7 +1764,7 @@ server <- function(input, output) {
 ```
 
 ---
-### A reactive output controlled by two user inputs
+### A reactive output controlled by two user inputs:
 
 .center[
 ```{r, out.width = '75%', out.height = '75%', echo = FALSE, fig.alt = ""}
