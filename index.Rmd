@@ -1142,6 +1142,10 @@ knitr::include_graphics("media/shinyapps.io_dashboard.png")
 ---
 ### Other ways to host your Shiny apps
 
+COME BACK TO THIS SLIDE 
+
+maybe link out to separate document with server instructions?
+
 [continue filling out this slide including *why* you'd choose to use something other than shinyapps.io]
 
 [shinyapps.io](https://www.shinyapps.io/) is not the only Shiny app hosting service (though it's the easiest to get started with and the only one we'll be covering in detail in this workshop).
@@ -1485,9 +1489,7 @@ ui <- fluidPage(
 )
 ```
 
-.footnote[
-**Note:** I've collapsed my parentheses all into the same rows so that the code fit on one slide...but I'd recommend pressing `return`/`enter` each time you open up a new set of parentheses to better keep track of what belongs where. Also, enable rainbow parentheses!
-]
+<span style = 'font-size:65%;'>**Note:** I've collapsed my parentheses all into the same rows so that the code fit on one slide...but I'd recommend pressing `return`/`enter` each time you open up a new set of parentheses to better keep track of what belongs where. Also, enable rainbow parentheses!</span>
 
 ---
 ### My app, so far:
@@ -1760,6 +1762,15 @@ server <- function(input, output) {
   
 }
 ```
+
+---
+### A reactive output controlled by two user inputs
+
+.center[
+```{r, out.width = '75%', out.height = '75%', echo = FALSE, fig.alt = ""}
+knitr::include_graphics("media/two_input_hist.gif")
+```
+]
 
 ---
 class: inverse, center, middle
