@@ -77,7 +77,7 @@ Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2"
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have the required R packages installed. You can install/update them all at once by running:</span>  
 
 ```{r, echo = TRUE, eval = FALSE}
-install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "shinyWidgets", "bslib", "thematic"))
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "shinyWidgets", "bslib", "thematic", "reactlog"))
 ```
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have downloaded the Palmer weather time series data from the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf) (`table_28.csv`)</span>
@@ -1142,16 +1142,17 @@ knitr::include_graphics("media/shinyapps.io_dashboard.png")
 ---
 ### Other ways to host your Shiny apps
 
-COME BACK TO THIS SLIDE 
+<span style = 'font-size:80%;'>[shinyapps.io](https://www.shinyapps.io/) is not the only Shiny app hosting service (though it's the easiest to get started with and the only one we'll be covering in detail in this workshop).</span>
 
-maybe link out to separate document with server instructions?
+<span style = 'font-size:80%;'>RStudio also offers the following:</span> 
+* <span style = 'font-size:80%;'>[Shiny server](https://www.rstudio.com/products/shiny/shiny-server/) is an open source server which you can deploy for free on your own hardware. It requires more setup and configureation, but can be used without a fee.</span>
+* <span style = 'font-size:80%;'>[RStudio connect](https://www.rstudio.com/products/connect/) is a paid product you install on your local hardware, and that contains the most advanced suite of services for hosting apps and RMarkdown reports. 
 
-[continue filling out this slide including *why* you'd choose to use something other than shinyapps.io]
+There are [other ways]() to host shiny applications that we won't get into here but may be worthwhile to explore. It's important to consider security measures and ___ before deploying your application...?
 
-[shinyapps.io](https://www.shinyapps.io/) is not the only Shiny app hosting service (though it's the easiest to get started with and the only one we'll be covering in detail in this workshop).
-
-* https://shiny.rstudio.com/articles/shiny-server.html (shiny server)
-* r-bloggers.com/2019/02/deploying-an-r-shiny-app-with-docker/ (docker)
+.footnote[
+<span style = 'font-size:80%;'>The above information regarding RStudio's offerings was borrowed directly from [Ch. 5.1.8 Publishing Shiny applications](https://learning.nceas.ucsb.edu/2021-11-delta/session-5-shiny.html#publishing-shiny-applications) of the [Open Science Synthesis for the Delta Science Program](https://learning.nceas.ucsb.edu/2021-11-delta/index.html) learning materials, created by the NCEAS Learning Hub team. Citation: Jones, Matthew B., Amber E. Budden, Bryce Mecum, S. Jeanette Clark, Julien Brun, Julie Lowndes, Erin McLean, Jessica S. Guo, David S. LeBauer. 2021. Reproducible Research Techniques for Synthesis. NCEAS Learning Hub.</span>
+]
 
 ---
 class: inverse, center, middle
