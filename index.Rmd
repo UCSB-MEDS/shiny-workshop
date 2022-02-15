@@ -1145,10 +1145,10 @@ knitr::include_graphics("media/shinyapps.io_dashboard.png")
 <span style = 'font-size:80%;'>[shinyapps.io](https://www.shinyapps.io/) is not the only Shiny app hosting service (though it's the easiest to get started with and the only one we'll be covering in detail in this workshop).</span>
 
 <span style = 'font-size:80%;'>RStudio also offers the following:</span> 
-* <span style = 'font-size:80%;'>[Shiny server](https://www.rstudio.com/products/shiny/shiny-server/) is an open source server which you can deploy for free on your own hardware. It requires more setup and configureation, but can be used without a fee.</span>
+* <span style = 'font-size:80%;'>[Shiny server](https://www.rstudio.com/products/shiny/shiny-server/) is an open source server which you can deploy for free on your own hardware. It requires more setup and configuration, but can be used without a fee.</span>
 * <span style = 'font-size:80%;'>[RStudio connect](https://www.rstudio.com/products/connect/) is a paid product you install on your local hardware, and that contains the most advanced suite of services for hosting apps and RMarkdown reports. 
 
-There are [other ways]() to host shiny applications that we won't get into here but may be worthwhile to explore. It's important to consider security measures and ___ before deploying your application...?
+<span style = 'font-size:80%;'>Hosting on a server means that shiny applications will be prone to breaking as updates to server software are made. It is important to have an **application maintenance plan** in place. This may mean identifying who is responsible for maintaining code, or even deciding to decommission applications and archive the code repository when appropriate.</span>
 
 .footnote[
 <span style = 'font-size:80%;'>The above information regarding RStudio's offerings was borrowed directly from [Ch. 5.1.8 Publishing Shiny applications](https://learning.nceas.ucsb.edu/2021-11-delta/session-5-shiny.html#publishing-shiny-applications) of the [Open Science Synthesis for the Delta Science Program](https://learning.nceas.ucsb.edu/2021-11-delta/index.html) learning materials, created by the NCEAS Learning Hub team. Citation: Jones, Matthew B., Amber E. Budden, Bryce Mecum, S. Jeanette Clark, Julien Brun, Julie Lowndes, Erin McLean, Jessica S. Guo, David S. LeBauer. 2021. Reproducible Research Techniques for Synthesis. NCEAS Learning Hub.</span>
