@@ -590,7 +590,7 @@ knitr::include_graphics("media/sliderInput.png")
 
 Some examples: 
 ```{r, eval = FALSE}
-plotOutput(outputId = "bodyMass_plot")
+plotOutput(outputId = "bodyMass_scatterPlot")
 
 dataTableOutput(outputId = "penguin_data")
 ```
