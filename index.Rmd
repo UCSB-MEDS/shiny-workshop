@@ -1572,8 +1572,8 @@ knitr::include_graphics("media/reactive_app_v2.gif")
 
 .pull-left[
 **To Do:**
-* <span style = 'font-size:70%;'>Create a reactive histogram of penguin flipper lengths (similar to the one shown here) with a `shinyWidgets::pickerInput` that allows users to filter displayed data by island(s)</span>
-* <span style = 'font-size:70%;'>Be sure to include a `label`, default to all islands selected, and include buttons that allow users to "Select All" or "Deselect All" islands at once</span>
+* <span style = 'font-size:70%;'>Create a reactive histogram of penguin flipper lengths (similar to the one shown here) with a `shinyWidgets::pickerInput` that allows users to filter displayed data by island(s). **Be sure to include `library(shinyWidgets)` at the top of your script**</span>
+* <span style = 'font-size:70%;'>Add a `label`, default to all islands selected, and include buttons that allow users to "Select All" or "Deselect All" islands at once</span>
 * <span style = 'font-size:70%;'>Add the `pickerInput` and rendered histogram output to your shiny app where appropriate</span>
 ]
 
