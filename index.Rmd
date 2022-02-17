@@ -98,23 +98,23 @@ While not required, I do suggest watching this excellent [intro tutorial](https:
 
 The following slides were adapted largely from existing materials, particularly: 
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Garrett Grolemund's [Building Web Applications with Shiny](https://shiny.rstudio.com/tutorial/) tutorial (find the [GitHub Repo here](ttps://github.com/rstudio-education/shiny.rstudio.com-tutorial))</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Garrett Grolemund's [Building Web Applications with Shiny](https://shiny.rstudio.com/tutorial/) tutorial (find the [GitHub Repo here](ttps://github.com/rstudio-education/shiny.rstudio.com-tutorial))</span>
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Allison Horst's [The Basics of Building Shiny Apps in R](https://github.com/allisonhorst/shiny-basics-sb-r-ladies) workshop</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` Allison Horst's [The Basics of Building Shiny Apps in R](https://github.com/allisonhorst/shiny-basics-sb-r-ladies) workshop</span>
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Mastering Shiny](https://mastering-shiny.org/basic-app.html), by Hadley Wickham</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Mastering Shiny](https://mastering-shiny.org/basic-app.html), by Hadley Wickham</span>
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Building Shiny apps - an interactive tutorial](https://deanattali.com/blog/building-shiny-apps-tutorial/), by Dean Attali</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Building Shiny apps - an interactive tutorial](https://deanattali.com/blog/building-shiny-apps-tutorial/), by Dean Attali</span>
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html), by Colin Fay, Sébastien Rochette, Vincent Guyader & Cervan Girard.</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Engineering Production-Grade Shiny Apps](https://engineering-shiny.org/index.html), by Colin Fay, Sébastien Rochette, Vincent Guyader & Cervan Girard.</span>
 
 Be sure to check out RStudio's great instructional resources and Shiny examples as well:
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` A thoughtfully organized [Articles](https://shiny.rstudio.com/articles/) page</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` A thoughtfully organized [Articles](https://shiny.rstudio.com/articles/) page</span>
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` The [Shiny User Showcase](https://shiny.rstudio.com/gallery/#user-showcase), a collection of Shiny apps and their source code developed by the Shiny developer community -- many of these featured apps are winners or honorable mentions of the [annual Shiny contest](https://www.rstudio.com/blog/winners-of-the-3rd-annual-shiny-contest/)!</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` The [Shiny User Showcase](https://shiny.rstudio.com/gallery/#user-showcase), a collection of Shiny apps and their source code developed by the Shiny developer community -- many of these featured apps are winners or honorable mentions of the [annual Shiny contest](https://www.rstudio.com/blog/winners-of-the-3rd-annual-shiny-contest/)!</span>
 
-<span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Shiny Demos](https://shiny.rstudio.com/gallery/#demos), a series of apps created by the Shiny developers to highlight specific features of the shiny package -- these are *excellent* resources to turn to when you are learning how to implement a new type of widget, working on the layout of your app, and more.</span>
+<span style = 'font-size: 75%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` [Shiny Demos](https://shiny.rstudio.com/gallery/#demos), a series of apps created by the Shiny developers to highlight specific features of the shiny package -- these are *excellent* resources to turn to when you are learning how to implement a new type of widget, working on the layout of your app, and more.</span>
 
 ---
 class: inverse, middle, center
