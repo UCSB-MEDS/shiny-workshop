@@ -1599,9 +1599,9 @@ ui <- fluidPage(
   # island input ----
   pickerInput(inputId = "island", label = "Select an island:",
               choices = c("Torgersen", "Dream", "Biscoe"),
-              options = pickerOptions(actionsBox = TRUE), 
               selected = c("Torgersen", "Dream", "Biscoe"),
-              multiple = T),
+              multiple = TRUE,
+              options = pickerOptions(actionsBox = TRUE)),
   
   # flipper length plot output ----
   plotOutput(outputId = "flipperLength_hist")
@@ -1714,9 +1714,9 @@ ui <- fluidPage(
   # island input ----
   pickerInput(inputId = "island", label = "Select an island:",
               choices = c("Torgersen", "Dream", "Biscoe"),
-              options = pickerOptions(actionsBox = TRUE),
               selected = c("Torgersen", "Dream", "Biscoe"),
-              multiple = T),
+              multiple = TRUE,
+              options = pickerOptions(actionsBox = TRUE)),
   
   # bin number input ---- 
   `sliderInput(inputId = "bin_num", label = "Select number of bins:",`
