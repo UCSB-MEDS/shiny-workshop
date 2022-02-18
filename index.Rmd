@@ -2211,7 +2211,7 @@ knitr::include_graphics("media/reactlog_notworking.gif")
 ---
 ### Using `reactlog` -- [a borked app](https://github.com/samanthacsik/reactlog-practice-broken)
 
-<span style = 'font-size: 70%;'>This suggests that we ensure that our UI and server are actually able to communicate about our desired text output. After careful inspection of our `textOutput()` and `renderText()` code, we find that a spelling error is to blame:</span>
+<span style = 'font-size: 70%;'>This suggests that we should ensure that our UI and server are actually able to communicate about our desired text output. After careful inspection of our `textOutput()` and `renderText()` code, we find that a spelling error is to blame:</span>
 
 <span style = 'font-size: 70%;'>Our `outputId` in the **UI** is set to `penguin_text`:</span>
 ```{r, echo = TRUE, eval = FALSE}
