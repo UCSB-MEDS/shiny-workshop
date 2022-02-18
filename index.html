@@ -338,7 +338,7 @@ library(shiny)
 ui &lt;- fluidPage(
   sliderInput(inputId = "num",
               label = "Choose a number", 
-              value = 25, min = 1, max = 100),
+              min = 1, max = 100, value = 25),
   plotOutput("hist")
 )
 
@@ -363,7 +363,7 @@ library(shiny)
 ui &lt;- fluidPage(
   sliderInput(inputId = "num",
               label = "Choose a number", 
-              value = 25, min = 1, max = 100),
+              min = 1, max = 100, value = 25),
   plotOutput("hist")
 )
 ```
@@ -523,7 +523,7 @@ ui &lt;- fluidPage(
   
   # body mass slider input ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
-              value = c(3000, 4000), min = 2700, max = 6300)
+              min = 2700, max = 6300, value = c(3000, 4000))
   )
 ```
 
@@ -565,7 +565,7 @@ ui &lt;- fluidPage(
   
   # body mass slider input ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
-              value = c(3000, 4000), min = 2700, max = 6300)
+              min = 2700, max = 6300, value = c(3000, 4000))
   
   # body mass plot ouput ----
   plotOutput(outputId = "bodyMass_scatterPlot")
@@ -642,7 +642,7 @@ ui &lt;- fluidPage(
   
   # body mass slider ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
-              value = c(3000, 4000), min = 2700, max = 6300),
+              min = 2700, max = 6300, value = c(3000, 4000)),
   
   # body mass plot output ----
   plotOutput(`outputId = "bodyMass_scatterPlot"`) 
@@ -676,7 +676,7 @@ ui &lt;- fluidPage(
   
   # body mass slider ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
-              value = c(3000, 4000), min = 2700, max = 6300),
+              min = 2700, max = 6300, value = c(3000, 4000)),
   
   # body mass plot output ----
   plotOutput(outputId = "bodyMass_scatterPlot") 
@@ -732,7 +732,7 @@ ui &lt;- fluidPage(
   
   # body mass slider ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
-              value = c(3000, 4000), min = 2700, max = 6300),
+              min = 2700, max = 6300, value = c(3000, 4000)),
   
   # body mass plot output ----
   plotOutput(outputId = "bodyMass_scatterPlot")
@@ -859,7 +859,7 @@ ui &lt;- fluidPage(
   
   # body mass slider ----
   sliderInput(`inputId = "body_mass"`, label = "Select a range of body masses (g):", 
-              value = c(3000, 4000), min = 2700, max = 6300),
+              min = 2700, max = 6300, value = c(3000, 4000)),
   
   # body mass plot output ----
   plotOutput(outputId = "bodyMass_scatterPlot")
@@ -896,7 +896,7 @@ ui &lt;- fluidPage(
   
   # body mass slider ----
   sliderInput(`inputId = "body_mass"`, label = "Select a range of body masses (g):", 
-              value = c(3000, 4000), min = 2700, max = 6300),
+              min = 2700, max = 6300, value = c(3000, 4000)),
   
   # body mass plot output ----
   plotOutput(outputId = "bodyMass_scatterPlot")
@@ -935,7 +935,7 @@ ui &lt;- fluidPage(
   
   # body mass slider ----
   sliderInput(`inputId = "body_mass"`, label = "Select a range of body masses (g):",
-              value = c(3000, 4000), min = 2700, max = 6300),
+              min = 2700, max = 6300, value = c(3000, 4000)),
   
   # body mass plot output ----
   plotOutput(outputId = "bodyMass_scatterPlot")
@@ -1427,7 +1427,7 @@ ui &lt;- fluidPage(
                `tabPanel("Scatterplot",` 
                         # body mass slider input ---- 
                         `sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",` 
-                                    `value = c(3000, 4000), min = 2700, max = 6300),`
+                                    `min = 2700, max = 6300, value = c(3000, 4000)),`
                         # body mass plot output ---- 
                         `plotOutput(outputId = "bodyMass_scatterPlot")),` 
                tabPanel("Histogram",
@@ -1668,7 +1668,7 @@ ui &lt;- fluidPage(
   
   # bin number input ---- 
   `sliderInput(inputId = "bin_num", label = "Select number of bins:",`
-              `value = 25, max = 100, min = 1),` 
+              `min = 1, max = 100, value = 25),` 
   
   # flipper length plot output ----
   plotOutput(outputId = "flipperLength_hist")
