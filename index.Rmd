@@ -1937,7 +1937,7 @@ server <- function(input, output) {
   })
   
   # render the temperature data table ----
-  output$temp_table <- renderDataTable({
+  output$temp_table <- DT::renderDataTable({
     DT::datatable(month_df(),
                   class = 'cell-border stripe',
                   colnames = c('Year', "Month", 'Mean Air Temp.', 'Max. Air Temp.', 'Min. Air Temp.'),
