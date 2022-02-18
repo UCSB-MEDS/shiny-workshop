@@ -77,7 +77,7 @@ Slides & source code available on [`r fontawesome::fa("github", fill = "#93C6C2"
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have the required R packages installed. You can install/update them all at once by running:</span>  
 
 ```{r, echo = TRUE, eval = FALSE}
-install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "shinyWidgets", "bslib", "thematic", "reactlog"))
+install.packages(c("shiny", "tidyverse", "palmerpenguins", "DT", "shinyWidgets", "bslib", "thematic"))
 ```
 
 <span style = 'font-size: 85%;'>`r fontawesome::fa("angle-right", fill = "#05859B", a11y = "sem")` You have downloaded the Palmer weather time series data from the [EDI Data Portal](https://doi.org/10.6073/pasta/cddd3985350334b876cd7d6d1a5bc7bf) (`table_28.csv`)</span>
