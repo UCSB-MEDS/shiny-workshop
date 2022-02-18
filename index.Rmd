@@ -2007,7 +2007,7 @@ knitr::include_graphics("media/bs_theme_preview.gif")
 ### **Exercise 7:** Add a theme to your app using `{bslib}`
 
 **To Do:**
-* Try adding a `bootswatch` theme or customize your own (see [slide #84](https://ucsb-meds.github.io/shiny-workshop/#123))
+* Try adding a `bootswatch` theme or customize your own
 
 **Some tips to get you started:**
 * Remember: typing `bootswatch_themes()` into your console will return valid pre-built theme names, or play around with the `bs_theme_preview()` widget for customizing themes!
