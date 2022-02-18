@@ -1047,9 +1047,9 @@ server &lt;- function(input, output) {
     
     DT::datatable(penguins,
                   options = list(pageLength = 5),
-                  caption = htmltools::tags$caption(
+                  caption = tags$caption(
                     style = 'caption-side: top; text-align: left;',
-                    'Table 1: ', htmltools::em('Size measurements for adult foraging penguins near Palmer Station, Antarctica')))
+                    'Table 1: ', tags$em('Size measurements for adult foraging penguins near Palmer Station, Antarctica')))
     
   })
 }
@@ -1480,9 +1480,9 @@ server &lt;- function(input, output) {
   output$penguin_data &lt;- DT::renderDataTable({
     DT::datatable(penguins,
                   options = list(pageLength = 5),
-                  caption = htmltools::tags$caption(
+                  caption = tags$caption(
                     style = 'caption-side: top; text-align: left;',
-                    'Table 1: ', htmltools::em('Size measurements for adult foraging penguins near Palmer Station, Antarctica')))
+                    'Table 1: ', tags$em('Size measurements for adult foraging penguins near Palmer Station, Antarctica')))
   })
 }
 ```
@@ -1548,7 +1548,7 @@ ui &lt;- fluidPage(
   # island input ----
   pickerInput(inputId = "island", label = "Select an island:",
               choices = c("Torgersen", "Dream", "Biscoe"),
-              options = list('actions-box' = TRUE), 
+              options = pickerOptions(actionsBox = TRUE), 
               selected = c("Torgersen", "Dream", "Biscoe"),
               multiple = T),
   
@@ -1556,8 +1556,6 @@ ui &lt;- fluidPage(
   plotOutput(outputId = "flipperLength_hist")
   
 )
-
-# NOTE: actions-box should be surrounded by backticks, which were replaced here with apostrophes as to not trigger highlighting :)  
 ```
 
 ---
@@ -1664,7 +1662,7 @@ ui &lt;- fluidPage(
   # island input ----
   pickerInput(inputId = "island", label = "Select an island:",
               choices = c("Torgersen", "Dream", "Biscoe"),
-              options = list('actions-box' = TRUE),
+              options = pickerOptions(actionsBox = TRUE),
               selected = c("Torgersen", "Dream", "Biscoe"),
               multiple = T),
   
@@ -1675,8 +1673,6 @@ ui &lt;- fluidPage(
   # flipper length plot output ----
   plotOutput(outputId = "flipperLength_hist")
 )
-
-# NOTE: actions-box should be surrounded by backticks, which were replaced here with apostrophes as to not trigger highlighting :)
 ```
 
 ---
@@ -1891,9 +1887,9 @@ server &lt;- function(input, output) {
     DT::datatable(month_df(),
                   class = 'cell-border stripe',
                   colnames = c('Year', "Month", 'Mean Air Temp.', 'Max. Air Temp.', 'Min. Air Temp.'),
-                  caption = htmltools::tags$caption(
+                  caption = tags$caption(
                     style = 'caption-side: top; text-align: left;',
-                    'Table 2: ', htmltools::em('Mean, maximum, and minimum monthly air temperatures (°C) recorded at Palmer Station, Antarctica from 1989 - 2019.'))) 
+                    'Table 2: ', tags$em('Mean, maximum, and minimum monthly air temperatures (°C) recorded at Palmer Station, Antarctica from 1989 - 2019.'))) 
 
   })
 
