@@ -1826,8 +1826,8 @@ weather_data <- read_csv(here::here("raw_data", "table_28.csv"))
 # temps by month and year 
 temp_month_summary <- weather_data %>% 
   clean_names() %>% 
-  mutate(year = format(date, format="%Y")) %>% 
-  mutate(month = format(date, format="%m")) %>% 
+  mutate(year = format(date, format="%Y"),
+         month = format(date, format="%m")) %>% 
   group_by(year, month) %>% 
   summarize(
     mean_temp = round(mean(temperature_average_c), 1),
