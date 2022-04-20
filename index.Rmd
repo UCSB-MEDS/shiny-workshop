@@ -29,6 +29,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r xaringanExtra-share-again, echo=FALSE}
+xaringanExtra::use_share_again()
+```
+
 ```{r xaringan-themer, include = FALSE, warning = FALSE}
 # load package
 library(xaringanthemer)
