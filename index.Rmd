@@ -611,7 +611,7 @@ ui <- fluidPage(
   
   # body mass slider input ----
   sliderInput(inputId = "body_mass", label = "Select a range of body masses (g):",
-              min = 2700, max = 6300, value = c(3000, 4000))
+              min = 2700, max = 6300, value = c(3000, 4000)),
   
   # body mass plot ouput ----
   plotOutput(outputId = "bodyMass_scatterPlot")
