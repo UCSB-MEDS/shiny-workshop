@@ -1,6 +1,6 @@
 # An Intro to Shiny
 
-### **NOTE:** These materials are no longer maintained and may be outdated. For the latest Intro to Shiny workshop materials, please visit the [`EDS-430-Intro-to-Shiny` repository]([https://github.com/UCSB-MEDS/EDS430-Shiny](https://github.com/UCSB-MEDS/EDS-430-Intro-to-Shiny)) and explore the [course website](https://ucsb-meds.github.io/EDS-430-Intro-to-Shiny/).
+### **NOTE:** These materials are no longer maintained and may be outdated. For the latest Intro to Shiny workshop materials, please visit the [`EDS-430-Intro-to-Shiny` repository](https://github.com/UCSB-MEDS/EDS-430-Intro-to-Shiny) and explore the [course website](https://ucsb-meds.github.io/EDS-430-Intro-to-Shiny/).
 
 **Presenter:** Sam Csik\
 **Organization:** UCSB MEDS\
